@@ -1,8 +1,14 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 
 public class Counting 
 {
@@ -55,7 +61,7 @@ public class Counting
         
         //get the next number
 	    Integer answer = newGame.GetNextNumber();
-	    String answerString = answer.toString();
+	    final String answerString = answer.toString();
 	    int answerLength = answerString.length();
 	    
 	    String questionMarks = new String();
@@ -63,12 +69,63 @@ public class Counting
 	    {
 	    	questionMarks = questionMarks.concat("?");
 	    }
-	    	  
-	    JTextField answerField = new JTextField(answerLength);
-	    answerField.setText(questionMarks);
-	    answerField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-	    answerField.setBackground(backgroundColor);
-	    numPanel.add(answerField);
+	    
+	    final JTextField answerField1 = new JTextField(1); // make a loop
+	    //answerField.setDocument(new JTextFieldLimit(answerLength));
+	    answerField1.setText("?");
+	    PlainDocument doc1 = (PlainDocument) answerField1.getDocument();
+	    doc1.setDocumentFilter(new MyDocumentFilter());
+	      
+	      final JTextField answerField2 = new JTextField(1);
+		    //answerField.setDocument(new JTextFieldLimit(answerLength));
+	      answerField2.setText("?");
+		    PlainDocument doc2 = (PlainDocument) answerField2.getDocument();
+		    doc2.setDocumentFilter(new MyDocumentFilter());
+		      
+		      final JTextField answerField3 = new JTextField(1);
+			    //answerField.setDocument(new JTextFieldLimit(answerLength));
+		      answerField3.setText("?");
+			    PlainDocument doc3 = (PlainDocument) answerField3.getDocument();
+			    doc3.setDocumentFilter(new MyDocumentFilter());
+	    
+	    answerField1.setText("?");
+	    answerField2.setText("?");
+	    answerField3.setText("?");
+	    
+	    answerField1.addActionListener(new ActionListener()
+	    {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				System.out.println("wadsffdf");
+				
+				/*
+				if (answerString.charAt(0) == answerField1.getText().charAt(0))
+				{
+					answerField1.setBackground(Color.green);
+					//System.out.println(2);
+				}
+				else
+				{
+					answerField1.setBackground(Color.red);
+					//System.out.println(3);
+				}
+				*/
+			}
+	    });
+	    
+	    
+	    answerField1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+	    answerField1.setBackground(backgroundColor);
+	    numPanel.add(answerField1);
+	    answerField2.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+	    answerField2.setBackground(backgroundColor);
+	    numPanel.add(answerField2);
+	    answerField3.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+	    answerField3.setBackground(backgroundColor);
+	    numPanel.add(answerField3);
+	    
+	    
+	    
 	    
 	    rPanel.add(numPanel);
 	    
@@ -89,4 +146,55 @@ public class Counting
 		backgroundColor = Color.gray;
 	}
 		
+}
+
+class MyDocumentFilter extends DocumentFilter
+{
+
+    @Override
+    public void insertString(DocumentFilter.FilterBypass fp
+            , int offset, String string, AttributeSet aset)
+                                throws BadLocationException
+    {
+        int len = string.length();
+        boolean isValidInteger = true;
+
+        for (int i = 0; i < len; i++)
+        {
+        	if (!Character.isDigit(string.charAt(i)) && (string.charAt(i) != '?'))
+            {
+                isValidInteger = false;
+                break;
+            }
+        }
+        if (isValidInteger)
+        {
+        	super.remove(fp, 1, 1);
+        	super.insertString(fp, 0, string, aset);
+        }
+    }
+
+    @Override
+    public void replace(DocumentFilter.FilterBypass fp, int offset
+                    , int length, String string, AttributeSet aset)
+                                        throws BadLocationException
+    {
+        int len = string.length();
+        boolean isValidInteger = true;
+
+        for (int i = 0; i < len; i++)
+        {
+        	if (!Character.isDigit(string.charAt(i)) && (string.charAt(i) != '?'))
+            {
+                isValidInteger = false;
+                break;
+            }
+        }
+        if (isValidInteger)
+        {
+        	super.remove(fp, 0, 1);
+        	super.insertString(fp, 0, string, aset);
+        	
+        }
+    }
 }
