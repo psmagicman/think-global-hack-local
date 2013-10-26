@@ -1,3 +1,5 @@
+import gui.mainGUI;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 
@@ -9,7 +11,7 @@ import users.UserManagementService;
 import java.awt.*;
 import java.awt.event.*;
 
-public class UserMenu extends MainMenu {
+public class UserMenu extends mainGUI {
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
 
@@ -62,7 +64,7 @@ public class UserMenu extends MainMenu {
 			p.add(addUserButton);
 			p.add(cancelButton);
 			setContentPane(p);
-			setSize(300, 100);
+			setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			setVisible(true);
 		}
 	}
