@@ -1,35 +1,45 @@
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 
 
 public class Counting 
 {
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{	
+		
 	    JFrame f = new GameWindow();
 	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.
 	    
-	    JPanel mainContainer = new JPanel();
-	    mainContainer.setBorder(BorderFactory.createLineBorder(Color.black)); //temp for testing
-	    mainContainer.setSize(10, 10);
-	    mainContainer.setVisible(true);
+	    JPanel panel = new JPanel();
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    
-	    //display question
-	    JLabel question = new JLabel("What is the next number?");
-	    question.setFont(new Font("Arial", 2, 28)); 
-	    question.setVisible(true);
+	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));	    	    
+	    
+	    //display question prompt
+	    JLabel title = new JLabel("What is the next number?");
+	    title.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    panel.add(title);
+	    
+        panel.add(Box.createRigidArea(new Dimension(0, 100)));
+        
+	    
+	    JPanel numPanel = new JPanel();
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 	    
 	    //display initial random number
 	    Integer randomNum = newGame.GenerateRandomNumber();
-	    JLabel numLabel = new JLabel(randomNum.toString());
-	    numLabel.setLocation(300, 300); // magic number for right now
-	    numLabel.setVisible(true);
-	    
-	    //get the next number
+	    numPanel.add(new JLabel(randomNum.toString()));
+        
+	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        
+	    numPanel.add(new JLabel("->"));
+        
+	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        
+        //get the next number
 	    Integer answer = newGame.GetNextNumber();
 	    String answerString = answer.toString();
 	    int answerLength = answerString.length();
@@ -39,15 +49,20 @@ public class Counting
 	    {
 	    	questionMarks = questionMarks.concat("?");
 	    }
+	    	  
+	    numPanel.add(new JLabel(questionMarks));
+              
+	    panel.add(numPanel);
 	    
-	    JLabel answerLabel = new JLabel(questionMarks);
-	    answerLabel.setVisible(true);
-	    
-	    // Add all the components to the main component
-	    mainContainer.add(question);
-	    mainContainer.add(numLabel);
-	    mainContainer.add(answerLabel);
+        f.add(panel);
+        
+        f.pack();
+               
+        f.setTitle("RigidArea");
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setLocationRelativeTo(null);
+        
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-	    f.add(mainContainer);
 	}
 }

@@ -9,6 +9,11 @@ import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
 
 public class UserManagementService {
+	public static User mainUser = new User("test");
+	public static User getMainUser()
+	{
+		return mainUser;
+	}
 	
 	public static void createUser(String name) throws NameTakenException{
 		User newUser = new User(name);

@@ -2,7 +2,7 @@ import gui.mainGUI;
 import util.*;
 
 
-public class GameLauncher {
+public class GameLauncherMenu {
 	
 	public static void main(String[] args) {
 		//System.out.println("hello");
