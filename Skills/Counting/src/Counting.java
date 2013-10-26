@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Counting 
 {
+	private static Color backgroundColor; //initialize to userpreference color
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{	
 		
@@ -14,6 +15,7 @@ public class Counting
 	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.
 	    
 	    JPanel panel = new JPanel();
+	    panel.setBackground(backgroundColor);
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    
 	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));	    	    
@@ -50,8 +52,12 @@ public class Counting
 	    	questionMarks = questionMarks.concat("?");
 	    }
 	    	  
-	    numPanel.add(new JLabel(questionMarks));
-              
+	    JTextField answerField = new JTextField(answerLength);
+	    answerField.setText(questionMarks);
+	    answerField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+	    answerField.setBackground(backgroundColor);
+	    numPanel.add(answerField);
+	    
 	    panel.add(numPanel);
 	    
         f.add(panel);
@@ -64,5 +70,10 @@ public class Counting
         
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+	}
+	
+	void ApplyUserPreference()
+	{
+		backgroundColor = Color.gray;
 	}
 }
