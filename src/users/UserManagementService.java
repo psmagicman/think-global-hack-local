@@ -11,6 +11,11 @@ import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
 
 public class UserManagementService {
+	public static User mainUser = new User("test");
+	public static User getMainUser()
+	{
+		return mainUser;
+	}
 	
 //	public static List<User> getUsers(){
 //		File file = new File("../user-store/");

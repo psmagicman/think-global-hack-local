@@ -1,4 +1,5 @@
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.*;
 
@@ -8,7 +9,7 @@ import users.UserManagementService;
 import java.awt.*;
 import java.awt.event.*;
 
-public class UserMenu extends JFrame {
+public class UserMenu extends MainMenu {
 	private JLabel frame_title;
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
@@ -21,7 +22,7 @@ public class UserMenu extends JFrame {
 	}
 
 	private void setup() {
-		setSize(300, 200);
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		setLayout(new GridLayout(3, 1));
 		createNewUserButton = new JButton("Create New User");
 		selectUserButton = new JButton("Select User");
