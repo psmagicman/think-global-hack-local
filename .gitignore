@@ -1,5 +1,5 @@
 *.pydevproject
-.project
+#.project
 .metadata
 bin/**
 tmp/**
@@ -27,3 +27,4 @@ local.properties
 
 # Vim stuff
 *.*~
+/bin
