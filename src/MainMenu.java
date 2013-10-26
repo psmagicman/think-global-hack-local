@@ -1,12 +1,13 @@
+import gui.mainGUI;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.util.*;
 
-public class MainMenu extends JFrame {
+public class MainMenu extends mainGUI {
 	
 	/** Variables **/
 	private JLabel frame_title;
@@ -30,36 +31,7 @@ public class MainMenu extends JFrame {
 		
 	}
 	
-	/*
-	 * Set up the frame
-	 */
-	public void setup() {
-		// set the frame size
-		setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		toolkit = getToolkit();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-	}
-	
-	/**
-	 * define_variables function
-	 * This function defines the variables for the GUI
-	 */
-	private void defineVariables() {
-		JPanel buttons_area = new JPanel();
-		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout(4, 2));
-		
-		// define the buttons and title
-		frame_title = new JLabel("Main Menu");
-
-		
-		// add the radios to a button group		
-		
-		// add the buttons to the frame
-		
-	}
-	
+	@Override
 	public void makeButtons() {
 		helpButton = new JButton("Help");
 		gamesButton = new JButton("Games");
@@ -70,10 +42,10 @@ public class MainMenu extends JFrame {
 		add(optionButton);
 		add(quitButton);
 	}
-
+	
 	public static void main(String[] args){
 		UserMenu u = new UserMenu();
-		//MainMenu s = new MainMenu();
+		MainMenu s = new MainMenu();
 	}
 	
 }
