@@ -1,5 +1,9 @@
+package gui;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import util.DirectoryParser;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,17 +22,19 @@ public class mainGUI extends JFrame {
 	public mainGUI() {
 		
 		// set the frame size
-		setSize(300, 200);
+		setSize(320, 240);
 		toolkit = getToolkit();
 		screen = toolkit.getScreenSize();
 		// set the location of the frame to the middle of the screen
 		setLocation(screen.width / 2 - getWidth() / 2, screen.height / 2 - getHeight() / 2);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		setLayout(new GridLayout());
 		defineVariables();
 		setTitle(frame_title.getText());
 		
+		
 		setVisible(true);
+		GameMenu newMenu = new GameMenu();
 		
 	}
 	

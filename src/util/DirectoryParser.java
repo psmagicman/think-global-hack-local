@@ -1,4 +1,6 @@
 /*
+ * DirectoryParser.java
+ * 
  * Returns directories in "\Games" as strings to be used as categories
  * Returns filenames in "\Games\<categoryindex>" to be used as game names. Contains option to return with .jar prefix and without 
  * 
