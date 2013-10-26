@@ -18,7 +18,7 @@ public class Counting
 	    panel.setBackground(backgroundColor);
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    
-	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));	    	    
+	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
 	    
 	    //display question prompt
 	    JLabel title = new JLabel("What is the next number?");
@@ -67,6 +67,7 @@ public class Counting
         f.setTitle("RigidArea");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
+        
         
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
