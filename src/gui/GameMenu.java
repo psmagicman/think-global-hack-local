@@ -40,13 +40,13 @@ public class GameMenu extends mainGUI {
 	 */
 	public GameMenu() {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
-		
+
 		setup();
 		setLayout(new GridLayout(directoryParser.getCategoryStrings().size(), 1));
 		defineVariables();		
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getCategoryStrings());
-		
+
 		// This function takes out the frame
 		//this.setUndecorated(true);
 		CategoryMenu c = new CategoryMenu(directoryParser, 1);

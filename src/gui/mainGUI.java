@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import users.User;
+import users.Preferences;
 import util.DirectoryParser;
 
 import java.awt.*;
@@ -40,6 +42,12 @@ public class mainGUI extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		//determines the font for the JButtons
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+		UIManager.put("Button.font", newButtonFont);
+		UIManager.put("Button.foreground", Color.DARK_GRAY);
+		UIManager.put("Button.background", Color.WHITE);
 	}
 	
 	/**
@@ -56,10 +64,8 @@ public class mainGUI extends JFrame {
 	}
 	
 	// create buttons here; this is empty because each menu will override this
-	// to implement buttons for specified screen
+	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
-	
-	
 	
 }
