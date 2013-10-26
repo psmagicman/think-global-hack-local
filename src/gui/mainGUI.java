@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import users.User;
+import users.Preferences;
 import util.DirectoryParser;
 
 import java.awt.*;
@@ -61,6 +63,18 @@ public class mainGUI extends JFrame {
 	public void makeButtons() {
 	}
 	
+	public void JButtonPref(JButton jb){
+		//example
+//		jb.setForeground(Color.yellow);
+//		jb.setBackground(Color.BLACK);
+//		Font newButtonFont=new Font(jb.getFont().getName(),jb.getFont().getStyle(),100);
+//		jb.setFont(newButtonFont);
+		
+//		jb.setForeground(User.preferences.getFontColour());
+//		jb.setBackground(User.preferences.getBackgroundColour());
+//		Font newButtonFont=new Font(jb.getFont().getName(),jb.getFont().getStyle(),Preferences.getFontSize());
+//		jb.setFont(newButtonFont);
+//	}
 	
 	
 }
