@@ -1,8 +1,5 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Toolkit;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,13 +31,23 @@ public class Counting
 	    
 	    //get the next number
 	    Integer answer = newGame.GetNextNumber();
-	    JLabel answerLabel = new JLabel(answer.toString());
+	    String answerString = answer.toString();
+	    int answerLength = answerString.length();
+	    
+	    String questionMarks = new String();
+	    for (int i = 0; i < answerLength; ++i)
+	    {
+	    	questionMarks = questionMarks.concat("?");
+	    }
+	    
+	    JLabel answerLabel = new JLabel(questionMarks);
 	    answerLabel.setVisible(true);
-	   
+	    
+	    // Add all the components to the main component
+	    mainContainer.add(question);
 	    mainContainer.add(numLabel);
 	    mainContainer.add(answerLabel);
-	    mainContainer.add(question);
-	    
+
 	    f.add(mainContainer);
 	}
 }
