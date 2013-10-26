@@ -29,7 +29,7 @@ public class DirectoryParser {
 	}
 	
 	public List<String> getCategoryStrings() {
-		List<String> categories = new ArrayList<>();
+		List<String> categories = new ArrayList<String>();
 		
 		for (File file : categoryDirectories){
             if (file.isDirectory()){
@@ -45,7 +45,7 @@ public class DirectoryParser {
 	 * @param the index of the category directory you wish to list files of
 	 */
 	public List<String> getFileStrings(int index) {
-		List<String> fileNames = new ArrayList<>();
+		List<String> fileNames = new ArrayList<String>();
 		
 		File directory = new File(directoryName + "\\" + categoryDirectories[index].getName());
 		
@@ -59,7 +59,7 @@ public class DirectoryParser {
 	}
 	
 	public List<String> getFileStringsNoJar(int index) {
-		List<String> fileNames = new ArrayList<>();
+		List<String> fileNames = new ArrayList<String>();
 		
 		File directory = new File(directoryName + "\\" + categoryDirectories[index].getName());
 		
