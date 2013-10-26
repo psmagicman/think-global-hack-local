@@ -6,23 +6,19 @@ import java.awt.event.*;
 
 import java.util.*;
 
-public class Skills extends JFrame {
+public class mainMenu extends JFrame {
 	
 	/** Variables **/
 	private JLabel frame_title;
 	private Toolkit toolkit;
 	private Dimension screen;
 	private JButton helpButton;
-	private JButton countingButton;
-	private JButton addingButton;
-	private JButton subtractingButton;
-	private JButton roundingButton;
-	private JButton multiplyingButton;
-	private JButton dividingButton;
-	private JButton exitButton;
+	private JButton gamesButton;
+	private JButton optionButton;
+	private JButton quitButton;
 	/** End of Variables **/
 	
-	public Skills() {
+	public mainMenu() {
 		
 		// set the frame size
 		setSize(300, 200);
@@ -31,16 +27,12 @@ public class Skills extends JFrame {
 		// set the location of the frame to the middle of the screen
 		setLocation(screen.width / 2 - getWidth() / 2, screen.height / 2 - getHeight() / 2);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new GridLayout(4,2));
+		setLayout(new GridLayout(4,1));
 		defineVariables();
 		add(helpButton);
-		add(countingButton);
-		add(addingButton);
-		add(subtractingButton);
-		add(roundingButton);
-		add(multiplyingButton);
-		add(dividingButton);
-		add(exitButton);
+		add(gamesButton);
+		add(optionButton);
+		add(quitButton);
 		setTitle(frame_title.getText());
 		
 		setVisible(true);
@@ -57,7 +49,7 @@ public class Skills extends JFrame {
 		buttons_area.setLayout(new GridLayout(4, 2));
 		
 		// define the buttons and title
-		frame_title = new JLabel("Skills!");
+		frame_title = new JLabel("Main Menu");
 
 		
 		// add the radios to a button group
@@ -65,17 +57,13 @@ public class Skills extends JFrame {
 		
 		// add the buttons to the frame
 		helpButton = new JButton("Help");
-		countingButton = new JButton("Counting");
-		addingButton = new JButton("Adding");
-		subtractingButton = new JButton("Subtracting");
-		roundingButton = new JButton("Rounding");
-		multiplyingButton = new JButton("Multiplying");
-		dividingButton = new JButton("Dividing");
-		exitButton = new JButton("Exit");
+		gamesButton = new JButton("Games");
+		optionButton = new JButton("Options");
+		quitButton = new JButton("Quit");
 		
 	}
 	
 	public static void main(String[] args){
-		Skills s = new Skills();
+		mainMenu s = new mainMenu();
 	}
 }
