@@ -21,6 +21,11 @@ public class DirectoryParser {
 		this.directoryName = directoryName;
 		File directory = new File(directoryName);
 		categoryDirectories = directory.listFiles();
+		
+		//TODO: Remove this, it is just here for me to be able to compile <TUCKER>
+		if (categoryDirectories == null){
+			categoryDirectories = new File[1];
+		}
 	}
 	
 	public List<String> getCategoryStrings() {
