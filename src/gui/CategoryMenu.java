@@ -52,6 +52,4 @@ public class CategoryMenu extends mainGUI {
 			this.add(buttonToAdd);
 		}
 	}
-	
-	
 }

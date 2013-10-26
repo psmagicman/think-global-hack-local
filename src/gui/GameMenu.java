@@ -74,7 +74,7 @@ public class GameMenu extends mainGUI {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText(categoryStrings.get(i));
 			buttonToAdd.setSize(20, 5);
-			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), "gameButtonPressed");
+			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
 			this.add(buttonToAdd);
 			buttonToAdd.getText();
