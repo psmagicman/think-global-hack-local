@@ -1,6 +1,10 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import users.NameTakenException;
+import users.User;
+import users.UserManagementService;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -66,8 +70,12 @@ public class MainMenu extends JFrame {
 	}
 	
 	public static void main(String[] args){
-		UserMenu u = new UserMenu();
+		UserMenu u = new UserMenu();		
 		MainMenu s = new MainMenu();
+		
+		
+		
+		
 	}
 	
 }

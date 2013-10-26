@@ -1,29 +1,55 @@
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import users.NameTakenException;
+import users.User;
 import users.UserManagementService;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.util.List;
 
-public class UserMenu extends MainMenu {
+public class UserMenu extends JFrame {
 	private JLabel frame_title;
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
+	private JList<User> users;
+	
+	
 
 	public UserMenu() {
 		setup();
+		add(users);
 		add(createNewUserButton);
 		add(selectUserButton);
+		
 		setVisible(true);
 	}
 
 	private void setup() {
-		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		setSize(300,300);
 		setLayout(new GridLayout(3, 1));
+		//String[] testList = {"Graham", "Jonny", "Joe"};
+		List<User> userslist = UserManagementService.getUsers();
+		User[] userArray = userslist.toArray(new User[userslist.size()]);
+				
+//		int i = 0;
+//		List<User> users = UserManagementService.getUsers();
+//		User[] userArray = new;
+//		for(User u : UserManagementService.getUsers() ){
+//			use
+//		}
+		
+		users = new JList<User>(userArray);
 		createNewUserButton = new JButton("Create New User");
 		selectUserButton = new JButton("Select User");
 		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
@@ -87,3 +113,4 @@ public class UserMenu extends MainMenu {
 	}
 
 }
+
