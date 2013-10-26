@@ -33,6 +33,7 @@ public class Counting
 	    
 	    //display question prompt
 	    JLabel title = new JLabel("What is the next number?");
+	    textToSpeech.speak("What is the next number?");
 	    title.setFont(new Font("Arial", 2, 28)); 
 	    rPanel.add(title);
 	    
