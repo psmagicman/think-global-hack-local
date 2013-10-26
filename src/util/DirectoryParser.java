@@ -1,4 +1,6 @@
 /*
+ * DirectoryParser.java
+ * 
  * Returns directories in "\Games" as strings to be used as categories
  * Returns filenames in "\Games\<categoryindex>" to be used as game names. Contains option to return with .jar prefix and without 
  * 
@@ -19,6 +21,11 @@ public class DirectoryParser {
 		this.directoryName = directoryName;
 		File directory = new File(directoryName);
 		categoryDirectories = directory.listFiles();
+		
+		//TODO: Remove this, it is just here for me to be able to compile <TUCKER>
+		if (categoryDirectories == null){
+			categoryDirectories = new File[1];
+		}
 	}
 	
 	public List<String> getCategoryStrings() {
