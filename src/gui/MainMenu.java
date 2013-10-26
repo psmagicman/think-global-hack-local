@@ -22,7 +22,7 @@ public class MainMenu extends mainGUI {
 	public MainMenu() {
 		
 		setup();
-		setLayout(new GridLayout(4,1));
+		setLayout(new GridLayout(2,2));
 		defineVariables();
 		makeButtons();
 		setTitle(frame_title.getText());

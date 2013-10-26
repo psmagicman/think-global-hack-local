@@ -17,7 +17,8 @@ public class UserMenu extends mainGUI {
 
 	public UserMenu() {
 		setup();
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(2, 1));
+		defineVariables();
 		makeButtons();
 		setVisible(true);
 	}
