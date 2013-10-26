@@ -28,7 +28,7 @@ public class GameLogic
 		
 		int maxNumbrForThisLevel = GetMaxNumberForThisLevel();
 		int minNumberForThisLevel = GetMinNumberForThisLevel();
-		int currentNumber = generator.nextInt(maxNumbrForThisLevel - minNumberForThisLevel) + minNumberForThisLevel;
+		currentNumber = generator.nextInt(maxNumbrForThisLevel - minNumberForThisLevel) + minNumberForThisLevel;
 		
 		return currentNumber;
 	}

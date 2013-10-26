@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 
 public class Counting 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{	
 	    JFrame f = new GameWindow();
-	    GameLogic newGame = new GameLogic(1);	// change the magic number later
+	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.
 	    
 	    JPanel mainContainer = new JPanel();
 	    mainContainer.setBorder(BorderFactory.createLineBorder(Color.black)); //temp for testing
@@ -28,10 +28,17 @@ public class Counting
 	    
 	    //display initial random number
 	    Integer randomNum = newGame.GenerateRandomNumber();
-	    JLabel num = new JLabel(randomNum.toString());
-	    num.setVisible(true);
+	    JLabel numLabel = new JLabel(randomNum.toString());
+	    numLabel.setLocation(300, 300); // magic number for right now
+	    numLabel.setVisible(true);
+	    
+	    //get the next number
+	    Integer answer = newGame.GetNextNumber();
+	    JLabel answerLabel = new JLabel(answer.toString());
+	    answerLabel.setVisible(true);
 	   
-	    mainContainer.add(num);
+	    mainContainer.add(numLabel);
+	    mainContainer.add(answerLabel);
 	    mainContainer.add(question);
 	    
 	    f.add(mainContainer);
