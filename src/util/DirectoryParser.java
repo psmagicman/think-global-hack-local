@@ -22,20 +22,18 @@ public class DirectoryParser {
 		File directory = new File(directoryName);
 		categoryDirectories = directory.listFiles();
 		
-		//TODO: Remove this, it is just here for me to be able to compile <TUCKER>
-		if (categoryDirectories == null){
-			categoryDirectories = new File[1];
-		}
 	}
 	
 	public List<String> getCategoryStrings() {
 		List<String> categories = new ArrayList<String>();
 		
-		for (File file : categoryDirectories){
-            if (file.isDirectory()){
-            	categories.add(file.getName());
-            }
-        }
+		if (categoryDirectories != null) {
+			for (File file : categoryDirectories){
+	            if (file.isDirectory()){
+	            	categories.add(file.getName());
+	            }
+	        }
+		}
 
 		return categories;
 	}
@@ -49,11 +47,13 @@ public class DirectoryParser {
 		
 		File directory = new File(directoryName + "\\" + categoryDirectories[index].getName());
 		
-		for (File file : directory.listFiles()){
-            if (file.isFile()){
-            	fileNames.add(file.getName());
-            }
-        }
+		if (directory.listFiles() != null) {
+			for (File file : directory.listFiles()){
+	            if (file.isFile()){
+	            	fileNames.add(file.getName());
+	            }
+	        }
+		}
 		
 		return fileNames;
 	}
