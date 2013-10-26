@@ -15,24 +15,24 @@ import com.sun.speech.freetts.VoiceManager;
 
 public class textToSpeech
 {
-	//TODO: Get the user preferences
+	//TODO: Get the user preferences, which will contain the speaker string & speed
 	
 	public static void speak(String text)
 	{
-		//TODO: Remove this method and use only speakWithSpeaker
-		speakWithSpeaker("kevin16", text, 0);
+		speakWithSpeaker("kevin16", text, 100);
 	}
-	public static void speakWithSpeaker(String voice, String text, int speed)
+	public static void speakWithSpeaker(String voice, String text, int wpm)
 	{
-		//TODO: Change voice (kevin works, but alan doesn't. MBROLA also doesn't)
-		//TODO: Change speed (needs MBROLA)
+		//TODO: Remove & use speak and set the settings from the user prefs
+		
 		VoiceManager voiceManager = VoiceManager.getInstance();
         Voice speakerVoice = voiceManager.getVoice(voice);
-        /* Allocates the resources for the voice.*/
+//		Set the speaker's voice speed (default = 100 words/minute)
+        speakerVoice.setRate(wpm);
+//		Allocates the resources for the voice
         speakerVoice.allocate();
-        /* Synthesize speech.*/
+//		Synthesize speech & clean up after 
         speakerVoice.speak(text);
-        /* Clean up and leave.*/
         speakerVoice.deallocate();
 	}
 }
