@@ -64,19 +64,19 @@ public class Counting
 	    //answerField.setDocument(new JTextFieldLimit(answerLength));
 	    answerField1.setText("?");
 	    PlainDocument doc1 = (PlainDocument) answerField1.getDocument();
-	    doc1.setDocumentFilter(new MyDocumentFilter());
+	    doc1.setDocumentFilter(new MyDocumentFilter(answerField1, answerString.charAt(0)));
 	      
 	      final JTextField answerField2 = new JTextField(1);
 		    //answerField.setDocument(new JTextFieldLimit(answerLength));
 	      answerField2.setText("?");
 		    PlainDocument doc2 = (PlainDocument) answerField2.getDocument();
-		    doc2.setDocumentFilter(new MyDocumentFilter());
+		    doc2.setDocumentFilter(new MyDocumentFilter(answerField2, answerString.charAt(1)));
 		      
 		      final JTextField answerField3 = new JTextField(1);
 			    //answerField.setDocument(new JTextFieldLimit(answerLength));
 		      answerField3.setText("?");
 			    PlainDocument doc3 = (PlainDocument) answerField3.getDocument();
-			    doc3.setDocumentFilter(new MyDocumentFilter());
+			    doc3.setDocumentFilter(new MyDocumentFilter(answerField3, answerString.charAt(2)));
 	    
 	    answerField1.setText("?");
 	    answerField2.setText("?");
@@ -137,7 +137,14 @@ public class Counting
 
 class MyDocumentFilter extends DocumentFilter
 {
-
+	private JTextField _textField;
+	private char _answer;
+	
+	MyDocumentFilter(JTextField textField, char answer)
+	{
+		_textField = textField;
+		_answer = answer;
+	}
     @Override
     public void insertString(DocumentFilter.FilterBypass fp
             , int offset, String string, AttributeSet aset)
@@ -181,6 +188,17 @@ class MyDocumentFilter extends DocumentFilter
         {
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
+        	
+			if (_answer == _textField.getText().charAt(0))
+			{
+				_textField.setBackground(Color.green);
+				//System.out.println(2);
+			}
+			else
+			{
+				_textField.setBackground(Color.red);
+				//System.out.println(3);
+			}
         	
         }
     }
