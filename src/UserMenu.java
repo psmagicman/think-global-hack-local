@@ -10,25 +10,16 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class UserMenu extends MainMenu {
-	private JLabel frame_title;
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
 
 	public UserMenu() {
 		setup();
-		add(createNewUserButton);
-		add(selectUserButton);
+		setLayout(new GridLayout(3, 1));
+		makeButtons();
 		setVisible(true);
 	}
-
-	private void setup() {
-		setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		setLayout(new GridLayout(3, 1));
-		createNewUserButton = new JButton("Create New User");
-		selectUserButton = new JButton("Select User");
-		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
-	}
-
+	
 	private class NewUserDialog extends JFrame {
 		private void createAndShowNewUserDialog() {
 			setName("Add new user");
@@ -84,6 +75,15 @@ public class UserMenu extends MainMenu {
 			dlg.createAndShowNewUserDialog();
 		}
 
+	}
+	
+	@Override
+	public void makeButtons() {
+		createNewUserButton = new JButton("Create New User");
+		selectUserButton = new JButton("Select User");
+		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+		add(createNewUserButton);
+		add(selectUserButton);
 	}
 
 }

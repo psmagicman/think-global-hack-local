@@ -20,22 +20,24 @@ public class MainMenu extends JFrame {
 	
 	public MainMenu() {
 		
-		// set the frame size
-		setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		toolkit = getToolkit();
-		screen = toolkit.getScreenSize();
-		// set the location of the frame to the middle of the screen
-		setLocation(screen.width / 2 - getWidth() / 2, screen.height / 2 - getHeight() / 2);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setup();
 		setLayout(new GridLayout(4,1));
 		defineVariables();
-		add(helpButton);
-		add(gamesButton);
-		add(optionButton);
-		add(quitButton);
+		makeButtons();
 		setTitle(frame_title.getText());
 		setUndecorated(true);
 		setVisible(true);
+		
+	}
+	
+	/*
+	 * Set up the frame
+	 */
+	public void setup() {
+		// set the frame size
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		toolkit = getToolkit();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
@@ -52,22 +54,26 @@ public class MainMenu extends JFrame {
 		frame_title = new JLabel("Main Menu");
 
 		
-		// add the radios to a button group
-
-		// import User Preferences
-		
+		// add the radios to a button group		
 		
 		// add the buttons to the frame
+		
+	}
+	
+	public void makeButtons() {
 		helpButton = new JButton("Help");
 		gamesButton = new JButton("Games");
 		optionButton = new JButton("Options");
 		quitButton = new JButton("Quit");
-		
+		add(helpButton);
+		add(gamesButton);
+		add(optionButton);
+		add(quitButton);
 	}
-	
+
 	public static void main(String[] args){
 		UserMenu u = new UserMenu();
-		MainMenu s = new MainMenu();
+		//MainMenu s = new MainMenu();
 	}
 	
 }
