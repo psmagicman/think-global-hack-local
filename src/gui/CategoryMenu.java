@@ -11,12 +11,16 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import util.DirectoryParser;
@@ -43,9 +47,11 @@ public class CategoryMenu extends mainGUI {
 	private void createButtons(List<String> gameStrings) {
 		for( int i = 0; i < gameStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setLabel(gameStrings.get(i));
+			buttonToAdd.setText(gameStrings.get(i));
 			buttonToAdd.setSize(20, 5);
 			this.add(buttonToAdd);
 		}
 	}
+	
+	
 }
