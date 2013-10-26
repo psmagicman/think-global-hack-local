@@ -76,5 +76,5 @@ public class mainGUI extends JFrame {
 //		jb.setFont(newButtonFont);
 //	}
 	
-	
+	}
 }
