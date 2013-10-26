@@ -43,9 +43,9 @@ public class MainMenu extends mainGUI {
 	}
 	
 	public static void main(String[] args){
-		UserMenu u = new UserMenu();
-		MainMenu s = new MainMenu();
 		GameMenu n = new GameMenu();
+		MainMenu s = new MainMenu();
+		UserMenu u = new UserMenu();
 	}
 	
 }

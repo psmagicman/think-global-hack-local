@@ -20,6 +20,7 @@ public class UserMenu extends mainGUI {
 		setLayout(new GridLayout(2, 1));
 		defineVariables();
 		makeButtons();
+		
 		setVisible(true);
 	}
 	

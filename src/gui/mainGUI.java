@@ -42,6 +42,11 @@ public class mainGUI extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//determines the font for the JButtons
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+		UIManager.put("Button.font", newButtonFont);
+		UIManager.put("Button.foreground", Color.DARK_GRAY);
+		UIManager.put("Button.background", Color.WHITE);
 		
 	}
 	
@@ -59,22 +64,8 @@ public class mainGUI extends JFrame {
 	}
 	
 	// create buttons here; this is empty because each menu will override this
-	// to implement buttons for specified screen
+	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
 	
-	public void JButtonPref(JButton jb){
-		//example
-//		jb.setForeground(Color.yellow);
-//		jb.setBackground(Color.BLACK);
-//		Font newButtonFont=new Font(jb.getFont().getName(),jb.getFont().getStyle(),100);
-//		jb.setFont(newButtonFont);
-		
-//		jb.setForeground(User.preferences.getFontColour());
-//		jb.setBackground(User.preferences.getBackgroundColour());
-//		Font newButtonFont=new Font(jb.getFont().getName(),jb.getFont().getStyle(),Preferences.getFontSize());
-//		jb.setFont(newButtonFont);
-//	}
-	
-	}
 }
