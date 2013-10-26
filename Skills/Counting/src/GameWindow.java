@@ -10,6 +10,8 @@ public class GameWindow extends JFrame
 	private JLabel frame_title;
 	private Toolkit toolkit;
 	public Dimension screenSize;
+	static public int ScreenWidth;
+	static public int ScreenHeight;
 	
 	public GameWindow() 
 	{
@@ -27,6 +29,16 @@ public class GameWindow extends JFrame
 	
 	private void defineVariables() {
 		//refactor into here later
+	}
+	
+	public static int GetScreenWorkingWidth() {
+		ScreenWidth = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+	    return java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+	}
+
+	public static int GetScreenWorkingHeight() {
+		ScreenHeight = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+	    return java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 	}
 	
 }

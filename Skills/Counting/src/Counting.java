@@ -16,20 +16,22 @@ public class Counting
 	    
 	    JPanel panel = new JPanel();
 	    panel.setBackground(backgroundColor);
-	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 	    
 	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
 	    
 	    //display question prompt
 	    JLabel title = new JLabel("What is the next number?");
-	    title.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    title.setFont(new Font("Arial", 2, 28)); 
 	    panel.add(title);
 	    
         panel.add(Box.createRigidArea(new Dimension(0, 100)));
         
 	    
 	    JPanel numPanel = new JPanel();
-	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+	    numPanel.setBackground(Color.blue); // random color for testing 
 	    
 	    //display initial random number
 	    Integer randomNum = newGame.GenerateRandomNumber();
@@ -61,14 +63,11 @@ public class Counting
 	    panel.add(numPanel);
 	    
         f.add(panel);
-        
-        f.pack();
-               
-        f.setTitle("RigidArea");
+                       
+        f.setTitle("Counting Game");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
-        
-        
+             
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	}
