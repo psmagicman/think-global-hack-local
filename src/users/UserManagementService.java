@@ -18,7 +18,7 @@ public class UserManagementService {
 		int id = gen.nextInt();
 		//TODO: Should check if this id is unique!!!!
 		newUser.setId(id);
-		File file = new File("../../user-store/");
+		File file = new File("../user-store"); 
 		if(!file.exists()) {
 			boolean r = file.mkdir();
 			System.out.println(r);

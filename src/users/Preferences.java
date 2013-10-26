@@ -10,7 +10,7 @@ public class Preferences {
 	Color backgroundColour;
 	Color fontColour;
 	int fontSize;
-	//File f;
+
 	
 	//TODO: tweak
 	Preferences(){

@@ -4,7 +4,7 @@ public class User {
 
 	private String name;
 	private Preferences preferences;
-	private GameLevels levels;
+	//private GameLevels levels;
 	private int id;
 
 	public User(String name) {
