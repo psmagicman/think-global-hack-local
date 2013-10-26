@@ -1,0 +1,30 @@
+<project>
+
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/GameFramework.jar">
+            <fileset dir="${classes.dir}"/>
+            <manifest>
+                <attribute name="Main-Class" value="gameLauncher"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/GameFramework.jar" fork="true"/>
+    </target>
+
+</project>
