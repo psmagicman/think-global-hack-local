@@ -23,5 +23,6 @@ public class GameLauncherMenu {
 		
 		System.out.println();
 		mainGUI new_gui = new mainGUI();
+		textToSpeech.speak("hello"); // demo sound
 	}
 }
