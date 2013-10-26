@@ -21,7 +21,7 @@ public class MainMenu extends JFrame {
 	public MainMenu() {
 		
 		// set the frame size
-		setSize(300, 200);
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		screen = toolkit.getScreenSize();
 		// set the location of the frame to the middle of the screen
@@ -34,7 +34,7 @@ public class MainMenu extends JFrame {
 		add(optionButton);
 		add(quitButton);
 		setTitle(frame_title.getText());
-		
+		setUndecorated(true);
 		setVisible(true);
 		
 	}
@@ -54,6 +54,8 @@ public class MainMenu extends JFrame {
 		
 		// add the radios to a button group
 
+		// import User Preferences
+		
 		
 		// add the buttons to the frame
 		helpButton = new JButton("Help");
@@ -65,6 +67,7 @@ public class MainMenu extends JFrame {
 	
 	public static void main(String[] args){
 		UserMenu u = new UserMenu();
-		//MainMenu s = new MainMenu();
+		MainMenu s = new MainMenu();
 	}
+	
 }
