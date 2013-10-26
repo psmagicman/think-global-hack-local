@@ -1,4 +1,4 @@
-import gui.mainGUI;
+package gui;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;

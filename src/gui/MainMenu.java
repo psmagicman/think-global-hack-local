@@ -1,4 +1,4 @@
-import gui.mainGUI;
+package gui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +26,7 @@ public class MainMenu extends mainGUI {
 		defineVariables();
 		makeButtons();
 		setTitle(frame_title.getText());
-		setUndecorated(true);
+		setUndecorated(true); // hides top bar
 		setVisible(true);
 		
 	}
