@@ -50,21 +50,14 @@ public class mainGUI extends JFrame {
 	public void defineVariables() {
 		JPanel buttons_area = new JPanel();
 		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout(4, 1));
+		buttons_area.setLayout(new GridLayout());
 		
-		// define the buttons and title
+		// define title
 		frame_title = new JLabel("SAM");
-
-		
-		// add the radios to a button group
-
-		
-		// add the buttons to the frame
-		
-		
 	}
 	
-	// empty
+	// create buttons here; this is empty because each menu will override this
+	// to implement buttons for specified screen
 	public void makeButtons() {
 	}
 	

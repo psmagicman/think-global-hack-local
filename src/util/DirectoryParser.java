@@ -44,7 +44,7 @@ public class DirectoryParser {
 	public List<String> getFileStrings(int index) {
 		List<String> fileNames = new ArrayList<String>();
 		
-		File directory = new File(directoryName + "\\" + categoryDirectories[index].getName());
+		File directory = new File(directoryName + "/" + categoryDirectories[index].getName());
 		
 		if (directory.listFiles() != null) {
 			for (File file : directory.listFiles()){

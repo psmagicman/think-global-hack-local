@@ -25,8 +25,7 @@ public class MainMenu extends mainGUI {
 		setLayout(new GridLayout(2,2));
 		defineVariables();
 		makeButtons();
-		setTitle(frame_title.getText());
-		setUndecorated(true); // hides top bar
+		// setUndecorated(true); // hides top bar
 		setVisible(true);
 		
 	}
@@ -46,6 +45,7 @@ public class MainMenu extends mainGUI {
 	public static void main(String[] args){
 		UserMenu u = new UserMenu();
 		MainMenu s = new MainMenu();
+		GameMenu n = new GameMenu();
 	}
 	
 }
