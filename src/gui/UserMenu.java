@@ -36,7 +36,7 @@ public class UserMenu extends mainGUI {
 		add(users);
 		add(createNewUserButton);
 		add(selectUserButton);
-		defineVariables();
+//		defineVariables();
 		makeButtons();
 		
 		setVisible(true);

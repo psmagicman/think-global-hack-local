@@ -10,6 +10,8 @@ import util.*;
 import java.awt.*;
 import java.util.*;
 
+import users.Preferences;
+
 public class MainMenu extends mainGUI {
 
 	/** Variables **/
@@ -18,10 +20,12 @@ public class MainMenu extends mainGUI {
 	private JButton optionButton;
 	private JButton quitButton;
 	
-	private String helpLabelText = "<html><font color=\"#FF6600\">" + "H" + "</font>" + "elp" + "</html>";
-	private String gameLabelText = "<html><font color=\"#FF6600\">" + "G" + "</font>" + "ames" +"</font>"+ "</html>";
-	private String optionLabelText = "<html><font color=\"#FF6600\">" + "O" + "</font>" + "ptions" + "</html>";
-	private String quitLabelText = "<html><font color=\"#FF6600\">" + "Q" + "</font>" + "uit" + "</html>";
+	private String hexc;
+	
+	private String helpLabelText = "<html><font color=\"#"+ hexc + "\">" + "H" + "</font>" + "elp" + "</html>";
+	private String gameLabelText = "<html><font color=\"#"+ hexc + "\">" + "G" + "</font>" + "ames" +"</font>"+ "</html>";
+	private String optionLabelText = "<html><font color=\"#"+ hexc + "\">" + "O" + "</font>" + "ptions" + "</html>";
+	private String quitLabelText = "<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>";
 
 	/** End of Variables **/
 
@@ -67,7 +71,8 @@ public class MainMenu extends mainGUI {
 	public void makeButtons() {
 
 		//ImageIcon help = new ImageIcon("Images/H-icon.png");
-
+		hexc = Preferences.getTheme().letter();
+		
 		helpButton = new JButton(helpLabelText);
 		gamesButton = new JButton(gameLabelText);
 		optionButton = new JButton(optionLabelText);		
