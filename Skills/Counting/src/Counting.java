@@ -36,7 +36,7 @@ public class Counting implements KeyListener
 	{			
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
-	    newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
+	    newGame = new GameLogic(GameLogic.MIN_LEVEL);	// set to GameLogic.MIN_LEVEL if there is no user preference.	    
 
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
@@ -56,7 +56,7 @@ public class Counting implements KeyListener
 			}
         });
 	    
-	    level.setMnemonic(KeyEvent.VK_L);
+	    level.setMnemonic(KeyEvent.VK_L);	//Todo maybe incorporate with the key listener? maybe..
 	    
 	    help.setFont(new Font("Arial", 2, 28));
 	    level.setFont(new Font("Arial", 2, 28));
@@ -144,11 +144,12 @@ public class Counting implements KeyListener
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
-        //get the next number
+        //get the next number which is the answer for the current number
 	    Integer answer = newGame.GetNextNumber();
 	    Answer = answer.toString();
 	    int answerLength = Answer.length();
 	    
+	    // Each digit for the answer has its own JTextField
 	    AnswerFields = new JTextField[answerLength];
 	    for (int i = 0; i < answerLength; ++i)
 	    {
@@ -182,7 +183,7 @@ public class Counting implements KeyListener
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
-        // refactor later
+        // the location of the code here doesn't seem so good
 	    speaker = new TextToSpeakWrapper(currentNumber.toString());
 	    try 
 	    {
@@ -200,7 +201,7 @@ public class Counting implements KeyListener
 		{
 			e.printStackTrace();
 		}
-	    isAfterAllSpeakingForProblem = true;
+	    isAfterAllSpeakingForProblem = true;	// do not let the speaker read the digit when it's reading the problem
 	}
 	
 	void ApplyUserPreference()
