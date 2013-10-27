@@ -62,10 +62,10 @@ public class Preferences {
 		this.fontLevel = font;
 		switch(font)
 		{
-			case 1: this.fontSize = 27; break; 
-			case 2: this.fontSize =  40; break;
-			case 3: this.fontSize = 50; break;
-			default: this.fontSize = 27;
+			case 1: this.fontSize = 40; break; 
+			case 2: this.fontSize =  60; break;
+			case 3: this.fontSize = 100; break;
+			default: this.fontSize = 40;
 		}	
 	}
 
