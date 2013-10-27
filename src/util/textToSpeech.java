@@ -2,8 +2,6 @@ package util;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import sun.security.jca.GetInstance;
-
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
