@@ -51,6 +51,8 @@ public class SelectionTextPane extends JTextArea {
 
 		getInputMap().put(KeyStroke.getKeyStroke('s'), "moveSentanceRight");
 		getActionMap().put("moveSentanceRight", new SelectNextSentanceAction());
+		
+		getInputMap().put(KeyStroke.getKeyStroke('q'), "quit");
 	}
 
 	private class SelectNextWordAction extends AbstractAction {
@@ -128,6 +130,7 @@ public class SelectionTextPane extends JTextArea {
 			SelectionTextPane.this.setCaretPosition(cursor);
 		}
 	}
+	
 
 	public static int min(int[] values) {
 		int min = Integer.MAX_VALUE;
