@@ -203,8 +203,15 @@ public class Counting implements KeyListener
         f.setLocationRelativeTo(null);
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+<<<<<<< Updated upstream
+   
         textToSpeech.getInstance().speak(problem);	
+=======
+        
+	    //speaker = new TextToSpeakWrapper(problem);	// uncommenting this will read out loud the problem. However, it really slows down the loading unless we stop preventing asynchronous input
+	    //thread = new Thread(speaker);
+	    //thread.start();
+>>>>>>> Stashed changes
         
         // the location of the code here doesn't seem so good
 	    textToSpeech.getInstance().speak(currentNumber.toString());
@@ -229,12 +236,23 @@ public class Counting implements KeyListener
 			numberOfAttemptsLabel.setVisible(true);
 			numberOfAttemptsLabel.setFont(new Font("Arial", 2, 28));	
 
-			speechPhrase compliment = new speechPhrase();
-			textToSpeech.getInstance().speak(compliment.getRandomCompliment());
-			
+<<<<<<< Updated upstream
 			textToSpeech.getInstance().speak(Answer);
 			isDone = true;
+=======
+			speaker = new TextToSpeakWrapper(Answer);
+			try 
+			{
+				thread.join();
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			thread = new Thread(speaker);
+			thread.start();
 
+			isDone = true;	//may wanna thread join
+>>>>>>> Stashed changes
 		}
 	}
 	
