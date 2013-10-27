@@ -11,6 +11,8 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 import javax.swing.ImageIcon;
 
+import java.util.*;
+
 public class Counting 
 {
 	private static Color backgroundColor; //initialize to user preference color
@@ -36,24 +38,14 @@ public class Counting
 	    JMenu level = new JMenu("Level");
 	    level.setMnemonic(KeyEvent.VK_L);
 	    
-	    //temporarily hard coded levels
-	    JMenuItem levelItem = new JMenuItem("One");
-	    levelItem.setToolTipText("Select Level One");	    
-	    //temporarily hard coded levels
-	    JMenuItem levelItem2 = new JMenuItem("Two");
-	    levelItem.setToolTipText("Select Level Two");	
-
-	    levelItem.addActionListener(new ActionListener() 
+	    java.util.List<Integer> allLevels = newGame.GetLevels();
+	    	    
+	    for (Integer lv : allLevels)
 	    {
-	    	@Override
-	    	public void actionPerformed(ActionEvent arg0) 
-	    	{
-	    		System.exit(0);
-	    	}
-	    });
+	    	level.add(new JMenuItem(lv.toString()));	    	
+	    }
+	    
     
-	    level.add(levelItem);
-	    level.add(levelItem2);
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
 	    f.add(gameMenuBar);
