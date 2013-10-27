@@ -3,13 +3,11 @@ package gui;
 import gui.mainGUI.ExitAction;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 import module.GameLauncher;
-import util.DirectoryParser;
+import util.*;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 public class MainMenu extends mainGUI {
@@ -28,6 +26,36 @@ public class MainMenu extends mainGUI {
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
+		
+		//read out instructions
+		textToSpeech.speak("Use your mouse or keyboard to select an option");
+		//TO DO: highlight menu items and read them
+		helpButton.setOpaque(true);
+		
+		for  (int count=1; count<= 4; count++) {
+			try { 
+				Thread.sleep(1000); 
+				;
+				} catch (InterruptedException e) { 
+				// TODO Auto-generated catch block 
+				e.printStackTrace(); 
+				} 
+				switch (count) {
+				case 1: 
+					textToSpeech.speak("Help");
+					break;
+				case 2:
+					textToSpeech.speak("Games");
+					break;
+				case 3:
+					textToSpeech.speak("Options");
+					break;
+				case 4:
+					textToSpeech.speak("Quit");
+					break;
+				default: break;
+				}
+		}		
 	}
 	
 	@Override
