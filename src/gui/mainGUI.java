@@ -40,17 +40,14 @@ public class mainGUI extends JFrame {
 		//determines the font for the JButton/JPanel/JLabel
 		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
+
 		UIManager.put("Button.foreground", fg);
 		UIManager.put("Button.background", bg);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
-
-			
-		frame_title = new JLabel("SAM");
-	
-		UIManager.put("Panel.background", bg);	
-	}
 		
+		frame_title = new JLabel("SAM");
+	}
 
 	// create buttons here; this is empty because each menu will override this
 	// to implement buttons for specified screens

@@ -28,6 +28,7 @@ public class UserManagementService {
 			boolean r = file.mkdir();
 			System.out.println(r);
 		}
+
 		File[] files = file.listFiles();
 		
 		PersistenceStrategy strategy = new FilePersistenceStrategy(file);
@@ -63,7 +64,6 @@ public class UserManagementService {
 		//generate a random id
 		newUser.setId(makeUniqueId(users));
 		
-	
 		File file = new File(System.getProperty("user.dir") + "/data");
 		if(!file.exists()) {
 			boolean r = file.mkdir();

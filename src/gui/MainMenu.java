@@ -8,6 +8,7 @@ import module.GameLauncher;
 import util.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.*;
 
 public class MainMenu extends mainGUI {
@@ -85,5 +86,13 @@ public class MainMenu extends mainGUI {
 		add(gamesButton);
 		add(optionButton);
 		add(quitButton);
+	}
+
+	
+	private class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
+		}
 	}
 }

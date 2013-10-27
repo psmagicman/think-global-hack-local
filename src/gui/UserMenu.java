@@ -29,27 +29,18 @@ public class UserMenu extends mainGUI {
 	
 
 	public UserMenu() {
-		setSize(300,300);
-		setLayout(new GridLayout(3, 1));
-
+		// setup GUI styles/frame
 		setup();
-		add(users);
-		add(createNewUserButton);
-		add(selectUserButton);
-		defineVariables();
-		makeButtons();
-		
+		setLayout(new GridLayout(3, 1));
+		populateUsersList();
 		setVisible(true);
+		makeButtons();
 	}
 	
-	public void setup() {
+	public void populateUsersList() {
 		List<User> userslist = UserManagementService.getUsers();
-		User[] userArray = userslist.toArray(new User[userslist.size()]);
-
-		users = new JList<User>(userArray);
-		createNewUserButton = new JButton("Create New User");
-		selectUserButton = new JButton("Select User");
-		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
+		add(users);
 	}
 
 	private class NewUserDialog extends JFrame {
@@ -109,11 +100,29 @@ public class UserMenu extends mainGUI {
 
 	}
 	
+	private class selectedUserHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {			
+			MainMenu s = new MainMenu();
+			User selectedUser = users.getSelectedValue(); 
+			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
+		}
+
+	}
+	
 	@Override
 	public void makeButtons() {
+		// make buttons 
 		createNewUserButton = new JButton("Create New User");
 		selectUserButton = new JButton("Select User");
 		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+		selectUserButton.addActionListener(new selectedUserHandler());
+		if(users.getModel().getSize() == 0)
+		{
+			System.out.println("No users");
+			selectUserButton.setEnabled(false);
+		}
 		add(createNewUserButton);
 		add(selectUserButton);
 	}
