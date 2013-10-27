@@ -35,7 +35,7 @@ public class UserMenu extends mainGUI {
 	public UserMenu() {
 		// setup GUI styles/frame
 		setup();
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(1, 2));
 		populateUsersList();
 		makeButtons();
 		setVisible(true);
@@ -133,6 +133,8 @@ public class UserMenu extends mainGUI {
 	
 	@Override
 	public void makeButtons() {
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(2, 1));
 		// make buttons 
 		createNewUserButton = new JButton("Create New User");
 		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
@@ -151,8 +153,9 @@ public class UserMenu extends mainGUI {
 		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
 		
 		selectUserButton.setEnabled(users.getModel().getSize()!=0); // disables button if there are no users
-		add(createNewUserButton);
-		add(selectUserButton);
+		buttonPanel.add(createNewUserButton);
+		buttonPanel.add(selectUserButton);
+		add(buttonPanel);
 	}
 }
 
