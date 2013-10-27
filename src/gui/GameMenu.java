@@ -46,9 +46,7 @@ public class GameMenu extends mainGUI {
 		createButtons(directoryParser.getCategoryStrings());
 		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 2));
 		// This function takes out the frame
-
-		CategoryMenu c = new CategoryMenu(directoryParser, 1);
-
+		
 		setVisible(true);
 		
 		//TO DO: read out the instructions
