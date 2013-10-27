@@ -54,11 +54,9 @@ public class MainMenu extends mainGUI {
 		
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
-
-		for  (int count=1; count<= 4; count++) {
+		/*for  (int count=1; count<= 4; count++) {
 			try { 
-				Thread.sleep(500); 
-				;
+				Thread.sleep(500);
 			} catch (InterruptedException e) { 
 				// TODO Auto-generated catch block 
 				e.printStackTrace(); 
@@ -66,19 +64,24 @@ public class MainMenu extends mainGUI {
 			switch (count) {
 			case 1: 
 				textToSpeech.getInstance().speak("Help");
+				//helpButton.requestFocus();
 				break;
 			case 2:
 				textToSpeech.getInstance().speak("Games");
+				//gamesButton.requestFocus();
 				break;
 			case 3:
 				textToSpeech.getInstance().speak("Options");
+				//optionButton.requestFocus();
 				break;
 			case 4:
 				textToSpeech.getInstance().speak("Quit");
+				//quitButton.requestFocus();
 				break;
-			default: break;
+			default:
+				break;
 			}
-		}	
+		}*/	
 	}
 
 		@Override
@@ -109,6 +112,11 @@ public class MainMenu extends mainGUI {
 		helpButton.setBorder(BorderFactory.createEmptyBorder());
 		helpButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('h'), "helpButtonPressed");
 		helpButton.getActionMap().put("helpButtonPressed", new HelpAction());
+		
+		helpButton.setName("help");
+		gamesButton.setName("games");
+		optionButton.setName("options");
+		quitButton.setName("quit");
 		
 		// the part below adds button cycling with arrow keys
 		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
