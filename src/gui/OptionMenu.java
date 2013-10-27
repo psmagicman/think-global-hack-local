@@ -71,13 +71,26 @@ public class OptionMenu extends mainGUI {
 		private void createAndShowDialog() {
 			JPanel mainPanel = new JPanel(new GridLayout(2,1));
 			int size = 8;
-			if (_type == 3) size = 3;
+			if (_type == 1) size = 5;
+			else if (_type == 3) size = 3;
 			JPanel topPanel = new JPanel(new GridLayout(1,size));
 			JPanel botPanel = new JPanel(new GridLayout(1,2));
 			
 			for (int i = 1; i <= size; i++) {
 				JButton buttonToAdd = new JButton();
-				buttonToAdd.setText(new Integer(i).toString());
+				if (_type != 1) buttonToAdd.setText(new Integer(i).toString());
+				else {
+					String buttonTitle = "";
+					switch(i) {
+						case 1: buttonTitle = "Gray"; break;
+						case 2: buttonTitle = "White"; break;
+						case 3: buttonTitle = "Blue"; break;
+						case 4: buttonTitle = "Pink"; break;
+						case 5: buttonTitle = "Red"; break;
+						default: break;
+					}
+					buttonToAdd.setText(buttonTitle);
+				}
 				
 				this.add(buttonToAdd);
 				buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), i);
@@ -98,9 +111,6 @@ public class OptionMenu extends mainGUI {
 								case 3: break;
 								case 4: break;
 								case 5: break;
-								case 6: break;
-								case 7: break;
-								case 8: break;
 								default: break;
 								// TODO: Display theme on background
 							}
