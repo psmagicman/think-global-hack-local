@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -14,8 +15,11 @@ import java.util.EventListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
+import users.User;
 import util.textToSpeech;
+import gui.mainGUI;
 
 public class ButtonPane extends JPanel {
 
@@ -147,4 +151,39 @@ public class ButtonPane extends JPanel {
 			
 		}
 	};
+	
+	private void getStats(User name) {
+		if (name == null) {
+			//Use Default settings
+			Color bg = name.getPreferences().getTheme().background();
+			Color fg = name.getPreferences().getTheme().foreground();
+			Font newButtonFont = new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
+			UIManager.put("Button.font", newButtonFont);
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
+		}
+		else {
+
+			Color fg = name.getPreferences().getTheme().foreground();
+			Color bg = name.getPreferences().getTheme().background();
+			//Loads User settings
+			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
+			UIManager.put("Button.font", newButtonFont);
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
+		}		
+	}
+	
 }
