@@ -1,6 +1,7 @@
 package users;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.io.File;
 
 import util.textToSpeech;
@@ -12,8 +13,6 @@ public class Preferences {
 	int speedLevel;
 	Themes theme;
 	int themeLevel;
-	//Color backgroundColour;
-	//Color fontColour;
 	int fontSize;
 	int fontLevel;
 	float volume;
@@ -21,14 +20,14 @@ public class Preferences {
 
 	public Preferences(){
 		voice = "kevin";
-		speedLevel = 1;
+		speedLevel = 8;
+		setSpeed(speedLevel);
 		fontLevel = 1; 
-		volumeLevel = 1;
+		setFontSize(fontLevel);
+		volumeLevel = 8;
+		setVolume(volumeLevel);
 		themeLevel = 1;
-		speed = 100;
-		theme = Themes.DEFAULT;
-		fontSize = 27;
-		volume = 10;
+		setTheme(themeLevel);
 	}
 	
 	public String getVoice() {
@@ -60,12 +59,13 @@ public class Preferences {
 	}
 	public void setFontSize(int font) {
 		this.fontLevel = font;
+		double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		switch(font)
 		{
-			case 1: this.fontSize = 40; break; 
-			case 2: this.fontSize =  60; break;
-			case 3: this.fontSize = 100; break;
-			default: this.fontSize = 40;
+			case 1: this.fontSize = (int)screenWidth/50; break; 
+			case 2: this.fontSize =  (int)screenWidth/40; break;
+			case 3: this.fontSize = (int)screenWidth/25; break;
+			default: this.fontSize = (int)screenWidth/40;
 		}	
 	}
 
