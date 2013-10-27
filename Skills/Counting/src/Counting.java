@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 
 public class Counting 
 {
-	private static Color backgroundColor; //initialize to userpreference color
+	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
 
 	private static JTextField[] AnswerFields;
@@ -34,10 +34,14 @@ public class Counting
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    JMenu level = new JMenu("Level");
-	    //level.setMnemonic(KeyEvent.VK_L);
+	    level.setMnemonic(KeyEvent.VK_L);
 	    
-	    JMenuItem levelItem = new JMenuItem("1");
-	    
+	    //temporarily hard coded levels
+	    JMenuItem levelItem = new JMenuItem("One");
+	    levelItem.setToolTipText("Select Level One");	    
+	    //temporarily hard coded levels
+	    JMenuItem levelItem2 = new JMenuItem("Two");
+	    levelItem.setToolTipText("Select Level Two");	
 
 	    levelItem.addActionListener(new ActionListener() 
 	    {
@@ -45,10 +49,11 @@ public class Counting
 	    	public void actionPerformed(ActionEvent arg0) 
 	    	{
 	    		System.exit(0);
-
 	    	}
 	    });
     
+	    level.add(levelItem);
+	    level.add(levelItem2);
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
 	    f.add(gameMenuBar);
@@ -109,6 +114,7 @@ public class Counting
 	    {
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].setText("?");
+	    	AnswerFields[i].setFont(new Font("Arial", 2, 28)); 
 		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
 		    
