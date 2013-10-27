@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -14,11 +15,12 @@ import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 
 import util.textToSpeech;
 
-public class SelectionTextPane extends JTextPane {
+public class SelectionTextPane extends JTextArea {
 	
 	//KEY BINDINGS: w to advance to the next word
 	//				s to advance to the next sentance
 
+	private JScrollPane helpScroll;
 	private String words[];
 	private String sentences[];
 	private int cursor;
@@ -27,8 +29,14 @@ public class SelectionTextPane extends JTextPane {
 	public SelectionTextPane(String text) {
 		
 		//TODO: We need to tell the user instructions (audio instructions) on how to advance in the help.
+		
+		helpScroll = new JScrollPane(this,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.setText(text);
 		this.setEditable(false);
+		this.setWrapStyleWord(true);
+		this.setLineWrap(true);
 		setKeyBindings();
 		cursor = 0;
 		words = getText().split(" \n\r\t");
@@ -76,7 +84,8 @@ public class SelectionTextPane extends JTextPane {
 					e1.printStackTrace();
 				}
 			}
-			
+			SelectionTextPane.this.setCaretPosition(cursor);
+			System.out.println(cursor);
 		}
 	}
 
@@ -112,6 +121,8 @@ public class SelectionTextPane extends JTextPane {
 					e1.printStackTrace();
 				}
 			}
+			SelectionTextPane.this.setCaretPosition(cursor);
+			System.out.println(cursor);
 		}
 	}
 
