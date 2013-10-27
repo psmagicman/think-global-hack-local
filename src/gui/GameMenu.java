@@ -87,12 +87,13 @@ public class GameMenu extends mainGUI {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
-			textToSpeech.getInstance().speak((i+1) + " " + categoryStrings.get(i));
+			//textToSpeech.getInstance().speak((i+1) + " " + categoryStrings.get(i));
 			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
 			buttonToAdd.addActionListener(new CategoryButtonAction(directoryParser, i));
 			
+			buttonToAdd.setName((i+1) + " " + categoryStrings.get(i));
 			
 			this.add(buttonToAdd);
 			
@@ -105,7 +106,8 @@ public class GameMenu extends mainGUI {
 		buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">E</font>" + "xit</html>");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));
-		textToSpeech.getInstance().speak("E Exit");
+		//textToSpeech.getInstance().speak("E Exit");
+		buttonToAdd.setName("E Exit");
 		this.add(buttonToAdd);
 		
 		gameButtonList.add(buttonToAdd);
