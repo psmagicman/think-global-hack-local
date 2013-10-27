@@ -34,7 +34,7 @@ public class mainGUI extends JFrame {
 		user = UserManagementService.getInstance().getMainUser();
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Color bg = Color.DARK_GRAY;
 		Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel

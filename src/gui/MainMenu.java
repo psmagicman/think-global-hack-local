@@ -48,7 +48,7 @@ public class MainMenu extends mainGUI {
 		makeButtons();
 		setVisible(true);
 		//read out instructions
-		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
+		textToSpeech.getInstance().speakNonInterrupted("Use your mouse or keyboard to select an option");
 		
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
