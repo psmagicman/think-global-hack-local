@@ -1,9 +1,14 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,9 +23,9 @@ public class ButtonPane extends JPanel {
 		listSize = buttonList.size();
 		this.buttonList = buttonList;		
 		buttonLocation = 0;
-		System.out.println(listSize);
 		for(int i = 0; i < buttonList.size(); i++) {
 			final int keyCount = i;
+			buttonList.get(i).addFocusListener(focusButton);
 			buttonList.get(i).addKeyListener(keyboCommand);
 			buttonList.get(keyCount).addKeyListener(new KeyAdapter() {
 				@Override
@@ -75,6 +80,16 @@ public class ButtonPane extends JPanel {
 				((JButton) e.getComponent()).doClick();
 			}
 
+		}
+	};
+	
+	private FocusListener focusButton = new FocusListener() {
+		public void focusGained(FocusEvent e) {
+			((JButton) e.getComponent()).setBackground(Color.ORANGE);
+		}
+		
+		public void focusLost(FocusEvent e) {
+			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);
 		}
 	};
 }
