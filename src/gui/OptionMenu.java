@@ -249,12 +249,7 @@ public void makeButtons() {
 	fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
 	
 	backButton = new JButton("Back");
-	backButton.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			System.exit(ABORT);
-		}
-	});
+	backButton.addActionListener(new ExitAction(this));
 	backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
 		
 		this.add(volumeButton);
