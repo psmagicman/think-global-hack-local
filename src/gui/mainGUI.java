@@ -16,16 +16,18 @@ public class mainGUI extends JFrame {
 	private JLabel frame_title;
 	private Toolkit toolkit;
 	private Dimension screen;
+	private User user;
 	/** End of Variables **/
 
 	public mainGUI() {
 		// set the frame size
 		setup();
+		user = UserManagementService.getInstance().getMainUser();
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 		setTitle(frame_title.getText());
-
+		userPref(user);
 		setVisible(true);
 	}
 
@@ -33,10 +35,10 @@ public class mainGUI extends JFrame {
 		// set the frame size
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
-		Color bg = Color.DARK_GRAY;
-		Color fg = Color.WHITE;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+		
+				Color bg = Color.DARK_GRAY;
+				Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel
 		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
@@ -52,19 +54,30 @@ public class mainGUI extends JFrame {
 	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
+	
 	//Decides whether to use the default or profile theme
-	public void defaultPref(Preferences name){
+	public void userPref(User name){
 		if (name == null){
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+			Color bg = name.getPreferences().getTheme().background();
+			Color fg = name.getPreferences().getTheme().foreground();
+			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", Color.DARK_GRAY);
-			UIManager.put("Button.background", Color.WHITE);
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", bg);	
 		}
 		else{
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getFontSize());
+			Color fg = name.getPreferences().getTheme().foreground();
+			Color bg = name.getPreferences().getTheme().background();
+			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			//UIManager.put("Button.foreground", name.getTheme().foreground());
-			//UIManager.put("Button.background", name.getBackgroundColour());
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", bg);
 		}
 	}
 	
@@ -85,6 +98,7 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
+			UserMenu u = new UserMenu();
 		}
 	}
 }

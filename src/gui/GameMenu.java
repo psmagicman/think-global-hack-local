@@ -35,6 +35,7 @@ public class GameMenu extends mainGUI {
 	private JPanel contentPane;
 	private DirectoryParser directoryParser;
 
+	private String hexc;
 	/**
 	 * Create the frame.
 	 */

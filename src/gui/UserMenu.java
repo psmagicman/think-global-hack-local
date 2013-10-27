@@ -80,6 +80,7 @@ public class UserMenu extends mainGUI {
 						try {
 							User newUser = UserManagementService.getInstance().createUser(name);
 							UserManagementService.getInstance().setMainUser(newUser);
+							userPref(UserManagementService.getInstance().getMainUser());
 							goToMainMenu();
 							dispose();
 						} catch (NameTakenException e1) {

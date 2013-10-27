@@ -53,6 +53,7 @@ public class Preferences {
 			this.fontSize = fontSize;
 		}		
 	}
+
 	public void setVolume(int volume) {
 		this.volume = volume;
 	}
@@ -68,19 +69,9 @@ public class Preferences {
 	public void setTheme(Themes theme) {
 		this.theme = theme;
 	}
-	/*public Color getBackgroundColour() {
-	return backgroundColour;
-	}
-	public void setBackgroundColour(Color backgroundColour) {
-		this.backgroundColour = backgroundColour;
-	}
-	public Color getFontColour() {
-		return fontColour;
-	}
-	public void setFontColour(Color fontColour) {
-		this.fontColour = fontColour;
-	}*/
+
 	
+
 	
 	
 	

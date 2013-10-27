@@ -3,9 +3,9 @@ package users;
 import java.awt.Color;
 
 public enum Themes {
-	
+	//Name(background,foreground,letter)
 		DEFAULT (Color.DARK_GRAY, Color.WHITE, "ff6600"),
-		VENUS   (Color.WHITE, Color.DARK_GRAY, "ff6600");
+		VENUS   (Color.WHITE, Color.DARK_GRAY, "000000");
 				
 	 	private final Color background;   // in kilograms
 	    private final Color foreground; // in meters
@@ -22,8 +22,14 @@ public enum Themes {
 	        this.foreground = fg;
 	        this.letter = l;
 	    }
-	    private Color background() { return background; }
-	    private Color foreground() { return foreground; }
-	    private String letter() { return letter; }
+	    public Color background() {
+	    	return background; 
+	    	}
+	    public Color foreground() {
+	    	return foreground; 
+	    	}
+	    public String letter() { 
+	    	return letter; 
+	    	}
 
 }
