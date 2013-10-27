@@ -43,8 +43,6 @@ public class MainMenu extends mainGUI {
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		user = UserManagementService.getInstance().getMainUser();
-		//read out instructions
-		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 
 		//creates all the JButtons
 		makeButtons();
