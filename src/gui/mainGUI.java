@@ -114,6 +114,7 @@ public class mainGUI extends JFrame {
 	public class HelpAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
 			HelpMenu n = new HelpMenu();
 		}
 	}

@@ -68,9 +68,11 @@ public class SelectionTextPane extends JTextArea {
 			if (endWord != -1) {
 				SelectionTextPane.this.getHighlighter().removeAllHighlights();
 				try {
+					textToSpeech.getInstance().speakNow(string.substring(cursor, endWord));
 					SelectionTextPane.this.getHighlighter().addHighlight(
 							cursor, endWord, highlightPainter);
 					cursor = endWord + 1;
+					
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -103,6 +105,7 @@ public class SelectionTextPane extends JTextArea {
 				try {
 					SelectionTextPane.this.getHighlighter().addHighlight(
 							cursor, string.length(), highlightPainter);
+					textToSpeech.getInstance().speakNow(string.substring(cursor, string.length()));
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
@@ -114,7 +117,9 @@ public class SelectionTextPane extends JTextArea {
 				try {
 					SelectionTextPane.this.getHighlighter().addHighlight(
 							cursor, endSentence, highlightPainter);
+					textToSpeech.getInstance().speakNow(string.substring(cursor, endSentence));
 					cursor = endSentence + 1;
+					
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
