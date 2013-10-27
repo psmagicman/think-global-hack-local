@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
@@ -43,9 +44,15 @@ public class UserMenu extends mainGUI {
 	public void populateUsersList() {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
-		if(userslist.size() != 0)
+		
+		users.setAutoscrolls(true);
+		if(userslist.size() != 0) {
 			users.setSelectedIndex(0);
+		}
+	
 		add(users);
+		add(new JScrollPane(users));
+		users.requestFocus();
 	}
 
 	private class NewUserDialog extends JFrame {
@@ -137,6 +144,7 @@ public class UserMenu extends mainGUI {
 		selectUserButton.addActionListener(new selectedUserAction());
 		
 		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
+		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "gameButtonPressed");
 		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
 		
 		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
