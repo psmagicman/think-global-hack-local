@@ -21,6 +21,10 @@ public class Counting
 	private static JTextField[] AnswerFields;
 	private static String Answer;
 	
+	public static Thread thread = null;
+	public static TextToSpeakWrapper speaker;
+	public static boolean isAfterAllSpeakingForProblem = false;
+	
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
 	
@@ -61,8 +65,8 @@ public class Counting
 	    //display question prompt
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
-	    TextToSpeechWrapper problemSpeaker = new TextToSpeechWrapper(problem);
-	    Thread thread = new Thread(problemSpeaker);
+	    speaker = new TextToSpeakWrapper(problem);
+	    thread = new Thread(speaker);
 	    thread.start();
 	    problemLabel.setFont(new Font("Arial", 2, 28)); 
 	    rPanel.add(problemLabel);
@@ -126,7 +130,24 @@ public class Counting
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
         // refactor later
-        textToSpeech.speak(randomNum.toString());
+	    speaker = new TextToSpeakWrapper(randomNum.toString());
+	    try 
+	    {
+			thread.join();
+		} catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+	    thread = new Thread(speaker);
+	    thread.start();
+	    try 
+	    {
+			thread.join();
+		} catch (InterruptedException e) 
+		{
+			e.printStackTrace();
+		}
+	    isAfterAllSpeakingForProblem = true;
 	}
 	
 	void ApplyUserPreference()
@@ -146,6 +167,16 @@ public class Counting
 		{
 			numberOfAttemptsLabel.setText("Number of Attempts: " + numberOfAttempts);
 			numberOfAttemptsLabel.setVisible(true);
+			speaker = new TextToSpeakWrapper(Answer);
+			try 
+			{
+				thread.join();
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			thread = new Thread(speaker);
+			thread.start();
 		}
 	}
 }
@@ -218,7 +249,17 @@ class MyDocumentFilter extends DocumentFilter
         {
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
-        	textToSpeech.speak(string);
+    	    try 
+    	    {
+    	    	while (!Counting.isAfterAllSpeakingForProblem)
+    	    		Counting.thread.join();
+    		} catch (InterruptedException e) 
+    		{
+    			e.printStackTrace();
+    		}
+        	Counting.speaker = new TextToSpeakWrapper(string);
+        	Counting.thread = new Thread(Counting.speaker);
+        	Counting.thread.start();
         	
 			if (_answer == _textField.getText().charAt(0))
 			{
@@ -235,11 +276,11 @@ class MyDocumentFilter extends DocumentFilter
     }
 }
 
-class TextToSpeechWrapper implements Runnable
+class TextToSpeakWrapper implements Runnable
 {
 	private String stringToSpeak;
 	
-	TextToSpeechWrapper(String text)
+	TextToSpeakWrapper(String text)
 	{
 		stringToSpeak = text;
 	}
