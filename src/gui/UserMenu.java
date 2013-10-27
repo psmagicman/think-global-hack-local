@@ -71,7 +71,7 @@ public class UserMenu extends mainGUI {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String name = inputField.getText();
-					if (name == null){
+					if (name.equals("")){
 						JOptionPane.showMessageDialog(NewUserDialog.this, "You didn't enter your name!");
 					}
 					else{
