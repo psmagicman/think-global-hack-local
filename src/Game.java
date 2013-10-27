@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TestClassLoaderGame extends JFrame implements IGame {
+public class Game extends JFrame implements IGame {
 
 	private void createAndShowGUI() {
 		JButton testButton = new JButton("ImTheGame");
@@ -29,7 +29,7 @@ public class TestClassLoaderGame extends JFrame implements IGame {
 		// TODO Auto-generated method stub
 		System.out.println("Got it!");
 		System.out.println(UserManagementService.getMainUser());
-		TestClassLoaderGame x = new TestClassLoaderGame();
+		Game x = new Game();
 		x.createAndShowGUI();
 		x.setSize(300, 200);
 		x.setVisible(true);
