@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DirectoryParser {
 	private File[] categoryDirectories;
-	private String directoryName;
+	public String directoryName;
 	
 	public DirectoryParser(String directoryName) {
 		this.directoryName = directoryName;
@@ -60,7 +60,7 @@ public class DirectoryParser {
 	public List<String> getFileStringsNoJar(int index) {
 		List<String> fileNames = new ArrayList<String>();
 		
-		File directory = new File(directoryName + "\\" + categoryDirectories[index].getName());
+		File directory = new File(directoryName + "/" + categoryDirectories[index].getName());
 		
 		for (File file : directory.listFiles()){
             if (file.isFile()){
