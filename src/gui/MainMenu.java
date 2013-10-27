@@ -34,7 +34,7 @@ public class MainMenu extends mainGUI {
 		setVisible(true);
 		
 		//read out instructions
-		textToSpeech.speak("Use your mouse or keyboard to select an option");
+//		textToSpeech.speak("Use your mouse or keyboard to select an option");
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 		
@@ -46,21 +46,21 @@ public class MainMenu extends mainGUI {
 				// TODO Auto-generated catch block 
 				e.printStackTrace(); 
 				} 
-				switch (count) {
-				case 1: 
-					textToSpeech.speak("Help");
-					break;
-				case 2:
-					textToSpeech.speak("Games");
-					break;
-				case 3:
-					textToSpeech.speak("Options");
-					break;
-				case 4:
-					textToSpeech.speak("Quit");
-					break;
-				default: break;
-				}
+//				switch (count) {
+//				case 1: 
+//					textToSpeech.speak("Help");
+//					break;
+//				case 2:
+//					textToSpeech.speak("Games");
+//					break;
+//				case 3:
+//					textToSpeech.speak("Options");
+//					break;
+//				case 4:
+//					textToSpeech.speak("Quit");
+//					break;
+//				default: break;
+//				}
 		}		
 	}
 
