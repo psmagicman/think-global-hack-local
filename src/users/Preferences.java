@@ -4,21 +4,23 @@ import java.awt.Color;
 import java.io.File;
 
 public class Preferences {
-	//TODO : change to Enum
+	
 	String voice; 
 	int speed;
-	Color backgroundColour;
-	Color fontColour;
+	Themes theme;
+	//Color backgroundColour;
+	//Color fontColour;
 	int fontSize;
 
 	
-	//TODO: tweak
+	
 	Preferences(){
 		voice = "Allen";
 		speed = 1;
-		backgroundColour = Color.green;
-		fontColour = Color.yellow;
-		fontSize = 12;
+		//backgroundColour = Color.green;
+		//fontColour = Color.yellow;
+		theme = Themes.DEFAULT;
+		fontSize = 27;
 	}
 	
 	/*Preferences(String v, int s, ){
@@ -42,8 +44,17 @@ public class Preferences {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	public Color getBackgroundColour() {
-		return backgroundColour;
+	
+	public int getFontSize() {
+		return fontSize;
+	}
+	public void setFontSize(int fontSize) {
+		if(fontSize > 27){
+			this.fontSize = fontSize;
+		}		
+	}
+	/*public Color getBackgroundColour() {
+	return backgroundColour;
 	}
 	public void setBackgroundColour(Color backgroundColour) {
 		this.backgroundColour = backgroundColour;
@@ -53,16 +64,9 @@ public class Preferences {
 	}
 	public void setFontColour(Color fontColour) {
 		this.fontColour = fontColour;
-	}
-	public int getFontSize() {
-		return fontSize;
-	}
-	public void setFontSize(int fontSize) {
-		this.fontSize = fontSize;
-	}
+	}*/
 	
 	
-	//Preferences(string fontname, int fontsize, string font)
 	
 	
 

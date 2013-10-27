@@ -1,10 +1,11 @@
 import gui.MainMenu;
+import gui.UserMenu;
 import util.*;
 
 
 public class GameLauncherMenu {
 	
 	public static void main(String[] args) {
-		MainMenu new_gui = new MainMenu();
+		UserMenu new_gui = new UserMenu();
 	}
 }

@@ -5,13 +5,17 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 import users.NameTakenException;
 import users.User;
@@ -29,19 +33,28 @@ public class UserMenu extends mainGUI {
 	
 
 	public UserMenu() {
-		setSize(300,300);
-		setLayout(new GridLayout(3, 1));
-
+		// setup GUI styles/frame
 		setup();
-		add(users);
-		add(createNewUserButton);
-		add(selectUserButton);
-		defineVariables();
+		setLayout(new GridLayout(1, 2));
+		populateUsersList();
 		makeButtons();
-		
 		setVisible(true);
 	}
 	
+<<<<<<< HEAD
+	public void populateUsersList() {
+		List<User> userslist = UserManagementService.getInstance().getUsers();
+		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
+		
+		users.setAutoscrolls(true);
+		if(userslist.size() != 0) {
+			users.setSelectedIndex(0);
+		}
+	
+		add(users);
+		add(new JScrollPane(users));
+		users.requestFocus();
+=======
 	public void setup() {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		User[] userArray = userslist.toArray(new User[userslist.size()]);
@@ -50,6 +63,7 @@ public class UserMenu extends mainGUI {
 		createNewUserButton = new JButton("Create New User");
 		selectUserButton = new JButton("Select User");
 		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+>>>>>>> master
 	}
 
 	private class NewUserDialog extends JFrame {
@@ -75,7 +89,10 @@ public class UserMenu extends mainGUI {
 					}
 					else{
 						try {
-							UserManagementService.getInstance().createUser(name);
+							User newUser = UserManagementService.getInstance().createUser(name);
+							UserManagementService.getInstance().setMainUser(newUser);
+							goToMainMenu();
+							dispose();
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
@@ -99,7 +116,7 @@ public class UserMenu extends mainGUI {
 		}
 	}
 
-	private class CreateNewUserDialogHandler implements ActionListener {
+	private class CreateNewUserDialogAction extends AbstractAction {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -109,14 +126,46 @@ public class UserMenu extends mainGUI {
 
 	}
 	
+	private class selectedUserAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {			
+			User selectedUser = users.getSelectedValue(); 
+			UserManagementService.getInstance().setMainUser(selectedUser);
+			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
+			goToMainMenu();
+		}
+	}
+	
+	private void goToMainMenu(){
+		MainMenu s = new MainMenu();
+		this.dispose();
+	}
+	
 	@Override
 	public void makeButtons() {
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(2, 1));
+		// make buttons 
 		createNewUserButton = new JButton("Create New User");
+		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
+		
 		selectUserButton = new JButton("Select User");
-		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
-		add(createNewUserButton);
-		add(selectUserButton);
+		selectUserButton.setText("<html><font color=\"#FF6600\">S</font>" + "elect User</html>");
+		
+		createNewUserButton.addActionListener(new CreateNewUserDialogAction());
+		selectUserButton.addActionListener(new selectedUserAction());
+		
+		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
+		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "gameButtonPressed");
+		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
+		
+		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
+		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
+		
+		selectUserButton.setEnabled(users.getModel().getSize()!=0); // disables button if there are no users
+		buttonPanel.add(createNewUserButton);
+		buttonPanel.add(selectUserButton);
+		add(buttonPanel);
 	}
-
 }
 
