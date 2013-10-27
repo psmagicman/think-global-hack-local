@@ -144,14 +144,15 @@ public class MainMenu extends mainGUI {
 		}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			textToSpeech.getInstance().cancelSpeak();
 			frameToClose.dispose();
-			
 		}
 	}
 	
 	public class GameButtonAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
 			GameMenu n = new GameMenu();
 		}
 	}

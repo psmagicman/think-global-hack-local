@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import users.*;
 import util.DirectoryParser;
+import util.textToSpeech;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -90,7 +91,7 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			frameToClose.dispose();
-
+			textToSpeech.getInstance().cancelSpeak();
 		}
 	}
 

@@ -69,7 +69,7 @@ public class CategoryMenu extends mainGUI {
 			this.add(buttonToAdd);			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i + 1).toString()), "launch" + gameStrings.get(i) + "Game");
 			
-			textToSpeech.getInstance().speakNow((i + 1) + " " + gameStrings.get(i));
+			textToSpeech.getInstance().speak((i + 1) + " " + gameStrings.get(i));
 			
 			String gameToLaunch = directoryParser.directoryName + "/" + directoryParser.getCategoryStrings().get(categoryIndex) + "/" + gameStrings.get(i) + ".jar";
 			buttonToAdd.getActionMap().put("launch" + gameStrings.get(i) + "Game", new GameLaunchAction(gameToLaunch));
@@ -81,6 +81,7 @@ public class CategoryMenu extends mainGUI {
 		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
+		textToSpeech.getInstance().speak("E Exit");
 		this.add(buttonToAdd);
 	}
 	
@@ -94,6 +95,7 @@ public class CategoryMenu extends mainGUI {
 		public void actionPerformed(ActionEvent action) {
 			GameLauncher newGame = new GameLauncher();
 			newGame.launchGame(gameToLaunch);
+			textToSpeech.getInstance().cancelSpeak();
 		}
 	}
 }

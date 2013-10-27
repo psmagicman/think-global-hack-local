@@ -31,6 +31,7 @@ import javax.swing.border.EmptyBorder;
 import users.User;
 import users.UserManagementService;
 import util.DirectoryParser;
+import util.textToSpeech;
 
 public class GameMenu extends mainGUI {
 	private JLabel frame_title;
@@ -46,7 +47,7 @@ public class GameMenu extends mainGUI {
 	 */
 	public GameMenu() {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
-
+	
 		setup();	
 		user = UserManagementService.getInstance().getMainUser();
 		userPref(user);
@@ -73,6 +74,7 @@ public class GameMenu extends mainGUI {
 		private DirectoryParser directoryParser;
 		@Override
 		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
 			CategoryMenu c = new CategoryMenu(directoryParser, buttonIndex);
 		}
 	}
@@ -83,9 +85,13 @@ public class GameMenu extends mainGUI {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
+			textToSpeech.getInstance().speak((i+1) + " " + categoryStrings.get(i));
+			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
 			buttonToAdd.addActionListener(new CategoryButtonAction(directoryParser, i));
+			
+			
 			this.add(buttonToAdd);
 		}
 		
@@ -95,6 +101,7 @@ public class GameMenu extends mainGUI {
 		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));
+		textToSpeech.getInstance().speak("E Exit");
 		this.add(buttonToAdd);
 	}
 }
