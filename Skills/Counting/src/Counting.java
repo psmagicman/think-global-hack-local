@@ -24,11 +24,7 @@ public class Counting implements KeyListener
 	private static GameLogic newGame;
 	private static Integer currentNumber;
 	
-	public static Thread thread = null;
-	public static TextToSpeakWrapper speaker = null;
-	public static boolean isAfterAllSpeakingForProblem = false;
 	public static boolean isDone = false;
-	public static boolean isDoneLoading = false;
 	
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
@@ -208,31 +204,10 @@ public class Counting implements KeyListener
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
-	    //speaker = new TextToSpeakWrapper(problem);	// uncommenting this will read out loud the problem. However, it really slows down the loading unless we stop preventing asynchronous input
-	    //thread = new Thread(speaker);
-	    //thread.start();
+        textToSpeech.getInstance().speak(problem);	
         
         // the location of the code here doesn't seem so good
-	    speaker = new TextToSpeakWrapper(currentNumber.toString());
-	    try 
-	    {
-			if (thread != null && thread.isAlive())
-				thread.join();
-		} catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		}
-	    thread = new Thread(speaker);
-	    thread.start();
-	    try 
-	    {
-	    	if (thread != null && thread.isAlive())
-	    		thread.join();
-		} catch (InterruptedException e) 
-		{
-			e.printStackTrace();
-		}
-	    isAfterAllSpeakingForProblem = true;	// do not let the speaker read the digit when it's reading the problem
+	    textToSpeech.getInstance().speak(currentNumber.toString());
 	}
 	
 	void ApplyUserPreference()
@@ -254,25 +229,13 @@ public class Counting implements KeyListener
 			numberOfAttemptsLabel.setVisible(true);
 			numberOfAttemptsLabel.setFont(new Font("Arial", 2, 28));	
 
-			speaker = new TextToSpeakWrapper(Answer);
-			try 
-			{
-				thread.join();
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			thread = new Thread(speaker);
-			thread.start();
-			isDone = true;	//may wanna thread join
+			textToSpeech.getInstance().speak(Answer);
+			isDone = true;
 		}
 	}
 	
 	static void ResetGame(int level)
 	{
-		thread = null;
-		speaker = null;
-		//isAfterAllSpeakingForProblem = false;	// uncommenting will decrease the performance of thread.
 		isDone = false;
 		
 		int previousAnswerLenght = Answer.length();
@@ -358,17 +321,8 @@ class MyDocumentFilter extends DocumentFilter
         {
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
-    	    try 
-    	    {
-    	    	while (!Counting.isAfterAllSpeakingForProblem && Counting.thread != null && Counting.thread.isAlive())
-    	    		Counting.thread.join();
-    		} catch (InterruptedException e) 
-    		{
-    			e.printStackTrace();
-    		}
-        	Counting.speaker = new TextToSpeakWrapper(string);
-        	Counting.thread = new Thread(Counting.speaker);
-        	Counting.thread.start();
+
+    	    textToSpeech.getInstance().speak(string);
         	
 			if (_answer == _textField.getText().charAt(0))
 			{
@@ -389,20 +343,4 @@ class MyDocumentFilter extends DocumentFilter
     {
     	// Prevent from deleting the digit
     }
-}
-
-class TextToSpeakWrapper implements Runnable
-{
-	private String stringToSpeak;
-	
-	TextToSpeakWrapper(String text)
-	{
-		stringToSpeak = text;
-	}
-	
-	@Override
-	public void run() 
-	{
-		textToSpeech.speak(stringToSpeak);
-	}
 }
