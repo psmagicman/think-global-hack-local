@@ -29,6 +29,7 @@ public class MainMenu extends mainGUI {
 	private String gameLabelText;
 	private String optionLabelText;
 	private String quitLabelText;
+
 	/** End of Variables **/
 
 	public MainMenu() {
@@ -98,7 +99,8 @@ public class MainMenu extends mainGUI {
 
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
-
+		helpButton.setBorder(BorderFactory.createEmptyBorder());
+		
 		add(helpButton);
 		add(gamesButton);
 		add(optionButton);

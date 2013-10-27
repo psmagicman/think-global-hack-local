@@ -28,14 +28,18 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
+import users.User;
 import util.DirectoryParser;
 
 public class GameMenu extends mainGUI {
 	private JLabel frame_title;
 	private JPanel contentPane;
 	private DirectoryParser directoryParser;
-
+	
+	private User user;
 	private String hexc;
+	
+	private String hotKey = "<html><font color=\"#"+ "hexc" + "\">" ;
 	/**
 	 * Create the frame.
 	 */
@@ -74,7 +78,7 @@ public class GameMenu extends mainGUI {
 	private void createButtons(List<String> categoryStrings) {
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText("<html><font color=\"#FF6600\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
+			buttonToAdd.setText(hotKey + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
