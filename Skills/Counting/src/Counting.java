@@ -247,7 +247,7 @@ class MyDocumentFilter extends DocumentFilter
 
         for (int i = 0; i < len; i++)
         {
-        	if (!Character.isDigit(string.charAt(i)) && (string.charAt(i) != '?'))
+        	if (!Character.isDigit(string.charAt(i)))
             {
                 isValidInteger = false;
                 break;
