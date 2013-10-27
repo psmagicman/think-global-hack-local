@@ -37,7 +37,7 @@ public class Counting implements KeyListener
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
 	    newGame = new GameLogic(GameLogic.MIN_LEVEL);	// set to GameLogic.MIN_LEVEL if there is no user preference.	    
-
+	    
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    
