@@ -15,6 +15,8 @@ import java.util.EventListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import util.textToSpeech;
+
 public class ButtonPane extends JPanel {
 
 	private int buttonLocation;
@@ -90,6 +92,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void focusGained(FocusEvent e) {
 			((JButton) e.getComponent()).setBackground(Color.ORANGE);
+			textToSpeech.getInstance().speak(((JButton) e.getComponent()).getName());
 		}
 		
 		@Override
