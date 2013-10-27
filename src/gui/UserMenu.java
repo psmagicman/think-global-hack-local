@@ -2,27 +2,56 @@ package gui;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import users.NameTakenException;
+import users.User;
 import users.UserManagementService;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.util.List;
 
 public class UserMenu extends mainGUI {
+	private JLabel frame_title;
+
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
+	private JList<User> users;
+	
+	
 
 	public UserMenu() {
+		setSize(300,300);
+		setLayout(new GridLayout(3, 1));
+
 		setup();
-		setLayout(new GridLayout(2, 1));
+		add(users);
+		add(createNewUserButton);
+		add(selectUserButton);
 		defineVariables();
 		makeButtons();
+		
 		setVisible(true);
 	}
 	
+	public void setup() {
+		List<User> userslist = UserManagementService.getInstance().getUsers();
+		User[] userArray = userslist.toArray(new User[userslist.size()]);
+
+		users = new JList<User>(userArray);
+		createNewUserButton = new JButton("Create New User");
+		selectUserButton = new JButton("Select User");
+		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+	}
+
 	private class NewUserDialog extends JFrame {
 		private void createAndShowNewUserDialog() {
 			setName("Add new user");
@@ -46,7 +75,7 @@ public class UserMenu extends mainGUI {
 					}
 					else{
 						try {
-							UserManagementService.createUser(name);
+							UserManagementService.getInstance().createUser(name);
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
@@ -90,3 +119,4 @@ public class UserMenu extends mainGUI {
 	}
 
 }
+

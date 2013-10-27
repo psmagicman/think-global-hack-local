@@ -28,6 +28,7 @@ public class Counting implements KeyListener
 	public static TextToSpeakWrapper speaker = null;
 	public static boolean isAfterAllSpeakingForProblem = false;
 	public static boolean isDone = false;
+	public static boolean isDoneLoading = false;
 	
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
@@ -207,15 +208,16 @@ public class Counting implements KeyListener
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
-	    speaker = new TextToSpeakWrapper(problem);
-	    thread = new Thread(speaker);
-	    thread.start();
+	    //speaker = new TextToSpeakWrapper(problem);	// uncommenting this will read out loud the problem. However, it really slows down the loading unless we stop preventing asynchronous input
+	    //thread = new Thread(speaker);
+	    //thread.start();
         
         // the location of the code here doesn't seem so good
 	    speaker = new TextToSpeakWrapper(currentNumber.toString());
 	    try 
 	    {
-			thread.join();
+			if (thread != null && thread.isAlive())
+				thread.join();
 		} catch (InterruptedException e) 
 		{
 			e.printStackTrace();
@@ -224,7 +226,8 @@ public class Counting implements KeyListener
 	    thread.start();
 	    try 
 	    {
-			thread.join();
+	    	if (thread != null && thread.isAlive())
+	    		thread.join();
 		} catch (InterruptedException e) 
 		{
 			e.printStackTrace();
