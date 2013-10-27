@@ -37,15 +37,8 @@ public class mainGUI extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		//determines the font for the JButton/JPanel/JLabel
-		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
-		UIManager.put("Button.font", newButtonFont);
-		UIManager.put("Button.foreground", Color.DARK_GRAY);
-		UIManager.put("Button.background", Color.WHITE);
-		UIManager.put("TextField.font", newButtonFont);
-		UIManager.put("Label.font", newButtonFont);
-		UIManager.put("Panel.background", Color.WHITE);		
+		
+		defaultPref(null);
 	}
 
 	/**
@@ -72,12 +65,24 @@ public class mainGUI extends JFrame {
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", Color.DARK_GRAY);
 			UIManager.put("Button.background", Color.WHITE);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", Color.DARK_GRAY);
+			UIManager.put("TextArea.background", Color.WHITE);
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", Color.WHITE);	
 		}
 		else{
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getFontSize());
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", name.getFontColour());
 			UIManager.put("Button.background", name.getBackgroundColour());
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", name.getFontColour());
+			UIManager.put("TextArea.background", name.getBackgroundColour());
+			UIManager.put("TextField.font", newButtonFont);
+			UIManager.put("Label.font", newButtonFont);
+			UIManager.put("Panel.background", name.getBackgroundColour());	
 		}
 	}
 	
@@ -98,6 +103,13 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
+		}
+	}
+	
+	public class HelpAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			HelpMenu n = new HelpMenu();
 		}
 	}
 }

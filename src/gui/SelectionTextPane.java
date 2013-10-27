@@ -20,7 +20,7 @@ public class SelectionTextPane extends JTextPane {
 	//				s to advance to the next sentance
 
 	private String words[];
-	private String sentances[];
+	private String sentences[];
 	private int cursor;
 	private DefaultHighlighter.DefaultHighlightPainter highlightPainter;
 
@@ -31,8 +31,8 @@ public class SelectionTextPane extends JTextPane {
 		this.setEditable(false);
 		setKeyBindings();
 		cursor = 0;
-		words = getText().split(" ");
-		sentances = getText().split("[.!?]");
+		words = getText().split(" \n\r\t");
+		sentences = getText().split("[.!?]");
 		highlightPainter = new DefaultHighlightPainter(Color.RED);
 	}
 	
@@ -51,7 +51,12 @@ public class SelectionTextPane extends JTextPane {
 		public void actionPerformed(ActionEvent e) {
 
 			String string = SelectionTextPane.this.getText();
-			int endWord = string.indexOf(' ', cursor);
+			while(string.charAt(cursor) == '\n') cursor++;
+			int newlineIndex = string.indexOf('\n', cursor);
+			int spaceIndex = string.indexOf(' ', cursor);
+			int endWord;
+			if (newlineIndex < spaceIndex) endWord = newlineIndex;
+			else endWord = spaceIndex;
 			if (endWord != -1) {
 				SelectionTextPane.this.getHighlighter().removeAllHighlights();
 				try {
@@ -71,8 +76,8 @@ public class SelectionTextPane extends JTextPane {
 					e1.printStackTrace();
 				}
 			}
+			
 		}
-
 	}
 
 	private class SelectNextSentanceAction extends AbstractAction {
