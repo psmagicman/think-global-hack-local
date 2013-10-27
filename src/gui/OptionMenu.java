@@ -60,7 +60,7 @@ public class OptionMenu extends mainGUI {
 	_themeLevel = prefs.getThemeLevel();
 	
 	setup();
-	
+	userPref(_mainUser);
 	setLayout(new GridLayout(5,1));
 	makeButtons();
 	setVisible(true);
