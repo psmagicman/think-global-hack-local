@@ -2,13 +2,13 @@
   <name>Tiana</name>
   <preferences>
     <voice>kevin</voice>
-    <speed>100</speed>
+    <speed>110</speed>
     <speedLevel>1</speedLevel>
-    <theme>DEFAULT</theme>
+    <theme>COTTON_CANDY</theme>
     <themeLevel>0</themeLevel>
-    <fontSize>27</fontSize>
-    <fontLevel>1</fontLevel>
-    <volume>10.0</volume>
+    <fontSize>100</fontSize>
+    <fontLevel>3</fontLevel>
+    <volume>0.65</volume>
     <volumeLevel>1</volumeLevel>
   </preferences>
   <id>1119229322</id>

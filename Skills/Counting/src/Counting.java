@@ -58,7 +58,7 @@ public class Counting implements KeyListener
 	
 	public static boolean isDone = false;
 	
-	public static int numberOfAttempts = 0;
+	public static int numberOfAttempts = 1;
 	private static JLabel numberOfAttemptsLabel;
 	
 	public static void main(String[] args)
@@ -315,7 +315,7 @@ public class Counting implements KeyListener
 	    }	    
 	    AnswerFields[0].requestFocus();
 	    
-	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
+	    numberOfAttempts = 1;	// this needs to be after AnswerFields.setText()
 	    
 	    textToSpeech.getInstance().speak(currentNumber.toString());
 	}
