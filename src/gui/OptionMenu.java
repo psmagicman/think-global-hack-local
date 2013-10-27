@@ -69,31 +69,34 @@ public class OptionMenu extends mainGUI {
 	
 	private class Dialog extends JFrame {
 		private void createAndShowDialog() {
-			// Make panels
 			JPanel mainPanel = new JPanel(new GridLayout(2,1));
 			int size = 8;
-			if (_type == 3) size = 3;
+			if (_type == 1) size = 5;
+			else if (_type == 3) size = 3;
 			JPanel topPanel = new JPanel(new GridLayout(1,size));
 			JPanel botPanel = new JPanel(new GridLayout(1,2));
-			// Make buttons
-			if(_type == 3)
-			{
-				JButton small = new JButton("Small");
-				JButton medium = new JButton("Medium");
-				JButton large = new JButton("Large");
-				add(small);
-				add(medium);
-				add(large);
-			}
-			else 
-			{
-				for (int i = 1; i <= size; i++) {
-					JButton buttonToAdd = new JButton();
-					buttonToAdd.setText(new Integer(i).toString());
-					buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), i);
+			
+			for (int i = 1; i <= size; i++) {
+				JButton buttonToAdd = new JButton();
+				if (_type != 1) buttonToAdd.setText(new Integer(i).toString());
+				else {
+					String buttonTitle = "";
+					switch(i) {
+						case 1: buttonTitle = "Gray"; break;
+						case 2: buttonTitle = "White"; break;
+						case 3: buttonTitle = "Blue"; break;
+						case 4: buttonTitle = "Pink"; break;
+						case 5: buttonTitle = "Red"; break;
+						default: break;
+					}
+					buttonToAdd.setText(buttonTitle);
+				}
 				
-					final int level = i;
-					buttonToAdd.addActionListener(new ActionListener(){
+				this.add(buttonToAdd);
+				buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), i);
+			
+				final int level = i;
+				buttonToAdd.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (_type == 0) {
@@ -108,9 +111,6 @@ public class OptionMenu extends mainGUI {
 								case 3: break;
 								case 4: break;
 								case 5: break;
-								case 6: break;
-								case 7: break;
-								case 8: break;
 								default: break;
 								// TODO: Display theme on background
 							}
@@ -121,10 +121,14 @@ public class OptionMenu extends mainGUI {
 							textToSpeech.getInstance().speak(new Integer(level).toString() + " poody poody poody poody");
 							// TODO: Talk at the said speed in "One one thousand"
 						}
+						else if (_type == 3) {
+							_fontSize = level;
+							textToSpeech.getInstance().speak("Font size " + new Integer(level).toString());
+							// TODO: Display new font size dynamically
+						}
 					}
 				});
 				topPanel.add(buttonToAdd);
-				}
 			}
 			
 			JButton okayButton = new JButton("Ok");
@@ -230,7 +234,12 @@ public class OptionMenu extends mainGUI {
 		fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
 		
 		backButton = new JButton("Back");
-		backButton.addActionListener(new ExitAction(this));
+		backButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(ABORT);
+			}
+		});
 		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
 		
 		this.add(volumeButton);
