@@ -19,6 +19,10 @@ public class DirectoryParser {
 	public DirectoryParser(String directoryName) {
 		this.directoryName = directoryName;
 		File directory = new File(directoryName);
+		if (directory.exists() == false) {
+			directory.mkdir();
+			new File(directoryName + "/AddGamesHere").mkdir();
+		}
 		categoryDirectories = directory.listFiles();
 		
 	}
