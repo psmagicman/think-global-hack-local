@@ -7,6 +7,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.EventListener;
 
@@ -26,6 +28,7 @@ public class ButtonPane extends JPanel {
 		for(int i = 0; i < buttonList.size(); i++) {
 			final int keyCount = i;
 			buttonList.get(i).addFocusListener(focusButton);
+			buttonList.get(keyCount).addMouseListener(mouseEars);
 			buttonList.get(i).addKeyListener(keyboCommand);
 			buttonList.get(keyCount).addKeyListener(new KeyAdapter() {
 				@Override
@@ -84,12 +87,61 @@ public class ButtonPane extends JPanel {
 	};
 	
 	private FocusListener focusButton = new FocusListener() {
+		@Override
 		public void focusGained(FocusEvent e) {
 			((JButton) e.getComponent()).setBackground(Color.ORANGE);
 		}
 		
+		@Override
 		public void focusLost(FocusEvent e) {
 			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);
+		}
+	};
+	
+	private MouseListener mouseEars = new MouseListener() {
+		/**
+		 * This function will respond to mouse clicks on the buttons
+		 */
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		/**
+		 * This function will respond to the mouse hovering over the button
+		 */
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Add speech on hover?
+			
+		}
+
+		/**
+		 * This function will respond to the mouse holding the button down
+		 */
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			((JButton) e.getComponent()).setBackground(Color.ORANGE);
+		}
+
+		/**
+		 * This function will respond to the mouse releasing the button press
+		 */
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);			
+		}
+
+		/**
+		 * This function will respond to the mouse leaving the button area
+		 */
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Kill the speech on exit?
+			
 		}
 	};
 }
