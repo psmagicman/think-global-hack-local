@@ -69,13 +69,4 @@ public class MainMenu extends JFrame {
 		
 	}
 	
-	public static void main(String[] args){
-		UserMenu u = new UserMenu();		
-		MainMenu s = new MainMenu();
-		
-		
-		
-		
-	}
-	
 }

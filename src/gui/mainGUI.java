@@ -7,7 +7,6 @@ import util.DirectoryParser;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.util.*;
 
 public class mainGUI extends JFrame {
@@ -22,7 +21,7 @@ public class mainGUI extends JFrame {
 	public mainGUI() {
 		
 		// set the frame size
-		setSize(320, 240);
+		setup();
 		toolkit = getToolkit();
 		screen = toolkit.getScreenSize();
 		// set the location of the frame to the middle of the screen
@@ -32,9 +31,15 @@ public class mainGUI extends JFrame {
 		defineVariables();
 		setTitle(frame_title.getText());
 		
-		
 		setVisible(true);
-		GameMenu newMenu = new GameMenu();
+		
+	}
+	
+	public void setup() {
+		// set the frame size
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		toolkit = getToolkit();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 	
@@ -42,21 +47,18 @@ public class mainGUI extends JFrame {
 	 * define_variables function
 	 * This function defines the variables for the GUI
 	 */
-	private void defineVariables() {
+	public void defineVariables() {
 		JPanel buttons_area = new JPanel();
 		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout(4, 1));
+		buttons_area.setLayout(new GridLayout());
 		
-		// define the buttons and title
-		frame_title = new JLabel("Hackathon!");
-
-		
-		// add the radios to a button group
-
-		
-		// add the buttons to the frame
-		
-		
+		// define title
+		frame_title = new JLabel("SAM");
+	}
+	
+	// create buttons here; this is empty because each menu will override this
+	// to implement buttons for specified screen
+	public void makeButtons() {
 	}
 	
 	

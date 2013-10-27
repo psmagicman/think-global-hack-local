@@ -1,3 +1,4 @@
+package gui;
 
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -18,8 +19,9 @@ import users.UserManagementService;
 
 import java.util.List;
 
-public class UserMenu extends JFrame {
+public class UserMenu extends mainGUI {
 	private JLabel frame_title;
+
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
 	private JList<User> users;
@@ -27,28 +29,26 @@ public class UserMenu extends JFrame {
 	
 
 	public UserMenu() {
+		setSize(300,300);
+		setLayout(new GridLayout(3, 1));
+
 		setup();
 		add(users);
 		add(createNewUserButton);
 		add(selectUserButton);
-		
+		defineVariables();
+		makeButtons();
 		setVisible(true);
 	}
 
-	private void setup() {
-		setSize(300,300);
-		setLayout(new GridLayout(3, 1));
-		//String[] testList = {"Graham", "Jonny", "Joe"};
+	private void test() {
+		System.out.println("hello");
+	}
+	
+	public void setup() {
 		List<User> userslist = UserManagementService.getUsers();
 		User[] userArray = userslist.toArray(new User[userslist.size()]);
-				
-//		int i = 0;
-//		List<User> users = UserManagementService.getUsers();
-//		User[] userArray = new;
-//		for(User u : UserManagementService.getUsers() ){
-//			use
-//		}
-		
+
 		users = new JList<User>(userArray);
 		createNewUserButton = new JButton("Create New User");
 		selectUserButton = new JButton("Select User");
@@ -97,7 +97,7 @@ public class UserMenu extends JFrame {
 			p.add(addUserButton);
 			p.add(cancelButton);
 			setContentPane(p);
-			setSize(300, 100);
+			setSize(Toolkit.getDefaultToolkit().getScreenSize());
 			setVisible(true);
 		}
 	}
@@ -110,6 +110,15 @@ public class UserMenu extends JFrame {
 			dlg.createAndShowNewUserDialog();
 		}
 
+	}
+	
+	@Override
+	public void makeButtons() {
+		createNewUserButton = new JButton("Create New User");
+		selectUserButton = new JButton("Select User");
+		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
+		add(createNewUserButton);
+		add(selectUserButton);
 	}
 
 }
