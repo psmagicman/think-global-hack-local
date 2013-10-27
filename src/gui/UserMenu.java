@@ -107,13 +107,18 @@ public class UserMenu extends mainGUI {
 	}
 	
 	private class selectedUserAction extends AbstractAction {
-
+		JFrame toBeDisposed;
+		selectedUserAction(JFrame toBeDisposed) {
+			this.toBeDisposed = toBeDisposed;
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {			
 			User selectedUser = users.getSelectedValue(); 
 			UserManagementService.getInstance().setMainUser(selectedUser);
 			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
 			goToMainMenu();
+			toBeDisposed.dispose();
 		}
 	}
 	
@@ -129,10 +134,10 @@ public class UserMenu extends mainGUI {
 		selectUserButton = new JButton("Select User");
 		selectUserButton.setText("<html><font color=\"#FF6600\">S</font>" + "elect User</html>");
 		createNewUserButton.addActionListener(new CreateNewUserDialogAction());
-		selectUserButton.addActionListener(new selectedUserAction());
+		selectUserButton.addActionListener(new selectedUserAction(this));
 		
 		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
-		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
+		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction(this));
 		
 		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
 		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());

@@ -67,13 +67,13 @@ public class CategoryMenu extends mainGUI {
 		
 		JButton buttonToAdd = new JButton("Exit");
 		buttonToAdd.addActionListener(new ExitAction(this));
+		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		this.add(buttonToAdd);
 	}
 	
 	private class GameLaunchAction extends AbstractAction {
-		
 		private String gameToLaunch;
 		
 		public GameLaunchAction(String gameToLaunch) {
@@ -85,6 +85,4 @@ public class CategoryMenu extends mainGUI {
 			newGame.launchGame(gameToLaunch);
 		}
 	}
-	
-
 }
