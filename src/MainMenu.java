@@ -33,10 +33,6 @@ public class MainMenu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(4,1));
 		defineVariables();
-		add(helpButton);
-		add(gamesButton);
-		add(optionButton);
-		add(quitButton);
 		setTitle(frame_title.getText());
 		setUndecorated(true);
 		setVisible(true);
@@ -60,13 +56,19 @@ public class MainMenu extends JFrame {
 
 		// import User Preferences
 		
-		
+	}
+	
+	private void makeButtons()
+	{
 		// add the buttons to the frame
 		helpButton = new JButton("Help");
 		gamesButton = new JButton("Games");
 		optionButton = new JButton("Options");
 		quitButton = new JButton("Quit");
-		
+		add(helpButton);
+		add(gamesButton);
+		add(optionButton);
+		add(quitButton);
 	}
 	
 }
