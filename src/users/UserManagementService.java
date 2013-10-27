@@ -5,22 +5,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-//import javassist.bytecode.Descriptor.Iterator;
-
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
 
 public class UserManagementService {
-	public static User mainUser;
+	private static UserManagementService instance = new UserManagementService();
 	
-	public static User getMainUser()
+	private static User mainUser;
+	
+	private UserManagementService() {
+		mainUser = new User("testUser");
+	}
+	
+	public static UserManagementService getInstance() {
+		return instance;
+	}
+	
+	public User getMainUser()
 	{
 		return mainUser;
 	}
+	
+	public void setMainUser(User user) {
+		mainUser = user;
+	}
     
-	public static List<User> getUsers(){
+	public List<User> getUsers(){
 		List<User> users = new ArrayList<User>();
 		
 		File file = new File(System.getProperty("user.dir") + "/data");
@@ -49,7 +60,7 @@ public class UserManagementService {
 	}
 		
 	
-	public static User createUser(String name) throws NameTakenException{
+	public User createUser(String name) throws NameTakenException{
 
 		/* TEST ALL ITEMS IN LIST
 		for (int i = 0; i < users.size(); i++) {
@@ -83,7 +94,7 @@ public class UserManagementService {
 	}
 
 	// Given a list of users, produces a unique ID
-	private static int makeUniqueId(List<User> users) {
+	private int makeUniqueId(List<User> users) {
 		Random gen = new Random();
 		int id = Math.abs(gen.nextInt());
 		while (!isUnique(id, users)) {
@@ -93,7 +104,7 @@ public class UserManagementService {
 	}
 
 	// Return true if none of the users have the given id.
-	private static boolean isUnique(int id, List<User> users) {
+	private boolean isUnique(int id, List<User> users) {
 		for (User u : users) {
 			if (u.getId() == id)
 				return false;
