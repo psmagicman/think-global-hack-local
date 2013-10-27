@@ -85,7 +85,6 @@ public class SelectionTextPane extends JTextArea {
 				}
 			}
 			SelectionTextPane.this.setCaretPosition(cursor);
-			System.out.println(cursor);
 		}
 	}
 
@@ -110,19 +109,18 @@ public class SelectionTextPane extends JTextArea {
 			} else {
 				int[] indices = new int[] { indexPeriod, indexExclaimation,
 						indexQuestionMark };
-				int endSentance = min(indices);
+				int endSentence = min(indices);
 				SelectionTextPane.this.getHighlighter().removeAllHighlights();
 				try {
 					SelectionTextPane.this.getHighlighter().addHighlight(
-							cursor, endSentance, highlightPainter);
-					cursor = endSentance + 1;
+							cursor, endSentence, highlightPainter);
+					cursor = endSentence + 1;
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 			SelectionTextPane.this.setCaretPosition(cursor);
-			System.out.println(cursor);
 		}
 	}
 
