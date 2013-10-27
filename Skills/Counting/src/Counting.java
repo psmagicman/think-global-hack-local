@@ -35,7 +35,13 @@ public class Counting
 
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
+	    
+	    JMenu help = new JMenu("Help");
 	    JMenu level = new JMenu("Level");
+	    JMenu learn = new JMenu("Learn");
+	    JMenu practice = new JMenu("Practice");
+	    JMenu exit = new JMenu("Exit");
+	    
 	    level.setMnemonic(KeyEvent.VK_L);
 	    
 	    java.util.List<Integer> allLevels = newGame.GetLevels();
@@ -45,11 +51,20 @@ public class Counting
 	    	level.add(new JMenuItem(lv.toString()));	    	
 	    }
 	    
-    
+	    level.addSeparator();
+	    level.add("Exit");
+   
+	    gameMenuBar.add(help); 
+	    
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
 	    f.add(gameMenuBar);
+	      
+	    gameMenuBar.add(learn);  
 	    
+	    gameMenuBar.add(practice);  
+	    
+	    gameMenuBar.add(exit);  
 	    
 	    JPanel panel = new JPanel();
 	    
