@@ -51,7 +51,6 @@ public class OptionMenu extends mainGUI {
 	User _mainUser;
 	
 	public OptionMenu() {
-		setup();
 		// INIT
 		_mainUser = new User("Bob"); //TODO: DELETE
 		//_mainUser = UserManagementService.getInstance().getMainUser(); //TODO: UNCOMMENT
@@ -60,6 +59,8 @@ public class OptionMenu extends mainGUI {
 		_fontSize = prefs.getFontSize();
 		_speed = prefs.getSpeed();
 		_theme = prefs.getTheme();
+		
+		setup();
 		
 		setLayout(new GridLayout(5,1));
 		makeButtons();
@@ -84,12 +85,11 @@ public class OptionMenu extends mainGUI {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (_type == 0) {
-							System.out.println(_type);
 							_volumeLevel = level;
-							//TODO: Play sound depending on volume
+							textToSpeech.getInstance().setVolume(level);
+							textToSpeech.getInstance().speakNow(new Integer(level).toString());
 						}
 						else if (_type == 1) { 
-							System.out.println(_type);
 							switch(level) {
 								case 1: break;
 								case 2: break;
@@ -104,14 +104,15 @@ public class OptionMenu extends mainGUI {
 							}
 						}
 						else if (_type == 2) {
-							System.out.println(_type);
 							_speed = level;
+							System.out.println(_speed);
+							textToSpeech.getInstance().setWPM(_speed*10+100);
+							textToSpeech.getInstance().speak(new Integer(level).toString() + " poody poody poody poody");
 							// TODO: Talk at the said speed in "One one thousand"
 						}
 						else if (_type == 3) {
-							System.out.println(_type);
-							
-							_fontSize = level;
+							_fontSize = level*3;
+							textToSpeech.getInstance().speak("Font size " + new Integer(level).toString());
 							// TODO: Display new font size dynamically
 						}
 					}
@@ -130,7 +131,8 @@ public class OptionMenu extends mainGUI {
 					else if (_type == 3) prefs.setFontSize(_fontSize);
 					//System.out.println(_volumeLevel); TEST
 					_mainUser.setPreferences(prefs);
-					
+					setVisible(false);
+					dispose();
 				}
 			});
 			botPanel.add(okayButton);
@@ -177,7 +179,7 @@ public class OptionMenu extends mainGUI {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			_type = 2;
+			_type = 3;
 			Dialog dlg = new Dialog();
 			dlg.createAndShowDialog();
 		}
@@ -187,7 +189,7 @@ public class OptionMenu extends mainGUI {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			_type = 3;
+			_type = 2;
 			Dialog dlg = new Dialog();
 			dlg.createAndShowDialog();
 		}
@@ -221,8 +223,7 @@ public class OptionMenu extends mainGUI {
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-				dispose();
+				System.exit(ABORT);
 			}
 		});
 		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
