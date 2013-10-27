@@ -63,4 +63,13 @@ public class textToSpeech
 	{
 		executor.execute(new SpeakerThread(text, wordsPerMinute));
 	}
+	
+	/**
+	 * Speak the text now, removing all pending speech
+	 * @param text
+	 */
+	public void speakNow(String text){
+		executor.shutdownNow();
+		executor.execute(new SpeakerThread(text, wordsPerMinute));
+	}
 }
