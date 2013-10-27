@@ -1,11 +1,16 @@
 package users;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.thoughtworks.xstream.*;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
 import com.thoughtworks.xstream.persistence.XmlArrayList;
@@ -37,27 +42,30 @@ public class UserManagementService {
 		
 		File file = new File(System.getProperty("user.dir") + "/data");
 		File[] files = file.listFiles();
-		
-		PersistenceStrategy strategy = new FilePersistenceStrategy(file);
-		// looks up the list:
-		List list = new XmlArrayList(strategy);
-		
-		// remember the list is still there! the files int@[1-5].xml are still in /tmp!
-		// the list was persisted!
-		
-		for(java.util.Iterator it = list.iterator(); it.hasNext(); ) {
-			User user = (User) it.next();
-			//System.out.println(user.getName());
-			users.add(user);
-			
+		if(!file.exists()) {
+			boolean r = file.mkdir();
+			System.out.println(r);
+		} 
+
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].getName().contains(".xml")) {
+				XStream xs = new XStream(new DomDriver());
+				User newUser = new User("");
+				try {
+					FileInputStream fis = new FileInputStream("data/" + files[i].getName());
+					xs.fromXML(fis,newUser);
+					users.add(newUser);
+				} catch (FileNotFoundException ex) {
+					ex.printStackTrace();
+				}
+			}
 		}
 		
 		return users;
 		
 	}
-		
 	
-	public User createUser(String name) throws NameTakenException{
+	public User createUser(String name) throws NameTakenException {
 
 		/* TEST ALL ITEMS IN LIST
 		for (int i = 0; i < users.size(); i++) {
@@ -71,23 +79,39 @@ public class UserManagementService {
 		//generate a random id
 		newUser.setId(makeUniqueId(users));
 		
-	
-		File file = new File("/user-store"); 
+		File file = new File(System.getProperty("user.dir") + "/data");
+		
 		if(!file.exists()) {
 			boolean r = file.mkdir();
 			System.out.println(r);
 		} 
-		PersistenceStrategy strategy = new FilePersistenceStrategy(file);
-		XmlArrayList list = new XmlArrayList(strategy);
 		
-		for (Object user : list){
+		XStream xs = new XStream();
+		try {
+			FileOutputStream fs = new FileOutputStream("data/" + newUser.getId() + ".xml");
+			xs.toXML(newUser,fs);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		
+		for (Object user : users){
 			if (((User)user).getName().equals(name)){
 				throw new NameTakenException(String.format("The name %s is already taken!", name));
 			}
 		}
 		
-		list.add(newUser);
+		users.add(newUser);
 		return newUser;
+	}
+	
+	public void saveMainUser() {
+		XStream xs = new XStream();
+		try {
+			FileOutputStream fs = new FileOutputStream("data/" + mainUser.getId() + ".xml");
+			xs.toXML(mainUser,fs);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	// Given a list of users, produces a unique ID
