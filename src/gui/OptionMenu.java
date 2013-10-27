@@ -200,15 +200,7 @@ public class OptionMenu extends mainGUI {
 						}
 						else if (_type == 1) {
 							_themeLevel = level;
-							switch(level) {
-								case 1: break;
-								case 2: break;
-								case 3: break;
-								case 4: break;
-								case 5: break;
-								default: break;
-								// TODO: Display theme on background
-							}
+							
 						}
 						else if (_type == 2) {
 							_speedLevel = level;
@@ -308,21 +300,25 @@ public class OptionMenu extends mainGUI {
 		volumeButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('v'), "volumeButtonPressed");
 		volumeButton.addActionListener(new VolumeDialogAction());
 		volumeButton.getActionMap().put("volumeButtonPressed", new VolumeDialogAction());
+		volumeButton.setName("volume");
 		
 		colorButton = new JButton("Background Color");
 		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "colorButtonPressed");
 		colorButton.addActionListener(new ColorDialogAction());
 		colorButton.getActionMap().put("colorButtonPressed", new ColorDialogAction());
+		colorButton.setName("background color");
 		
 		speedButton = new JButton("Speed");
 		speedButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "speedButtonPressed");
 		speedButton.addActionListener(new SpeedDialogAction());
 		speedButton.getActionMap().put("speedButtonPressed", new SpeedDialogAction());
+		speedButton.setName("speed");
 		
 		fontButton = new JButton("Font Size");
 		fontButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('f'), "fontButtonPressed");
 		fontButton.addActionListener(new FontDialogAction());
 		fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
+		fontButton.setName("font size");
 		
 		backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener(){
@@ -335,6 +331,7 @@ public class OptionMenu extends mainGUI {
 			}
 		});
 		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
+		backButton.setName("back");
 			
 		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
 		mainButtonList.add(volumeButton);
