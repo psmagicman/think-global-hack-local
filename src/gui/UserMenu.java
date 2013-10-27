@@ -41,7 +41,6 @@ public class UserMenu extends mainGUI {
 		setVisible(true);
 	}
 	
-<<<<<<< HEAD
 	public void populateUsersList() {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
@@ -54,17 +53,7 @@ public class UserMenu extends mainGUI {
 		add(users);
 		add(new JScrollPane(users));
 		users.requestFocus();
-=======
-	public void setup() {
-		List<User> userslist = UserManagementService.getInstance().getUsers();
-		User[] userArray = userslist.toArray(new User[userslist.size()]);
-
-		users = new JList<User>(userArray);
-		createNewUserButton = new JButton("Create New User");
-		selectUserButton = new JButton("Select User");
-		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
->>>>>>> master
-	}
+}
 
 	private class NewUserDialog extends JFrame {
 		private void createAndShowNewUserDialog() {
