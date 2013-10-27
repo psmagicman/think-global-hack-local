@@ -43,6 +43,10 @@ public class UserMenu extends mainGUI {
 	public void populateUsersList() {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
+		if(userslist.size() != 0)
+		{
+			users.setSelectedIndex(0);
+		}
 		add(users);
 	}
 
