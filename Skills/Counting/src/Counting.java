@@ -52,9 +52,6 @@ public class Counting implements KeyListener
 	public static void main(String[] args)
 	{							
 		//userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
-		//*********************
-		//User currentUser = UserManagementService.getInstance().getMainUser();
-		//userFont(currentUser.getPreferences().getFontSize());
 		
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
