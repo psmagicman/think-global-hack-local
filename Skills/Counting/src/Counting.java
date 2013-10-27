@@ -51,7 +51,7 @@ public class Counting implements KeyListener
 	
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{							
-		userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
+		//userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
 		//*********************
 		//User currentUser = UserManagementService.getInstance().getMainUser();
 		//userFont(currentUser.getPreferences().getFontSize());
