@@ -11,6 +11,7 @@ public class Preferences {
 	//Color backgroundColour;
 	//Color fontColour;
 	int fontSize;
+	int volume;
 
 	
 	
@@ -52,6 +53,14 @@ public class Preferences {
 		if(fontSize > 27){
 			this.fontSize = fontSize;
 		}		
+	}
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+	
+	public int getVolume(){
+		return this.volume;
+	
 	}
 	/*public Color getBackgroundColour() {
 	return backgroundColour;
