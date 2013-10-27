@@ -6,9 +6,9 @@ public enum Themes {
 	//Name(background,foreground,letter)
 	DEFAULT 	 (Color.DARK_GRAY, Color.WHITE, "ff6600"),
 	ORANGE_SPOT  (Color.WHITE, Color.DARK_GRAY, "ff6600"),
-	ICY			 (Color.BLACK, Color.CYAN, "ffffff"),
-	COTTON_CANDY (Color.DARK_GRAY, Color.MAGENTA, "0099FF"),
-	WATERMELON	 (Color.BLACK, Color.PINK, "66FF00");
+	ICY			 (Color.CYAN, Color.BLACK, "000cff"),
+	COTTON_CANDY (Color.MAGENTA, Color.WHITE, "000cff"),
+	WATERMELON	 (Color.PINK, Color.WHITE, "66FF00");
 
 
 	private final Color background;   // in kilograms

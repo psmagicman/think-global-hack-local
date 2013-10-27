@@ -103,8 +103,8 @@ private class Dialog extends JFrame {
 					case 1: buttonTitle = "Gray"; break;
 					case 2: buttonTitle = "White"; break;
 					case 3: buttonTitle = "Blue"; break;
-					case 4: buttonTitle = "Pink"; break;
-					case 5: buttonTitle = "Red"; break;
+					case 4: buttonTitle = "Purple"; break;
+					case 5: buttonTitle = "Pink"; break;
 					default: buttonTitle = ""; break;
 				}
 				buttonToAdd.setText(buttonTitle);
