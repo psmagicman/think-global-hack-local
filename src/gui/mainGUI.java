@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import users.*;
 import util.DirectoryParser;
+import util.textToSpeech;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -17,6 +18,7 @@ public class mainGUI extends JFrame {
 	private Toolkit toolkit;
 	private Dimension screen;
 	private User user;
+
 	/** End of Variables **/
 
 	public mainGUI() {
@@ -33,7 +35,6 @@ public class mainGUI extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 				Color bg = Color.DARK_GRAY;
 				Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel
@@ -44,9 +45,11 @@ public class mainGUI extends JFrame {
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
 		UIManager.put("List.font", newButtonFont);
+		UIManager.put("TextArea.font", newButtonFont);
+		UIManager.put("TextArea.foreground", fg);
+		UIManager.put("TextArea.background", bg);
 		frame_title = new JLabel("SAM");
 	}
-
 
 	// create buttons here; this is empty because each menu will override this
 	// to implement buttons for specified screens
@@ -58,13 +61,16 @@ public class mainGUI extends JFrame {
 			//Use Default settings
 			Color bg = name.getPreferences().getTheme().background();
 			Color fg = name.getPreferences().getTheme().foreground();
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
+			Font newButtonFont = new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", fg);
 			UIManager.put("Button.background", bg);
 			UIManager.put("TextField.font", newButtonFont);
 			UIManager.put("Label.font", newButtonFont);
-			UIManager.put("Panel.background", bg);	
+			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
 		}
 		else{
 
@@ -78,6 +84,9 @@ public class mainGUI extends JFrame {
 			UIManager.put("TextField.font", newButtonFont);
 			UIManager.put("Label.font", newButtonFont);
 			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
 		}
 	}
 
@@ -85,12 +94,13 @@ public class mainGUI extends JFrame {
 		JFrame frameToClose;
 
 		ExitAction(JFrame frameToClose) {
-			this.frameToClose= frameToClose; 
+			this.frameToClose = frameToClose;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			frameToClose.dispose();
-
+			textToSpeech.getInstance().cancelSpeak();
 		}
 	}
 
@@ -98,6 +108,14 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
+		}
+	}
+
+	public class HelpAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
+			HelpMenu n = new HelpMenu();
 		}
 	}
 }
