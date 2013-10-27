@@ -21,7 +21,7 @@ public class textToSpeech {
 	private static textToSpeech instance = new textToSpeech();
 	private ExecutorService executor;
 	private int wordsPerMinuteParam;
-	private List<FutureTask<String>> listOfTasks;
+	private List<SpeechFutureTask<String>> listOfTasks;
 	private float volumeParam;
 	
 	private textToSpeech()
@@ -29,7 +29,7 @@ public class textToSpeech {
 		wordsPerMinuteParam = 100; // default speed (in case people don't set the speed)
 		volumeParam = 1; // default volume
 		executor = Executors.newFixedThreadPool(1);
-		listOfTasks = new ArrayList<FutureTask<String>>();
+		listOfTasks = new ArrayList<SpeechFutureTask<String>>();
 	}
 
 	public static textToSpeech getInstance() {
@@ -39,13 +39,15 @@ public class textToSpeech {
 	private class SpeakerThread implements Callable<String> {
 		private String textToSpeak;
 		private int wordsPerMinute;
-		private float volume; 
+		private float volume;
+		public boolean canCancel = true;
 		
 		public SpeakerThread(String text, int wpm, float vol)
 		{
 			textToSpeak = text; 
 			wordsPerMinute = wpm;
 			volume = vol;
+			canCancel = true;
 		}
 
 		@Override
@@ -76,7 +78,14 @@ public class textToSpeech {
 
 
 	public void speak(String text) {
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		listOfTasks.add(task);
+		executor.submit(task);
+	}
+	
+	public void speakNonInterrupted(String text) {
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		task.canCancel = true;
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
@@ -87,21 +96,23 @@ public class textToSpeech {
 	 * @param text
 	 */
 	public void speakNow(String text) {
-		for (FutureTask<String> task : listOfTasks){
-			task.cancel(true);
-			//listOfTasks.remove(task);
-		}
+		cancelSpeak();
+		
 		listOfTasks.clear();
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
 	
 	public void cancelSpeak()
 	{
-		for (FutureTask<String> task : listOfTasks){
-			task.cancel(true);
-			//listOfTasks.remove(task);
+		List<SpeechFutureTask<String>> tasksToRemove = new ArrayList<SpeechFutureTask<String>>();
+		for (SpeechFutureTask<String> task : listOfTasks){
+			if (task.canCancel){
+				task.cancel(true);	
+				tasksToRemove.add(task);
+			}
+			listOfTasks.removeAll(tasksToRemove);
 		}
 	}
 }
