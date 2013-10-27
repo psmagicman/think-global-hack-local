@@ -1,9 +1,21 @@
 
 public class Game implements IGame
 {
-	@Override
-	public void startGame() 
+	public void startGame(String path) 
 	{
-		Counting.main(null);		
+		String[] args = {path};
+		Counting.main(args);		
+	}
+
+	@Override
+	public void startGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startGame(int arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

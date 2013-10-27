@@ -56,12 +56,17 @@ public class Counting implements KeyListener
 	
 	public static boolean isDone = false;
 	
-	public static int numberOfAttempts = 0;
+	public static int numberOfAttempts = 1;
 	private static JLabel numberOfAttemptsLabel;
 	
 	public static void main(String[] args)
-	{							
-		
+	{		
+/*		System.out.println("Game");
+		for(int i = 0 ; i < args.length; i++) {
+			textToSpeech.getInstance().speak(new Integer(i).toString());
+			System.out.println(args[i]);
+		}
+		*/
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
 	    newGame = new GameLogic(GameLogic.MIN_LEVEL);	// set to GameLogic.MIN_LEVEL if there is no user preference.	    
@@ -313,7 +318,7 @@ public class Counting implements KeyListener
 	    }	    
 	    AnswerFields[0].requestFocus();
 	    
-	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
+	    numberOfAttempts = 1;	// this needs to be after AnswerFields.setText()
 	    
 	    textToSpeech.getInstance().speak(currentNumber.toString());
 	}
