@@ -115,6 +115,7 @@ public class UserMenu extends mainGUI {
 	public void makeButtons() {
 		// make buttons 
 		createNewUserButton = new JButton("Create New User");
+		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
 		selectUserButton = new JButton("Select User");
 		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
 		selectUserButton.addActionListener(new selectedUserHandler());
