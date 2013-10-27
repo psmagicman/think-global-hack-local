@@ -3,6 +3,8 @@ package users;
 import java.awt.Color;
 import java.io.File;
 
+import util.textToSpeech;
+
 public class Preferences {
 	
 	String voice; 
@@ -43,6 +45,7 @@ public class Preferences {
 	}
 	public void setSpeed(int speed) {
 		this.speed = speed;
+		textToSpeech.getInstance().setWPM(speed);
 	}
 	
 	public int getFontSize() {
@@ -55,6 +58,7 @@ public class Preferences {
 	}
 	public void setVolume(int volume) {
 		this.volume = volume;
+		textToSpeech.getInstance().setVolume(volume);
 	}
 	
 	public int getVolume(){

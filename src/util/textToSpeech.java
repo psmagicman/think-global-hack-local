@@ -20,14 +20,14 @@ public class textToSpeech {
 	private static final String DEFAULT_VOICE = "kevin16";
 	private static textToSpeech instance = new textToSpeech();
 	private ExecutorService executor;
-	private int wordsPerMinute;
+	private int wordsPerMinuteParam;
 	private List<FutureTask<String>> listOfTasks;
-	private float volume;
+	private float volumeParam;
 	
 	private textToSpeech()
 	{
-		wordsPerMinute = 100; // default speed (in case people don't set the speed)
-		volume = 1; // default volume
+		wordsPerMinuteParam = 100; // default speed (in case people don't set the speed)
+		volumeParam = 1; // default volume
 		executor = Executors.newFixedThreadPool(1);
 		listOfTasks = new ArrayList<FutureTask<String>>();
 	}
@@ -66,17 +66,27 @@ public class textToSpeech {
 	}
 
 	public void setWPM(int wpm) {
-		wordsPerMinute = wpm;
+		wordsPerMinuteParam = wpm;
 	}
 	
 	public void setVolume(int vol) {
-		if(vol < 10)
-			volume = (float)vol/10; 
+		System.out.println("volume: " + vol);
+		switch(vol)
+		{
+			case 1: volumeParam = (float)0.65; break;
+			case 2: volumeParam = (float)0.70; break;
+			case 3: volumeParam = (float)0.75; break;
+			case 4: volumeParam = (float)0.8; break;
+			case 5: volumeParam = (float)0.85; break; 
+			case 6: volumeParam = (float)0.9; break;
+			case 7: volumeParam = (float)0.95; break;
+			case 8: volumeParam = (float)1; break;
+		}
 	}
 
 
 	public void speak(String text) {
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, 100, volume));
+		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
@@ -92,7 +102,7 @@ public class textToSpeech {
 			//listOfTasks.remove(task);
 		}
 		listOfTasks.clear();
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, 100, volume));
+		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
