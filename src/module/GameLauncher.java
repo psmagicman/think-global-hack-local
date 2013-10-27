@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.URI;
 import java.net.URLClassLoader;
 
+import users.UserManagementService;
+
 public class GameLauncher {
 	public void launchGame(String path) {
 		File file = new File(path);
@@ -25,8 +27,10 @@ public class GameLauncher {
 			Class classToLoad;
 			classToLoad = Class.forName ("Game", true, child);
 			Method method = classToLoad.getDeclaredMethod ("startGame");
+			int mainUserID = UserManagementService.getInstance().getMainUser().getId();
+			int input[] = {mainUserID};
 			Object instance = classToLoad.newInstance ();
-			Object result = method.invoke (instance);
+			Object result = method.invoke (instance, input);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
