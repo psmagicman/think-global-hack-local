@@ -1,19 +1,36 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
+//import users.User;
+//import users.UserManagementService;
+
 public class Counting implements KeyListener
 {
-	private static Font userFont = new Font("Arial", 2, 70); // temp hardcoded
+	private static Font userFont = new Font("Arial", 2, 70); // default
 	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
 	private static Color highlightColor = Color.gray;
@@ -33,11 +50,16 @@ public class Counting implements KeyListener
 	private static JLabel numberOfAttemptsLabel;
 	
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
-	{			
+	{							
+		userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
+		//*********************
+		//User currentUser = UserManagementService.getInstance().getMainUser();
+		//userFont(currentUser.getPreferences().getFontSize());
+		
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
 	    newGame = new GameLogic(GameLogic.MIN_LEVEL);	// set to GameLogic.MIN_LEVEL if there is no user preference.	    
-	    
+		
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    
@@ -207,7 +229,7 @@ public class Counting implements KeyListener
 	    JPanel directionPanel = new JPanel();
 	    directionPanel.setBackground(Color.black);
 	    directionPanel.setMaximumSize(new Dimension (10000,100));
-	    JLabel direction = new JLabel("<html><font color='white'>I am a direction</font></html>");
+	    JLabel direction = new JLabel("<html><font color='white'>Enter the number that comes after</font></html>");
 	    direction.setFont(new Font("Arial", 2, 30));
 	    directionPanel.add(direction);
 	    panel.add(directionPanel);
