@@ -91,22 +91,23 @@ public class Counting
 	    RoundedPanel rPanel = new RoundedPanel();
 	    rPanel.setLayout(new BoxLayout(rPanel, BoxLayout.Y_AXIS));
 	    
-	    rPanel.setBounds(10,10,200,200);
+	    rPanel.setBounds(10,10,200,200); //?
 	    rPanel.setBackground(Color.white);
 
 	    panel.setBackground(backgroundColor);
 	    
-	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
+	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30))); //buffer space around screen
 	    
 	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
 	    //display question prompt
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
+	    
 	    speaker = new TextToSpeakWrapper(problem);
 	    thread = new Thread(speaker);
 	    thread.start();
-	    problemLabel.setFont(new Font("Arial", 2, 28)); 
+	    problemLabel.setFont(new Font("Arial", 2, 50)); 
 	    
 	    rPanel.add(problemLabel);
 	    
@@ -124,13 +125,13 @@ public class Counting
 	    Integer randomNum = newGame.GenerateRandomNumber();
 	    
 	    JLabel firstNum = new JLabel(randomNum.toString());
-	    firstNum.setFont(new Font("Arial", 2, 28));
+	    firstNum.setFont(new Font("Arial", 2, 50));
 	    numPanel.add(firstNum);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
 	    JLabel arrow = new JLabel("->");
-	    arrow.setFont(new Font("Arial", 2, 28));
+	    arrow.setFont(new Font("Arial", 2, 50));
 	    numPanel.add(arrow);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -145,7 +146,7 @@ public class Counting
 	    {
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setFont(new Font("Arial", 2, 28)); 
+	    	AnswerFields[i].setFont(new Font("Arial", 2, 50)); 
 		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
 		    
@@ -156,9 +157,13 @@ public class Counting
 
 	    rPanel.add(numPanel);
 	    
+	    numPanel.setBackground(Color.orange);
+	    
 	    numberOfAttemptsLabel = new JLabel("");
 	    numberOfAttemptsLabel.setVisible(false);
 	    rPanel.add(numberOfAttemptsLabel);
+	    
+	    rPanel.add(new JLabel("end"));
 	    
         f.add(panel);
                        
