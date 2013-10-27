@@ -3,6 +3,9 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import module.GameLauncher;
+import util.DirectoryParser;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -10,9 +13,6 @@ import java.util.*;
 public class MainMenu extends mainGUI {
 	
 	/** Variables **/
-	private JLabel frame_title;
-	private Toolkit toolkit;
-	private Dimension screen;
 	private JButton helpButton;
 	private JButton gamesButton;
 	private JButton optionButton;
@@ -55,5 +55,7 @@ public class MainMenu extends mainGUI {
 		MainMenu s = new MainMenu();
 		UserMenu u = new UserMenu();
 	}
+	
+
 	
 }
