@@ -40,10 +40,6 @@ public class UserMenu extends mainGUI {
 		makeButtons();
 		setVisible(true);
 	}
-
-	private void test() {
-		System.out.println("hello");
-	}
 	
 	public void setup() {
 		List<User> userslist = UserManagementService.getUsers();
