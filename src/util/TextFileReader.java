@@ -8,6 +8,10 @@ public class TextFileReader {
 		BufferedReader reader = null;
 		String FileData = "";
 		try {
+			File helpFile = new File(filePath);
+			if(!helpFile.exists()) {
+				helpFile.createNewFile();
+			} 
 			reader = new BufferedReader(new FileReader(filePath));
 			String line = null;
 			while ((line = reader.readLine()) != null) {
@@ -15,6 +19,7 @@ public class TextFileReader {
 			}
 			reader.close();
 		} catch (IOException ex) {
+			
 			ex.printStackTrace();
 		} finally {
 		}
