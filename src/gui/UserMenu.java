@@ -43,7 +43,7 @@ public class UserMenu extends mainGUI {
 	}
 	
 	public void setup() {
-		List<User> userslist = UserManagementService.getUsers();
+		List<User> userslist = UserManagementService.getInstance().getUsers();
 		User[] userArray = userslist.toArray(new User[userslist.size()]);
 
 		users = new JList<User>(userArray);
@@ -75,7 +75,7 @@ public class UserMenu extends mainGUI {
 					}
 					else{
 						try {
-							UserManagementService.createUser(name);
+							UserManagementService.getInstance().createUser(name);
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
