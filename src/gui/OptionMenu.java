@@ -295,6 +295,21 @@ public class OptionMenu extends mainGUI {
 		}
 	}
 	
+	private class BackDialogAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			_type = 4;
+			Dialog dlg = new Dialog();
+			dlg.createAndShowDialog();
+			saveOptions();			
+			setVisible(false);
+			dispose();
+			MainMenu m = new MainMenu();
+		}
+		
+	}
+	
 	public void makeButtons() {
 		String hexc = UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter();
 		volumeButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "V" + "</font>" + "olume" + "</html>");
@@ -304,7 +319,7 @@ public class OptionMenu extends mainGUI {
 		volumeButton.setName("volume");
 		
 		colorButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "B" + "</font>" + "ackground Colour" + "</html>");
-		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "colorButtonPressed");
+		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "colorButtonPressed");
 		colorButton.addActionListener(new ColorDialogAction());
 		colorButton.getActionMap().put("colorButtonPressed", new ColorDialogAction());
 		colorButton.setName("background color");
@@ -321,7 +336,7 @@ public class OptionMenu extends mainGUI {
 		fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
 		fontButton.setName("font size");
 		
-		backButton = new JButton("Back");
+		backButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "E" + "</font>" + "xit" + "</html>");
 		backButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -331,8 +346,10 @@ public class OptionMenu extends mainGUI {
 				MainMenu m = new MainMenu();
 			}
 		});
-		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
-		backButton.setName("back");
+		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "backButtonPressed");
+		backButton.addActionListener(new BackDialogAction());
+		backButton.getActionMap().put("backButtonPressed", new BackDialogAction());
+		backButton.setName("exit");
 			
 		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
 		mainButtonList.add(volumeButton);
