@@ -103,22 +103,6 @@ public class MainMenu extends mainGUI {
 		add(optionButton);
 		add(quitButton);
 		}
-
-		private class QuitAction extends AbstractAction {
-			QuitAction()
-			{}
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(EXIT_ON_CLOSE);
-			}
-		}
-
-		public class OptionButtonAction extends AbstractAction {
-			@Override
-			public void actionPerformed(ActionEvent action) {
-				OptionMenu n = new OptionMenu();
-			}
-		}
 			
 	private void updateStrings(String hexc)
 	{
@@ -128,16 +112,12 @@ public class MainMenu extends mainGUI {
 		quitLabelText = "<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>";
 	}
 	
-	public class ExitAction extends AbstractAction {
-		JFrame frameToClose;
-		
-		ExitAction(JFrame frameToClose) {
-			this.frameToClose= frameToClose; 
-		}
+	private class QuitAction extends AbstractAction {
+		QuitAction()
+		{}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			textToSpeech.getInstance().cancelSpeak();
-			frameToClose.dispose();
+			System.exit(EXIT_ON_CLOSE);
 		}
 	}
 	
@@ -148,5 +128,12 @@ public class MainMenu extends mainGUI {
 			GameMenu n = new GameMenu();
 		}
 	}
+	
+	public class OptionButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
+			OptionMenu n = new OptionMenu();
+		}
+	}
 }
-
