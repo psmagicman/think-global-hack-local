@@ -81,9 +81,13 @@ public class MainMenu extends mainGUI {
 		
 		quitButton.addActionListener(new QuitAction());
 		gamesButton.addActionListener(new GameButtonAction());
+		optionButton.addActionListener(new OptionButtonAction());
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
+
+		optionButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('o'), "optionButtonPressed");
+		optionButton.getActionMap().put("optionButtonPressed", new OptionButtonAction());
 		
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
@@ -107,6 +111,13 @@ public class MainMenu extends mainGUI {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
+		}
+	}
+	
+	public class OptionButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			OptionMenu n = new OptionMenu();
 		}
 	}
 }

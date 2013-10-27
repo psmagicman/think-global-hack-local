@@ -29,6 +29,8 @@ import users.Themes;
 import users.User;
 import users.UserManagementService;
 
+import util.textToSpeech;
+
 public class OptionMenu extends mainGUI {
 	
 	private JLabel frame_title;
@@ -108,6 +110,7 @@ public class OptionMenu extends mainGUI {
 						}
 						else if (_type == 3) {
 							System.out.println(_type);
+							
 							_fontSize = level;
 							// TODO: Display new font size dynamically
 						}
