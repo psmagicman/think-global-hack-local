@@ -1,7 +1,6 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,11 +8,8 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
-import javax.swing.ImageIcon;
 
-import java.util.*;
-
-public class Counting 
+public class Counting implements KeyListener
 {
 	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
@@ -21,9 +17,15 @@ public class Counting
 	private static JTextField[] AnswerFields;
 	private static String Answer;
 	
+	private static JPanel numPanel;
+	private static JLabel firstNumberLabel;
+	private static GameLogic newGame;
+	private static Integer currentNumber;
+	
 	public static Thread thread = null;
-	public static TextToSpeakWrapper speaker;
+	public static TextToSpeakWrapper speaker = null;
 	public static boolean isAfterAllSpeakingForProblem = false;
+	public static boolean isDone = false;
 	
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
@@ -31,7 +33,8 @@ public class Counting
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{			
 	    JFrame f = new GameWindow();
-	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
+	    f.addKeyListener(new Counting());
+	    newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
 
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
@@ -70,6 +73,7 @@ public class Counting
 	    
 	    RoundedPanel rPanel = new RoundedPanel();
 	    rPanel.setBounds(10,10,200,200);
+	    rPanel.setFocusable(true);
 	    rPanel.setBackground(Color.white);
 
 	    panel.setBackground(backgroundColor);
@@ -90,18 +94,18 @@ public class Counting
 	    
 	    panel.add(rPanel);
         	    
-	    JPanel numPanel = new JPanel();
+	    numPanel = new JPanel();
 
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    numPanel.setBackground(panelBackgroundColor); // random color for testing 
 	    
 	    //display initial random number
-	    Integer randomNum = newGame.GenerateRandomNumber();
+	    currentNumber = newGame.GenerateRandomNumber();
 	    
-	    JLabel firstNum = new JLabel(randomNum.toString());
-	    firstNum.setFont(new Font("Arial", 2, 28));
-	    numPanel.add(firstNum);
+	    firstNumberLabel = new JLabel(currentNumber.toString());
+	    firstNumberLabel.setFont(new Font("Arial", 2, 28));
+	    numPanel.add(firstNumberLabel);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
@@ -120,6 +124,7 @@ public class Counting
 	    for (int i = 0; i < answerLength; ++i)
 	    {
 	    	AnswerFields[i] = new JTextField(1);
+	    	AnswerFields[i].addKeyListener(new Counting());
 	    	AnswerFields[i].setText("?");
 	    	AnswerFields[i].setFont(new Font("Arial", 2, 28)); 
 		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
@@ -145,7 +150,7 @@ public class Counting
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
         // refactor later
-	    speaker = new TextToSpeakWrapper(randomNum.toString());
+	    speaker = new TextToSpeakWrapper(currentNumber.toString());
 	    try 
 	    {
 			thread.join();
@@ -192,7 +197,60 @@ public class Counting
 			}
 			thread = new Thread(speaker);
 			thread.start();
+			isDone = true;	//may wanna thread join
 		}
+	}
+	
+	void ResetGame(int level)
+	{
+		thread = null;
+		speaker = null;
+		isAfterAllSpeakingForProblem = false;
+		isDone = false;
+		
+		int previousAnswerLenght = Answer.length();
+	    for (int i = 0; i < previousAnswerLenght; ++i)	// needs refactor with duplicate code above
+	    {
+	    	AnswerFields[i].setVisible(false);
+	    }
+	   
+
+		numberOfAttemptsLabel.setVisible(false);
+		newGame.SetLevel(level);
+		currentNumber = newGame.GenerateRandomNumber();
+		firstNumberLabel.setText(currentNumber.toString());
+		
+		Answer = ((Integer)newGame.GetNextNumber()).toString();
+	    for (int i = 0; i < Answer.length(); ++i)	// needs refactor with duplicate code above
+	    {
+	    	AnswerFields[i].setText("?");
+	    	AnswerFields[i].setBackground(panelBackgroundColor);
+	    	AnswerFields[i].setVisible(true);
+	    	PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
+		    ((MyDocumentFilter) doc.getDocumentFilter()).setAnswer(Answer.charAt(i));
+	    }	    
+	    
+	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
+	}
+	
+	public void keyPressed(KeyEvent e) 
+	{
+        int key = e.getKeyCode();
+
+        if (key == KeyEvent.VK_ENTER && isDone)
+        {
+        	ResetGame(newGame.GetCurrentLevel());
+        }
+    }
+
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) 
+	{
 	}
 }
 
@@ -208,11 +266,16 @@ class MyDocumentFilter extends DocumentFilter
 		_answer = answer;
 		_countingInstance = countingInstance;
 	}
-	/*
+
+	public void setAnswer(char answer)
+	{
+		_answer = answer;
+	}
+	
     @Override
-    public void insertString(DocumentFilter.FilterBypass fp
-            , int offset, String string, AttributeSet aset)
-                                throws BadLocationException
+    public void replace(DocumentFilter.FilterBypass fp, int offset
+                    , int length, String string, AttributeSet aset)
+                                        throws BadLocationException
     {
         int len = string.length();
         boolean isValidInteger = true;
@@ -229,44 +292,9 @@ class MyDocumentFilter extends DocumentFilter
         {
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
-        	textToSpeech.speak(string);
-        	
-			if (_answer == _textField.getText().charAt(0))
-			{
-				_textField.setBackground(Color.green);	// no font color?
-			}
-			else
-			{
-				_textField.setBackground(Color.red);
-				Counting.numberOfAttempts++;
-			}
-        }
-    }
-    */
-
-    @Override
-    public void replace(DocumentFilter.FilterBypass fp, int offset
-                    , int length, String string, AttributeSet aset)
-                                        throws BadLocationException
-    {
-        int len = string.length();
-        boolean isValidInteger = true;
-
-        for (int i = 0; i < len; i++)
-        {
-        	if (!Character.isDigit(string.charAt(i)))
-            {
-                isValidInteger = false;
-                break;
-            }
-        }
-        if (isValidInteger)
-        {
-        	super.remove(fp, 0, 1);
-        	super.insertString(fp, 0, string, aset);
     	    try 
     	    {
-    	    	while (!Counting.isAfterAllSpeakingForProblem)
+    	    	while (!Counting.isAfterAllSpeakingForProblem && Counting.thread != null && Counting.thread.isAlive())
     	    		Counting.thread.join();
     		} catch (InterruptedException e) 
     		{
@@ -306,4 +334,3 @@ class TextToSpeakWrapper implements Runnable
 		textToSpeech.speak(stringToSpeak);
 	}
 }
-
