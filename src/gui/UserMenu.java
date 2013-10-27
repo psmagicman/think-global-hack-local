@@ -66,7 +66,10 @@ public class UserMenu extends mainGUI {
 					}
 					else{
 						try {
-							UserManagementService.getInstance().createUser(name);
+							User newUser = UserManagementService.getInstance().createUser(name);
+							UserManagementService.getInstance().setMainUser(newUser);
+							goToMainMenu();
+							
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
@@ -104,12 +107,16 @@ public class UserMenu extends mainGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {			
-			MainMenu s = new MainMenu();
 			User selectedUser = users.getSelectedValue(); 
 			UserManagementService.getInstance().setMainUser(selectedUser);
 			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
+			goToMainMenu();
 		}
 
+	}
+	
+	private void goToMainMenu(){
+		MainMenu s = new MainMenu();
 	}
 	
 	@Override
