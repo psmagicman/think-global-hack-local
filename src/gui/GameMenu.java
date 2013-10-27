@@ -29,6 +29,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import users.User;
+import users.UserManagementService;
 import util.DirectoryParser;
 
 public class GameMenu extends mainGUI {
@@ -39,7 +40,7 @@ public class GameMenu extends mainGUI {
 	private User user;
 	private String hexc;
 	
-	private String hotKey = "<html><font color=\"#"+ "hexc" + "\">" ;
+	private String hotKey;
 	/**
 	 * Create the frame.
 	 */
@@ -47,11 +48,12 @@ public class GameMenu extends mainGUI {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
 
 		setup();	
+		user = UserManagementService.getInstance().getMainUser();
+		userPref(user);
+		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 2));
+
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getCategoryStrings());
-		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 2));
-		// This function takes out the frame
-		
 		setVisible(true);
 		
 		//TO DO: read out the instructions
@@ -76,9 +78,10 @@ public class GameMenu extends mainGUI {
 	}
 	
 	private void createButtons(List<String> categoryStrings) {
+		hexc = user.getPreferences().getTheme().letter();
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText(hotKey + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
+			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
