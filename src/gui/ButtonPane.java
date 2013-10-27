@@ -15,6 +15,7 @@ import java.util.EventListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import users.UserManagementService;
 import util.textToSpeech;
 
 public class ButtonPane extends JPanel {
@@ -97,7 +98,7 @@ public class ButtonPane extends JPanel {
 		
 		@Override
 		public void focusLost(FocusEvent e) {
-			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);
+			((JButton) e.getComponent()).setBackground(UserManagementService.getInstance().getMainUser().getPreferences().getTheme().background());
 		}
 	};
 	
