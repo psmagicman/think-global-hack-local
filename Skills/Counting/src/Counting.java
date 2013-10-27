@@ -89,14 +89,16 @@ public class Counting
 	    JPanel panel = new JPanel();
 	    
 	    RoundedPanel rPanel = new RoundedPanel();
+	    rPanel.setLayout(new BoxLayout(rPanel, BoxLayout.Y_AXIS));
 	    
 	    rPanel.setBounds(10,10,200,200);
 	    rPanel.setBackground(Color.white);
 
 	    panel.setBackground(backgroundColor);
-	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 	    
 	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
+	    
+	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
 	    //display question prompt
 	    String problem = "What is the next number?";
@@ -105,6 +107,7 @@ public class Counting
 	    thread = new Thread(speaker);
 	    thread.start();
 	    problemLabel.setFont(new Font("Arial", 2, 28)); 
+	    
 	    rPanel.add(problemLabel);
 	    
 	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
