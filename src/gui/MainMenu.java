@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
 
-import users.Preferences;
+import users.*;
 
 public class MainMenu extends mainGUI {
 
@@ -21,7 +21,8 @@ public class MainMenu extends mainGUI {
 	private JButton gamesButton;
 	private JButton optionButton;
 	private JButton quitButton;
-
+	
+	private User user;
 	private String hexc;
 
 	private String helpLabelText;
@@ -40,6 +41,7 @@ public class MainMenu extends mainGUI {
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
+		user = UserManagementService.getInstance().getMainUser();
 
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
