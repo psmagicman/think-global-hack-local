@@ -9,6 +9,7 @@ import javax.swing.plaf.basic.*;
 import javax.swing.text.JTextComponent;
 
 import module.GameLauncher;
+import users.UserManagementService;
 import util.DirectoryParser;
 import util.TextFileReader;
 
@@ -28,6 +29,7 @@ public class HelpMenu extends mainGUI {
 	public HelpMenu() {
 		setup();
 		setLayout(new GridLayout(2, 1));
+		userPref(UserManagementService.getInstance().getMainUser());
 		makeHelpText();
 		makeButtons();
 		setVisible(true);
@@ -37,7 +39,8 @@ public class HelpMenu extends mainGUI {
 	public void makeButtons() {
 
 		// ImageIcon help = new ImageIcon("Images/H-icon.png");
-		quitButton = new JButton("Quit");
+		String hexc = UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter();
+		quitButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>");
 
 		quitButton.addActionListener(new ExitAction(this));
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(
