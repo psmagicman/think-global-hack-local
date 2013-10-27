@@ -69,19 +69,9 @@ public class textToSpeech {
 		wordsPerMinuteParam = wpm;
 	}
 	
-	public void setVolume(int vol) {
+	public void setVolume(float vol) {
 		//System.out.println("volume: " + vol);
-		switch(vol)
-		{
-			case 1: volumeParam = (float)0.65; break;
-			case 2: volumeParam = (float)0.70; break;
-			case 3: volumeParam = (float)0.75; break;
-			case 4: volumeParam = (float)0.8; break;
-			case 5: volumeParam = (float)0.85; break; 
-			case 6: volumeParam = (float)0.9; break;
-			case 7: volumeParam = (float)0.95; break;
-			case 8: volumeParam = (float)1; break;
-		}
+		volumeParam = vol;
 	}
 
 

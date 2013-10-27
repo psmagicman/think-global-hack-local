@@ -44,21 +44,20 @@ public class OptionMenu extends mainGUI {
 	private int _type;
 	
 	private int _volumeLevel;
-	private int _fontSize;
-	private int _speed;
-	private Themes _theme;
+	private int _fontLevel;
+	private int _speedLevel;
+	private int _themeLevel;
 	
 	User _mainUser;
 	
 	public OptionMenu() {
 		// INIT
-	_mainUser = new User("Bob"); //TODO: DELETE
-	//_mainUser = UserManagementService.getInstance().getMainUser(); //TODO: UNCOMMENT
+	_mainUser = UserManagementService.getInstance().getMainUser(); //TODO: UNCOMMENT
 	Preferences prefs = _mainUser.getPreferences();
-	_volumeLevel = prefs.getVolume();
-	_fontSize = prefs.getFontSize();
-	_speed = prefs.getSpeed();
-	_theme = prefs.getTheme();
+	_volumeLevel = prefs.getVolumeLevel();
+	_fontLevel = prefs.getFontLevel();
+	_speedLevel = prefs.getSpeedLevel();
+	_themeLevel = prefs.getThemeLevel();
 	
 	setup();
 	
@@ -67,6 +66,22 @@ public class OptionMenu extends mainGUI {
 	setVisible(true);
 }
 
+	private void saveOptions()
+	{
+		Preferences prefs = _mainUser.getPreferences();
+		prefs.setVolume(_volumeLevel);
+		prefs.setSpeed(_speedLevel);
+		prefs.setFontSize(_fontLevel);
+		prefs.setTheme(_themeLevel);
+		UserManagementService.getInstance().getMainUser().setPreferences(prefs);
+		System.out.println("PREFS:\n" + "volume: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume() + "\nSpeed: " + UserManagementService.getInstance().getMainUser().getPreferences().getSpeed() 
+				+ "\nFont size: " + UserManagementService.getInstance().getMainUser().getPreferences().getFontSize() + 
+				"\nTheme: " + UserManagementService.getInstance().getMainUser().getPreferences().getTheme()); 
+		
+		System.out.println("theme level: " + _themeLevel);
+
+	}
+	
 private class Dialog extends JFrame {
 	private void createAndShowDialog() {
 		JPanel mainPanel = new JPanel(new GridLayout(2,1));
@@ -119,7 +134,8 @@ private class Dialog extends JFrame {
 						textToSpeech.getInstance().setVolume(level);
 						textToSpeech.getInstance().speakNow(new Integer(level).toString());
 					}
-					else if (_type == 1) { 
+					else if (_type == 1) {
+						_themeLevel = level;
 						switch(level) {
 							case 1: break;
 							case 2: break;
@@ -131,13 +147,13 @@ private class Dialog extends JFrame {
 						}
 					}
 					else if (_type == 2) {
-						_speed = level;
-						textToSpeech.getInstance().setWPM(_speed*10+100);
+						_speedLevel = level;
+						textToSpeech.getInstance().setWPM(_speedLevel*10+100);
 						textToSpeech.getInstance().speak(new Integer(level).toString() + " poody poody poody poody");
 						// TODO: Talk at the said speed in "One one thousand"
 					}
 					else if (_type == 3) {
-						_fontSize = level;
+						_fontLevel = level;
 						textToSpeech.getInstance().speak("Font size " + new Integer(level).toString());
 						// TODO: Display new font size dynamically
 					}
@@ -152,20 +168,10 @@ private class Dialog extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Preferences prefs = _mainUser.getPreferences();
 				if (_type == 0) prefs.setVolume(_volumeLevel);
-				else if (_type == 1) prefs.setTheme(_theme);
-				else if (_type == 2) prefs.setSpeed(_speed);
-				else if (_type == 3) 
-					{
-						switch(_fontSize)
-						{
-							case 1: prefs.setFontSize(27); break; 
-							case 2: prefs.setFontSize(35); break;
-							case 3: prefs.setFontSize(45); break;
-							default: prefs.setFontSize(_fontSize);
-						}
-					}
-				//System.out.println(_volumeLevel); TEST
-				_mainUser.setPreferences(prefs);
+				else if (_type == 1) prefs.setTheme(_themeLevel);
+				else if (_type == 2) prefs.setSpeed(_speedLevel);
+				else if (_type == 3) prefs.setFontSize(_fontLevel);
+				saveOptions();
 				setVisible(false);
 				dispose();
 			}
@@ -176,9 +182,7 @@ private class Dialog extends JFrame {
 		cancelButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Preferences prefs = _mainUser.getPreferences();
-				prefs.setVolume();
-				prefs.setSpeed();
+				saveOptions();
 				setVisible(false);
 				dispose();
 			}
@@ -258,14 +262,7 @@ public void makeButtons() {
 	backButton.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			Preferences prefs = _mainUser.getPreferences();
-			prefs.setVolume(_volumeLevel);
-			prefs.setSpeed(_speed);
-			prefs.setFontSize(_fontSize);
-			UserManagementService.getInstance().getMainUser().setPreferences(prefs);
-			
-			System.out.println("PREFS:\n" + "volume: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume() + "\nSpeed: " + UserManagementService.getInstance().getMainUser().getPreferences().getSpeed() 
-								+ "\nFont size: " + UserManagementService.getInstance().getMainUser().getPreferences().getFontSize());
+			saveOptions();			
 			setVisible(false);
 			dispose();
 		}
