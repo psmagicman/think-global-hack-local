@@ -25,7 +25,7 @@ public class Counting
 	    RoundedPanel rPanel = new RoundedPanel();
 	    rPanel.setBounds(10,10,200,200);
 	    rPanel.setBackground(Color.white);
-	    
+
 	    panel.setBackground(backgroundColor);
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 	    
@@ -52,11 +52,16 @@ public class Counting
 	    
 	    //display initial random number
 	    Integer randomNum = newGame.GenerateRandomNumber();
-	    numPanel.add(new JLabel(randomNum.toString()));
+	    
+	    JLabel firstNum = new JLabel(randomNum.toString());
+	    firstNum.setFont(new Font("Arial", 2, 28));
+	    numPanel.add(firstNum);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
-	    numPanel.add(new JLabel("->"));
+	    JLabel arrow = new JLabel("->");
+	    arrow.setFont(new Font("Arial", 2, 28));
+	    numPanel.add(arrow);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
@@ -89,7 +94,12 @@ public class Counting
 			    PlainDocument doc3 = (PlainDocument) answerField3.getDocument();
 			    doc3.setDocumentFilter(new MyDocumentFilter(answerField3, answerString.charAt(2)));
 	    
-	    answerField1.setText("?");
+			    
+				answerField1.setFont(new Font("Arial", 2, 28)); 
+				answerField2.setFont(new Font("Arial", 2, 28)); 
+				answerField3.setFont(new Font("Arial", 2, 28)); 
+				
+			    answerField1.setText("?");
 	    answerField2.setText("?");
 	    answerField3.setText("?");
 	    
