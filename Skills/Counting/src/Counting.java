@@ -1,5 +1,8 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
@@ -31,12 +34,16 @@ public class Counting
 	    
 	    JMenuItem levelItem = new JMenuItem("1");
 	    
-	    
-	    levelItem.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent event) {
-	                System.exit(0);
-	            }
-	        });
+
+	    levelItem.addActionListener(new ActionListener() 
+	    {
+	    	@Override
+	    	public void actionPerformed(ActionEvent arg0) 
+	    	{
+	    		System.exit(0);
+
+	    	}
+	    });
     
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
@@ -100,11 +107,6 @@ public class Counting
 	    	AnswerFields[i].setText("?");
 		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
-			    
-				answerField1.setFont(new Font("Arial", 2, 28)); 
-				answerField2.setFont(new Font("Arial", 2, 28)); 
-				answerField3.setFont(new Font("Arial", 2, 28)); 
-				
 		    
 		    AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		    AnswerFields[i].setBackground(backgroundColor);
