@@ -29,10 +29,10 @@ public class MainMenu extends mainGUI {
 
 	public MainMenu() {
 		setup();
+		defaultPref(UserManagementService.getInstance().getMainUser().getPreferences());
 		setLayout(new GridLayout(2,1));
 		textToSpeech.getInstance().setWPM(UserManagementService.getInstance().getMainUser().getPreferences().getSpeed());
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
-		System.out.println("VOL: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		makeButtons();
 		// setUndecorated(true); // hides top bar
@@ -79,21 +79,29 @@ public class MainMenu extends mainGUI {
 		optionButton = new JButton(optionLabelText);		
 		quitButton = new JButton(quitLabelText);
 		
-		quitButton.addActionListener(new ExitAction(this));
+		quitButton.addActionListener(new QuitAction());
 		gamesButton.addActionListener(new GameButtonAction());
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 		
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
-		quitButton.getActionMap().put("exitButtonPressed", new ExitAction(this));
+		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
 
 		add(helpButton);
 		add(gamesButton);
 		add(optionButton);
 		add(quitButton);
 	}
-
+	
+	private class QuitAction extends AbstractAction {
+		QuitAction()
+		{}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(EXIT_ON_CLOSE);
+		}
+	}
 	
 	private class GameButtonAction extends AbstractAction {
 		@Override
