@@ -40,9 +40,21 @@ public class Counting
 	    JMenu level = new JMenu("Level");
 	    JMenu learn = new JMenu("Learn");
 	    JMenu practice = new JMenu("Practice");
-	    JMenu exit = new JMenu("Exit");
+	    JMenu EXIT = new JMenu("EXIT");
+	    EXIT.addActionListener(new ActionListener() {
+	    	//doesn't work right now
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
 	    
 	    level.setMnemonic(KeyEvent.VK_L);
+	    
+	    help.setFont(new Font("Arial", 2, 28));
+	    level.setFont(new Font("Arial", 2, 28));
+	    learn.setFont(new Font("Arial", 2, 28));    
+	    practice.setFont(new Font("Arial", 2, 28));	    
+	    EXIT.setFont(new Font("Arial", 2, 28));
 	    
 	    java.util.List<Integer> allLevels = newGame.GetLevels();
 	    	    
@@ -56,15 +68,23 @@ public class Counting
    
 	    gameMenuBar.add(help); 
 	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
 	    f.add(gameMenuBar);
+	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	      
 	    gameMenuBar.add(learn);  
 	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
 	    gameMenuBar.add(practice);  
 	    
-	    gameMenuBar.add(exit);  
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
+	    gameMenuBar.add(EXIT);  
 	    
 	    JPanel panel = new JPanel();
 	    
