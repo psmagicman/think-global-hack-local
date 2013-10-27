@@ -16,15 +16,14 @@ public class GameWindow extends JFrame
 	public GameWindow() 
 	{
 		setTitle("Counting");
-		setSize(300,200); // default size is 0,0
-		setLocation(10,200); // default is 0,0 (top left corner)
+		setSize(10,15); // default size is 0,0
+		setLocation(100,100); // default is 0,0 (top left corner)
 		setVisible(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		defineVariables();
 		
 		toolkit = getToolkit();
-		screenSize = toolkit.getScreenSize();
-		
+		screenSize = toolkit.getScreenSize();		
 	}
 	
 	private void defineVariables() {

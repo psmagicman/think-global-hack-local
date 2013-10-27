@@ -43,9 +43,21 @@ public class Counting implements KeyListener
 	    JMenu level = new JMenu("Level");
 	    JMenu learn = new JMenu("Learn");
 	    JMenu practice = new JMenu("Practice");
-	    JMenu exit = new JMenu("Exit");
+	    JMenu EXIT = new JMenu("EXIT");
+	    EXIT.addActionListener(new ActionListener() {
+	    	//doesn't work right now
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
 	    
 	    level.setMnemonic(KeyEvent.VK_L);
+	    
+	    help.setFont(new Font("Arial", 2, 28));
+	    level.setFont(new Font("Arial", 2, 28));
+	    learn.setFont(new Font("Arial", 2, 28));    
+	    practice.setFont(new Font("Arial", 2, 28));	    
+	    EXIT.setFont(new Font("Arial", 2, 28));
 	    
 	    java.util.List<Integer> allLevels = newGame.GetLevels();
 	    	    
@@ -59,27 +71,37 @@ public class Counting implements KeyListener
    
 	    gameMenuBar.add(help); 
 	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
-	    f.add(gameMenuBar);
+	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	      
 	    gameMenuBar.add(learn);  
 	    
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
 	    gameMenuBar.add(practice);  
 	    
-	    gameMenuBar.add(exit);  
+	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
+	    
+	    gameMenuBar.add(EXIT);  
 	    
 	    JPanel panel = new JPanel();
 	    
 	    RoundedPanel rPanel = new RoundedPanel();
+	    rPanel.setLayout(new BoxLayout(rPanel, BoxLayout.Y_AXIS));
+	    
 	    rPanel.setBounds(10,10,200,200);
 	    rPanel.setFocusable(true);
 	    rPanel.setBackground(Color.white);
 
 	    panel.setBackground(backgroundColor);
-	    panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 	    
 	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
+	    
+	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
 	    //display question prompt
 	    String problem = "What is the next number?";
@@ -88,6 +110,7 @@ public class Counting implements KeyListener
 	    thread = new Thread(speaker);
 	    thread.start();
 	    problemLabel.setFont(new Font("Arial", 2, 28)); 
+	    
 	    rPanel.add(problemLabel);
 	    
 	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
