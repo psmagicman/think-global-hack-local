@@ -48,7 +48,7 @@ public class GameMenu extends mainGUI {
 		createButtons(directoryParser.getCategoryStrings());
 
 		// This function takes out the frame
-		//this.setUndecorated(true);
+		this.setUndecorated(true);
 		CategoryMenu c = new CategoryMenu(directoryParser, 1);
 		
 		setVisible(true);

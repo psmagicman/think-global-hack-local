@@ -43,6 +43,7 @@ public class mainGUI extends JFrame {
 		UIManager.put("Button.font", newButtonFont);
 		UIManager.put("Button.foreground", Color.DARK_GRAY);
 		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("List.font", newButtonFont);
 	}
 
 	/**
