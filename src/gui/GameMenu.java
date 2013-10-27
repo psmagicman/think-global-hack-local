@@ -75,6 +75,7 @@ public class GameMenu extends mainGUI {
 			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
+			buttonToAdd.addActionListener(new CategoryButtonAction(directoryParser, i));
 			this.add(buttonToAdd);
 		}
 		
@@ -82,6 +83,7 @@ public class GameMenu extends mainGUI {
 		buttonToAdd.setSize(20, 5);
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
+		buttonToAdd.addActionListener(new ExitAction(this));
 		this.add(buttonToAdd);
 	}
 }
