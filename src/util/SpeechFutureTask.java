@@ -5,7 +5,7 @@ import java.util.concurrent.FutureTask;
 
 public class SpeechFutureTask<V> extends FutureTask<V> {
 
-	public boolean canCancel = false;
+	public boolean canCancel = true;
 
 	/**
 	 * a new speaking task to be pushed onto the queue. If cancellable is set to

@@ -79,13 +79,14 @@ public class textToSpeech {
 
 	public void speak(String text) {
 		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		task.canCancel = true;
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
 	
 	public void speakNonInterrupted(String text) {
 		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
-		task.canCancel = true;
+		task.canCancel = false;
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
@@ -98,7 +99,7 @@ public class textToSpeech {
 	public void speakNow(String text) {
 		cancelSpeak();
 		
-		listOfTasks.clear();
+		//listOfTasks.clear();
 		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
 		listOfTasks.add(task);
 		executor.submit(task);
@@ -108,7 +109,8 @@ public class textToSpeech {
 	{
 		List<SpeechFutureTask<String>> tasksToRemove = new ArrayList<SpeechFutureTask<String>>();
 		for (SpeechFutureTask<String> task : listOfTasks){
-			if (task.canCancel){
+			if (task.canCancel) {
+				
 				task.cancel(true);	
 				tasksToRemove.add(task);
 			}
