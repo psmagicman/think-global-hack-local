@@ -46,7 +46,7 @@ public class ButtonPane extends JPanel {
 		if(indexLocation < listSize && indexLocation >= 0) {
 			indexLocation++;
 		}
-		else {
+		if(indexLocation >= listSize) {
 			indexLocation = 0;
 		}
 		buttonLocation = indexLocation;
@@ -59,8 +59,8 @@ public class ButtonPane extends JPanel {
 		if(indexLocation < listSize && indexLocation >= 0) {
 			indexLocation--;
 		}
-		else {
-			indexLocation = listSize;
+		if(indexLocation < 0) {
+			indexLocation = listSize - 1;
 		}
 		buttonLocation = indexLocation;
 		System.out.println(buttonLocation);
