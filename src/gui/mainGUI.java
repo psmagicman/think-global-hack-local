@@ -33,32 +33,30 @@ public class mainGUI extends JFrame {
 		// set the frame size
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
+		Color bg = Color.DARK_GRAY;
+		Color fg = Color.WHITE;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		//determines the font for the JButton/JPanel/JLabel
-		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
-		UIManager.put("Button.foreground", Color.DARK_GRAY);
-		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("Button.foreground", fg);
+		UIManager.put("Button.background", bg);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
-		UIManager.put("Panel.background", Color.WHITE);	
-		
-		/*
-		JPanel buttons_area = new JPanel();
-		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout());
-		*/
-		
-		// define title
+
+			
 		frame_title = new JLabel("SAM");
+	
+		UIManager.put("Panel.background", bg);	
 	}
+		
 
 	// create buttons here; this is empty because each menu will override this
 	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
-	
+	//Decides whether to use the default or profile theme
 	public void defaultPref(Preferences name){
 		if (name == null){
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
