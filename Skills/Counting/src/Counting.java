@@ -175,7 +175,14 @@ public class Counting implements KeyListener
 	    rPanel.add(new JLabel("end"));
 	    
         f.add(panel);
-                       
+	    
+	    JPanel directionPanel = new JPanel();
+	    directionPanel.setBackground(Color.black);
+	    directionPanel.setMaximumSize(new Dimension (10000,100));
+	    JLabel direction = new JLabel("<html><font color='white'>I am a direction</font></html>");
+	    directionPanel.add(direction);
+	    panel.add(directionPanel);
+	    
         f.setTitle("Counting Game");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLocationRelativeTo(null);
@@ -220,6 +227,8 @@ public class Counting implements KeyListener
 		{
 			numberOfAttemptsLabel.setText("Number of Attempts: " + numberOfAttempts);
 			numberOfAttemptsLabel.setVisible(true);
+			numberOfAttemptsLabel.setFont(new Font("Arial", 2, 28));	
+
 			speaker = new TextToSpeakWrapper(Answer);
 			try 
 			{
