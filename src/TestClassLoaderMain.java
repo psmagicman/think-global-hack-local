@@ -11,18 +11,23 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import users.User;
+import users.UserManagementService;
+
 public class TestClassLoaderMain extends JFrame {
 
 	private void createAndShowGUI() {
+		/*
+		 * SIMULATE MAIN MENU
+		 */
 		JButton testButton = new JButton("test");
 		testButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GameLauncher gameLauncher = new GameLauncher();
-				gameLauncher.launchGame("C:\\Users\\Wilbur\\Desktop\\THINKGLOBAL\\game.jar");
+				gameLauncher.launchGame(".\\game.jar");
 			}
 		});
-
 		add(testButton);
 	}
 

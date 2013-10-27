@@ -28,6 +28,7 @@ public class Counting implements KeyListener
 	public static TextToSpeakWrapper speaker = null;
 	public static boolean isAfterAllSpeakingForProblem = false;
 	public static boolean isDone = false;
+	public static boolean isDoneLoading = false;
 	
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
@@ -123,9 +124,6 @@ public class Counting implements KeyListener
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
 	    
-	    speaker = new TextToSpeakWrapper(problem);
-	    thread = new Thread(speaker);
-	    thread.start();
 	    problemLabel.setFont(new Font("Arial", 2, 50)); 
 	    
 	    rPanel.add(problemLabel);
@@ -161,18 +159,27 @@ public class Counting implements KeyListener
 	    int answerLength = Answer.length();
 	    
 	    // Each digit for the answer has its own JTextField
-	    AnswerFields = new JTextField[answerLength];
-	    for (int i = 0; i < answerLength; ++i)
+	    AnswerFields = new JTextField[GameLogic.MAX_LEVEL];
+	    for (int i = 0; i < GameLogic.MAX_LEVEL; ++i)
 	    {
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].addKeyListener(new Counting());
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setFont(new Font("Arial", 2, 50)); 
-		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
-		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
-		    
-		    AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
+	    	AnswerFields[i].setFont(new Font("Arial", 2, 50));
+	    	AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		    AnswerFields[i].setBackground(backgroundColor);
+		    
+		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
+		    if (i < answerLength)
+		    {
+		    	doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
+		    	AnswerFields[i].setVisible(true);
+		    }
+		    else
+		    {
+		    	doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], '-', new Counting()));
+		    	AnswerFields[i].setVisible(false);
+		    }
 		    numPanel.add(AnswerFields[i]);
 	    }
 
@@ -201,11 +208,16 @@ public class Counting implements KeyListener
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
    
+	    //speaker = new TextToSpeakWrapper(problem);	// uncommenting this will read out loud the problem. However, it really slows down the loading unless we stop preventing asynchronous input
+	    //thread = new Thread(speaker);
+	    //thread.start();
+        
         // the location of the code here doesn't seem so good
 	    speaker = new TextToSpeakWrapper(currentNumber.toString());
 	    try 
 	    {
-			thread.join();
+			if (thread != null && thread.isAlive())
+				thread.join();
 		} catch (InterruptedException e) 
 		{
 			e.printStackTrace();
@@ -214,7 +226,8 @@ public class Counting implements KeyListener
 	    thread.start();
 	    try 
 	    {
-			thread.join();
+	    	if (thread != null && thread.isAlive())
+	    		thread.join();
 		} catch (InterruptedException e) 
 		{
 			e.printStackTrace();
@@ -259,7 +272,7 @@ public class Counting implements KeyListener
 	{
 		thread = null;
 		speaker = null;
-		isAfterAllSpeakingForProblem = false;
+		//isAfterAllSpeakingForProblem = false;	// uncommenting will decrease the performance of thread.
 		isDone = false;
 		
 		int previousAnswerLenght = Answer.length();
@@ -268,7 +281,6 @@ public class Counting implements KeyListener
 	    	AnswerFields[i].setVisible(false);
 	    }
 	   
-
 		numberOfAttemptsLabel.setVisible(false);
 		newGame.SetLevel(level);
 		currentNumber = newGame.GenerateRandomNumber();

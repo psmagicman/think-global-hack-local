@@ -1,15 +1,20 @@
 package users;
 
+import java.util.List;
+import java.util.Map;
+
 public class User {
 
+	private String path;
 	private String name;
 	private Preferences preferences;
-	//private GameLevels levels;
+	private Map<String, List<GameStat>> gameStats; //name and statistics for game
 	private int id;
 
 	public User(String name) {
 		this.name = name;
 		this.id = -1;
+		this.preferences = new Preferences();
 	}
 
 	public String getName() {
@@ -26,7 +31,9 @@ public class User {
 
 	public void setPreferences(Preferences prefs) {
 		this.preferences = prefs;
+		
 	}
+	
 
 	public int getId() {
 		return id;
@@ -34,5 +41,12 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+		
 	}
+	
+	@Override public String toString(){
+		return this.name;
+	}
+	
+	
 }
