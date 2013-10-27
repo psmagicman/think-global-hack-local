@@ -44,9 +44,7 @@ public class UserMenu extends mainGUI {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
 		if(userslist.size() != 0)
-		{
 			users.setSelectedIndex(0);
-		}
 		add(users);
 	}
 
@@ -146,11 +144,7 @@ public class UserMenu extends mainGUI {
 		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
 		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
 		
-		if(users.getModel().getSize() == 0)
-		{
-			System.out.println("No users");
-			selectUserButton.setEnabled(false);
-		}
+		selectUserButton.setEnabled(users.getModel().getSize()!=0); // disables button if there are no users
 		add(createNewUserButton);
 		add(selectUserButton);
 	}
