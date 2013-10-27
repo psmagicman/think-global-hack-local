@@ -13,6 +13,7 @@ import javax.swing.text.PlainDocument;
 
 public class Counting implements KeyListener
 {
+	private static Font userFont = new Font("Arial", 2, 70); // temp hardcoded
 	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
 	private static Color highlightColor = Color.gray;
@@ -127,7 +128,7 @@ public class Counting implements KeyListener
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
 	    
-	    problemLabel.setFont(new Font("Arial", 2, 70)); 
+	    problemLabel.setFont(userFont); 
 	    
 	    rPanel.add(problemLabel);
 	    
@@ -147,13 +148,13 @@ public class Counting implements KeyListener
 	    currentNumber = newGame.GenerateRandomNumber();
 	    
 	    firstNumberLabel = new JLabel(currentNumber.toString());
-	    firstNumberLabel.setFont(new Font("Arial", 2, 70));
+	    firstNumberLabel.setFont(userFont);
 	    numPanel.add(firstNumberLabel);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         
 	    JLabel arrow = new JLabel("->");
-	    arrow.setFont(new Font("Arial", 2, 70));
+	    arrow.setFont(userFont);
 	    numPanel.add(arrow);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -170,7 +171,7 @@ public class Counting implements KeyListener
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].addKeyListener(new Counting());
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setFont(new Font("Arial", 2, 70));
+	    	AnswerFields[i].setFont(userFont);
 	    	AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		    AnswerFields[i].setBackground(backgroundColor);
 		    
