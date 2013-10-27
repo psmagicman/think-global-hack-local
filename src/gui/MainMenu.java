@@ -33,13 +33,25 @@ public class MainMenu extends mainGUI {
 	public MainMenu() {
 		setup();
 		setLayout(new GridLayout(2,1));
+
+		//gets mainUser preferences
+		try {
+			user = UserManagementService.createUser("Joe");
+		} catch (NameTakenException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		//creates all the JButtons
 		makeButtons();
+
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
-		user = UserManagementService.mainUser;
+
 		//read out instructions
 		textToSpeech.speak("Use your mouse or keyboard to select an option");
-		//TO DO: highlight menu items and read them
+		
+						//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 		
 		for  (int count=1; count<= 4; count++) {

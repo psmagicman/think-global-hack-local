@@ -22,25 +22,24 @@ public class mainGUI extends JFrame {
 	public mainGUI() {
 		// set the frame size
 		setup();
-		user = UserManagementService.mainUser;
-		toolkit = getToolkit();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 		setTitle(frame_title.getText());
-		userPref(user);
 		setVisible(true);
 	}
 
 	public void setup() {
 		// set the frame size
+		user = UserManagementService.mainUser;
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		userPref(user);
 		
-		//		Color bg = Color.DARK_GRAY;
-		//		Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel
+		//		Color fg = Color.WHITE;
+		//		Color bg = Color.DARK_GRAY;
 		//		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
+		
 		//		UIManager.put("Button.font", newButtonFont);
 		//		UIManager.put("Button.foreground", fg);
 		//		UIManager.put("Button.background", bg);
@@ -60,6 +59,7 @@ public class mainGUI extends JFrame {
 	//Decides whether to use the default or profile theme
 	public void userPref(User name){
 		if (name == null){
+			//Use Default settings
 			Color bg = name.getPreferences().getTheme().background();
 			Color fg = name.getPreferences().getTheme().foreground();
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
@@ -71,6 +71,7 @@ public class mainGUI extends JFrame {
 			UIManager.put("Panel.background", bg);	
 		}
 		else{
+			//Loads User settings
 			Color bg = name.getPreferences().getTheme().foreground();
 			Color fg = name.getPreferences().getTheme().background();
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
@@ -100,7 +101,6 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
-			UserMenu u = new UserMenu();
 		}
 	}
 }
