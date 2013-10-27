@@ -43,8 +43,6 @@ public class MainMenu extends mainGUI {
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		user = UserManagementService.getInstance().getMainUser();
-		//read out instructions
-		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 
 		//creates all the JButtons
 		makeButtons();
@@ -55,30 +53,6 @@ public class MainMenu extends mainGUI {
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 
-		for  (int count=1; count<= 4; count++) {
-			try { 
-				Thread.sleep(500); 
-				;
-			} catch (InterruptedException e) { 
-				// TODO Auto-generated catch block 
-				e.printStackTrace(); 
-			} 
-			switch (count) {
-			case 1: 
-				textToSpeech.getInstance().speak("Help");
-				break;
-			case 2:
-				textToSpeech.getInstance().speak("Games");
-				break;
-			case 3:
-				textToSpeech.getInstance().speak("Options");
-				break;
-			case 4:
-				textToSpeech.getInstance().speak("Quit");
-				break;
-			default: break;
-			}
-		}	
 	}
 
 		@Override
@@ -95,7 +69,8 @@ public class MainMenu extends mainGUI {
 		optionButton.addActionListener(new OptionButtonAction());
 		quitButton.addActionListener(new QuitAction());
 		gamesButton.addActionListener(new GameButtonAction());
-
+		helpButton.addActionListener(new HelpAction());
+		
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 
@@ -104,7 +79,24 @@ public class MainMenu extends mainGUI {
 
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
-		helpButton.setBorder(BorderFactory.createEmptyBorder());
+		
+//		helpButton.setBorder(BorderFactory.createEmptyBorder());
+		helpButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('h'), "helpButtonPressed");
+		helpButton.getActionMap().put("helpButtonPressed", new HelpAction());
+		
+		helpButton.setName("help");
+		gamesButton.setName("games");
+		optionButton.setName("options");
+		quitButton.setName("quit");
+		
+		// the part below adds button cycling with arrow keys
+		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
+		mainButtonList.add(helpButton);
+		mainButtonList.add(gamesButton);
+		mainButtonList.add(optionButton);
+		mainButtonList.add(quitButton);
+		
+		new ButtonPane(mainButtonList);
 		
 		add(helpButton);
 		add(gamesButton);
@@ -132,6 +124,7 @@ public class MainMenu extends mainGUI {
 	public class GameButtonAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
 			GameMenu n = new GameMenu();
 		}
 	}

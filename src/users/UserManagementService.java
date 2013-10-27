@@ -77,8 +77,15 @@ public class UserManagementService {
 			System.out.println(users.get(i).getName());
 		}
 		*/
+		
 		List<User> users = getUsers();
-	    
+		
+		for (Object user : users){
+			if (((User)user).getName().equals(name)){
+				throw new NameTakenException(String.format("The name %s is already taken!", name));
+			}
+		}
+		
 		User newUser = new User(name);
 		
 		//generate a random id
@@ -98,11 +105,7 @@ public class UserManagementService {
 			e1.printStackTrace();
 		}
 		
-		for (Object user : users){
-			if (((User)user).getName().equals(name)){
-				throw new NameTakenException(String.format("The name %s is already taken!", name));
-			}
-		}
+		
 		
 		users.add(newUser);
 		return newUser;

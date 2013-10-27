@@ -1,18 +1,36 @@
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
+//import users.User;
+//import users.UserManagementService;
+
 public class Counting implements KeyListener
 {
+	private static Font userFont = new Font("Arial", 2, 70); // default
 	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
 	private static Color highlightColor = Color.gray;
@@ -32,11 +50,16 @@ public class Counting implements KeyListener
 	private static JLabel numberOfAttemptsLabel;
 	
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
-	{			
+	{							
+		//userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
+		//*********************
+		//User currentUser = UserManagementService.getInstance().getMainUser();
+		//userFont(currentUser.getPreferences().getFontSize());
+		
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
 	    newGame = new GameLogic(GameLogic.MIN_LEVEL);	// set to GameLogic.MIN_LEVEL if there is no user preference.	    
-	    
+		
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    
@@ -127,7 +150,7 @@ public class Counting implements KeyListener
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
 	    
-	    problemLabel.setFont(new Font("Arial", 2, 50)); 
+	    problemLabel.setFont(userFont); 
 	    
 	    rPanel.add(problemLabel);
 	    
@@ -141,17 +164,19 @@ public class Counting implements KeyListener
 	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    numPanel.setBackground(panelBackgroundColor); // random color for testing 
 	    
+	    numPanel.add(Box.createRigidArea(new Dimension(0, 300)));
+	    
 	    //display initial random number
 	    currentNumber = newGame.GenerateRandomNumber();
 	    
 	    firstNumberLabel = new JLabel(currentNumber.toString());
-	    firstNumberLabel.setFont(new Font("Arial", 2, 50));
+	    firstNumberLabel.setFont(userFont);
 	    numPanel.add(firstNumberLabel);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         
 	    JLabel arrow = new JLabel("->");
-	    arrow.setFont(new Font("Arial", 2, 50));
+	    arrow.setFont(userFont);
 	    numPanel.add(arrow);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -168,7 +193,7 @@ public class Counting implements KeyListener
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].addKeyListener(new Counting());
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setFont(new Font("Arial", 2, 50));
+	    	AnswerFields[i].setFont(userFont);
 	    	AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		    AnswerFields[i].setBackground(backgroundColor);
 		    
@@ -194,14 +219,18 @@ public class Counting implements KeyListener
 	    numberOfAttemptsLabel.setVisible(false);
 	    rPanel.add(numberOfAttemptsLabel);
 	    
-	    rPanel.add(new JLabel("end"));
+	    //just a temp place holder until I figure out why orange thing is strecthing
+	    JLabel footHolder = new JLabel("<html><font color='white'>...</font></html>");
+	    footHolder.setFont(new Font("Arial", 2, 40));
+	    rPanel.add(footHolder);
 	    
         f.add(panel);
 	    
 	    JPanel directionPanel = new JPanel();
 	    directionPanel.setBackground(Color.black);
 	    directionPanel.setMaximumSize(new Dimension (10000,100));
-	    JLabel direction = new JLabel("<html><font color='white'>I am a direction</font></html>");
+	    JLabel direction = new JLabel("<html><font color='white'>Enter the number that comes after</font></html>");
+	    direction.setFont(new Font("Arial", 2, 30));
 	    directionPanel.add(direction);
 	    panel.add(directionPanel);
 	    
@@ -275,7 +304,7 @@ public class Counting implements KeyListener
 	    	PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    ((MyDocumentFilter) doc.getDocumentFilter()).setAnswer(Answer.charAt(i));
 	    }	    
-	    
+
 	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
 	}
 	
