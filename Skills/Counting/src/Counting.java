@@ -350,6 +350,12 @@ class MyDocumentFilter extends DocumentFilter
 			}
         }
     }
+    
+    @Override
+    public void remove(DocumentFilter.FilterBypass fb, int offset, int length) throws BadLocationException 
+    {
+    	// Prevent from deleting the digit
+    }
 }
 
 class TextToSpeakWrapper implements Runnable
