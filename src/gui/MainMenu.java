@@ -38,26 +38,17 @@ public class MainMenu extends mainGUI {
 		user = UserManagementService.getInstance().getMainUser();
 		userPref(user);
 		//setup();
-		
 		setLayout(new GridLayout(2,1));
 		textToSpeech.getInstance().setWPM(UserManagementService.getInstance().getMainUser().getPreferences().getSpeed());
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
-		//creates all the JButtons
-		makeButtons();
-		setVisible(true);
 		user = UserManagementService.getInstance().getMainUser();
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
-		//setup();
-		setLayout(new GridLayout(2,1));
 
 		//creates all the JButtons
 		makeButtons();
-
-		// setUndecorated(true); // hides top bar
 		setVisible(true);
-
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 		
@@ -90,7 +81,6 @@ public class MainMenu extends mainGUI {
 		}	
 	}
 
-
 		@Override
 		public void makeButtons() {
 		//ImageIcon help = new ImageIcon("Images/H-icon.png");
@@ -103,7 +93,7 @@ public class MainMenu extends mainGUI {
 		quitButton = new JButton(quitLabelText);
 		
 		optionButton.addActionListener(new OptionButtonAction());
-		quitButton.addActionListener(new ExitAction(this));
+		quitButton.addActionListener(new QuitAction());
 		gamesButton.addActionListener(new GameButtonAction());
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
@@ -131,14 +121,12 @@ public class MainMenu extends mainGUI {
 			}
 		}
 
-			
-
-			public class OptionButtonAction extends AbstractAction {
-				@Override
-				public void actionPerformed(ActionEvent action) {
-					OptionMenu n = new OptionMenu();
-				}
+		public class OptionButtonAction extends AbstractAction {
+			@Override
+			public void actionPerformed(ActionEvent action) {
+				OptionMenu n = new OptionMenu();
 			}
+		}
 			
 	private void updateStrings(String hexc)
 	{
