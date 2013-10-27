@@ -112,7 +112,8 @@ public class textToSpeech {
 				task.cancel(true);	
 				tasksToRemove.add(task);
 			}
-			listOfTasks.removeAll(tasksToRemove);
+			
 		}
+		listOfTasks.removeAll(tasksToRemove);
 	}
 }
