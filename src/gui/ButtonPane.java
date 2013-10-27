@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -14,9 +15,13 @@ import java.util.EventListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
+
+import users.User;
 import users.UserManagementService;
 import util.textToSpeech;
+import gui.mainGUI;
 
 public class ButtonPane extends JPanel {
 
@@ -93,7 +98,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void focusGained(FocusEvent e) {
 			((JButton) e.getComponent()).setBackground(Color.ORANGE);
-			textToSpeech.getInstance().speak(((JButton) e.getComponent()).getName());
+			textToSpeech.getInstance().speakNow(((JButton) e.getComponent()).getName());
 		}
 		
 		@Override
@@ -127,7 +132,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			((JButton) e.getComponent()).setBackground(Color.ORANGE);
+			//((JButton) e.getComponent()).setBackground(Color.ORANGE);
 		}
 
 		/**
@@ -136,7 +141,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);			
+			//((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);			
 		}
 
 		/**
@@ -148,4 +153,5 @@ public class ButtonPane extends JPanel {
 			
 		}
 	};
+	
 }
