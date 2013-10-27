@@ -117,6 +117,7 @@ public class MainMenu extends mainGUI {
 	public class OptionButtonAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
 			OptionMenu n = new OptionMenu();
 		}
 	}
