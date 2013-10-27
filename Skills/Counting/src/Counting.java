@@ -127,7 +127,7 @@ public class Counting implements KeyListener
 	    String problem = "What is the next number?";
 	    JLabel problemLabel = new JLabel(problem);
 	    
-	    problemLabel.setFont(new Font("Arial", 2, 50)); 
+	    problemLabel.setFont(new Font("Arial", 2, 70)); 
 	    
 	    rPanel.add(problemLabel);
 	    
@@ -141,17 +141,19 @@ public class Counting implements KeyListener
 	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    numPanel.setBackground(panelBackgroundColor); // random color for testing 
 	    
+	    numPanel.add(Box.createRigidArea(new Dimension(0,350)));
+	    
 	    //display initial random number
 	    currentNumber = newGame.GenerateRandomNumber();
 	    
 	    firstNumberLabel = new JLabel(currentNumber.toString());
-	    firstNumberLabel.setFont(new Font("Arial", 2, 50));
+	    firstNumberLabel.setFont(new Font("Arial", 2, 70));
 	    numPanel.add(firstNumberLabel);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         
 	    JLabel arrow = new JLabel("->");
-	    arrow.setFont(new Font("Arial", 2, 50));
+	    arrow.setFont(new Font("Arial", 2, 70));
 	    numPanel.add(arrow);
         
 	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
@@ -168,7 +170,7 @@ public class Counting implements KeyListener
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].addKeyListener(new Counting());
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setFont(new Font("Arial", 2, 50));
+	    	AnswerFields[i].setFont(new Font("Arial", 2, 70));
 	    	AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		    AnswerFields[i].setBackground(backgroundColor);
 		    
@@ -194,7 +196,10 @@ public class Counting implements KeyListener
 	    numberOfAttemptsLabel.setVisible(false);
 	    rPanel.add(numberOfAttemptsLabel);
 	    
-	    rPanel.add(new JLabel("end"));
+	    //just a place holder until i figure out why the above panel is stretching
+	    JLabel footHolder = new JLabel("<html><font color='white'>...</font></html>");
+	    footHolder.setFont(new Font("Arial", 2, 70));
+	    rPanel.add(footHolder);
 	    
         f.add(panel);
 	    
@@ -202,6 +207,7 @@ public class Counting implements KeyListener
 	    directionPanel.setBackground(Color.black);
 	    directionPanel.setMaximumSize(new Dimension (10000,100));
 	    JLabel direction = new JLabel("<html><font color='white'>I am a direction</font></html>");
+	    direction.setFont(new Font("Arial", 2, 30));
 	    directionPanel.add(direction);
 	    panel.add(directionPanel);
 	    
