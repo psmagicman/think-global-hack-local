@@ -33,8 +33,8 @@ public class UserMenu extends mainGUI {
 		setup();
 		setLayout(new GridLayout(3, 1));
 		populateUsersList();
-		setVisible(true);
 		makeButtons();
+		setVisible(true);
 	}
 	
 	public void populateUsersList() {
