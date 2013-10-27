@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -44,11 +46,14 @@ public class Counting implements KeyListener
 	    JMenu learn = new JMenu("Learn");
 	    JMenu practice = new JMenu("Practice");
 	    JMenu EXIT = new JMenu("EXIT");
-	    EXIT.addActionListener(new ActionListener() {
+	    EXIT.addActionListener(new ActionListener() 
+	    {
 	    	//doesn't work right now
-            public void actionPerformed(ActionEvent event) {
-                System.exit(0);
-            }
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				System.exit(0);
+			}
         });
 	    
 	    level.setMnemonic(KeyEvent.VK_L);
