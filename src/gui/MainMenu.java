@@ -33,17 +33,18 @@ public class MainMenu extends mainGUI {
 
 	public MainMenu() {
 		setup();
-		userPref(UserManagementService.getInstance().getMainUser());
+		user = UserManagementService.getInstance().getMainUser();
+		userPref(user);
+		//setup();
+		
 		setLayout(new GridLayout(2,1));
 		textToSpeech.getInstance().setWPM(UserManagementService.getInstance().getMainUser().getPreferences().getSpeed());
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
-
 		//creates all the JButtons
 		makeButtons();
 		setVisible(true);
 		user = UserManagementService.getInstance().getMainUser();
-
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 		
@@ -79,32 +80,29 @@ public class MainMenu extends mainGUI {
 
 		@Override
 		public void makeButtons() {
+		//ImageIcon help = new ImageIcon("Images/H-icon.png");
+		updateStrings(UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter());
+		
+		helpButton = new JButton(helpLabelText);
+		gamesButton = new JButton(gameLabelText);
+		optionButton = new JButton(optionLabelText);		
+		quitButton = new JButton(quitLabelText);
+		
+		optionButton.addActionListener(new OptionButtonAction());
 
-			//ImageIcon help = new ImageIcon("Images/H-icon.png");
-			updateStrings(UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter());
+		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
+		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 
-			helpButton = new JButton(helpLabelText);
-			gamesButton = new JButton(gameLabelText);
-			optionButton = new JButton(optionLabelText);		
-			quitButton = new JButton(quitLabelText);
+		optionButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('o'), "optionButtonPressed");
+		optionButton.getActionMap().put("optionButtonPressed", new OptionButtonAction());
 
-			quitButton.addActionListener(new QuitAction());
-			gamesButton.addActionListener(new GameButtonAction());
-			optionButton.addActionListener(new OptionButtonAction());
+		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
+		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
 
-			gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
-			gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
-
-			optionButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('o'), "optionButtonPressed");
-			optionButton.getActionMap().put("optionButtonPressed", new OptionButtonAction());
-
-			quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
-			quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
-
-			add(helpButton);
-			add(gamesButton);
-			add(optionButton);
-			add(quitButton);
+		add(helpButton);
+		add(gamesButton);
+		add(optionButton);
+		add(quitButton);
 		}
 
 		private class QuitAction extends AbstractAction {
@@ -116,20 +114,7 @@ public class MainMenu extends mainGUI {
 			}
 		}
 
-			private void updateStrings(String hexc)
-			{
-				helpLabelText = "<html><font color=\"#"+ hexc + "\">" + "H" + "</font>" + "elp" + "</html>";
-				gameLabelText = "<html><font color=\"#"+ hexc + "\">" + "G" + "</font>" + "ames" +"</font>"+ "</html>";
-				optionLabelText = "<html><font color=\"#"+ hexc + "\">" + "O" + "</font>" + "ptions" + "</html>";
-				quitLabelText = "<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>";
-			}
-
-			private class GameButtonAction extends AbstractAction {
-				@Override
-				public void actionPerformed(ActionEvent action) {
-					GameMenu n = new GameMenu();
-				}
-			}
+			
 
 			public class OptionButtonAction extends AbstractAction {
 				@Override
@@ -137,4 +122,31 @@ public class MainMenu extends mainGUI {
 					OptionMenu n = new OptionMenu();
 				}
 			}
+			
+	private void updateStrings(String hexc)
+	{
+		helpLabelText = "<html><font color=\"#"+ hexc + "\">" + "H" + "</font>" + "elp" + "</html>";
+		gameLabelText = "<html><font color=\"#"+ hexc + "\">" + "G" + "</font>" + "ames" +"</font>"+ "</html>";
+		optionLabelText = "<html><font color=\"#"+ hexc + "\">" + "O" + "</font>" + "ptions" + "</html>";
+		quitLabelText = "<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>";
+	}
+	
+	public class ExitAction extends AbstractAction {
+		JFrame frameToClose;
+		
+		ExitAction(JFrame frameToClose) {
+			this.frameToClose= frameToClose; 
 		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			frameToClose.dispose();
+			
+		}
+	}
+	
+	public class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
+		}
+	}}

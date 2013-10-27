@@ -27,6 +27,7 @@ public class mainGUI extends JFrame {
 		setLayout(new GridLayout());
 		setTitle(frame_title.getText());
 		setVisible(true);
+		
 	}
 
 	public void setup() {
@@ -53,8 +54,7 @@ public class mainGUI extends JFrame {
 	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
-	
-	//Decides whether to use the default or profile theme
+
 	public void userPref(User name){
 		if (name == null){
 			//Use Default settings
@@ -82,17 +82,17 @@ public class mainGUI extends JFrame {
 			UIManager.put("Panel.background", bg);
 		}
 	}
-	
+
 	public class ExitAction extends AbstractAction {
 		JFrame frameToClose;
-		
+
 		ExitAction(JFrame frameToClose) {
 			this.frameToClose= frameToClose; 
 		}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			frameToClose.dispose();
-			
+
 		}
 	}
 
