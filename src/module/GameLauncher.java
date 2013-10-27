@@ -23,7 +23,7 @@ public class GameLauncher {
 			
 			URLClassLoader child = new URLClassLoader (urls, this.getClass().getClassLoader());
 			Class classToLoad;
-			classToLoad = Class.forName ("Game", true, child);
+			classToLoad = Class.forName ("TestClassLoaderGame", true, child);
 			Method method = classToLoad.getDeclaredMethod ("startGame");
 			Object instance = classToLoad.newInstance ();
 			Object result = method.invoke (instance);

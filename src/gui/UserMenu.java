@@ -38,6 +38,7 @@ public class UserMenu extends mainGUI {
 		add(selectUserButton);
 		defineVariables();
 		makeButtons();
+		
 		setVisible(true);
 	}
 	
