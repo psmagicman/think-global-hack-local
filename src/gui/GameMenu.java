@@ -17,6 +17,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -81,6 +82,7 @@ public class GameMenu extends mainGUI {
 	
 	private void createButtons(List<String> categoryStrings) {
 		hexc = user.getPreferences().getTheme().letter();
+		ArrayList<JButton> gameButtonList = new ArrayList<JButton>();
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
@@ -93,6 +95,8 @@ public class GameMenu extends mainGUI {
 			
 			
 			this.add(buttonToAdd);
+			
+			gameButtonList.add(buttonToAdd);
 		}
 		
 		JButton buttonToAdd = new JButton("Exit");
@@ -103,5 +107,8 @@ public class GameMenu extends mainGUI {
 		buttonToAdd.addActionListener(new ExitAction(this));
 		textToSpeech.getInstance().speak("E Exit");
 		this.add(buttonToAdd);
+		
+		gameButtonList.add(buttonToAdd);
+		new ButtonPane(gameButtonList);
 	}
 }
