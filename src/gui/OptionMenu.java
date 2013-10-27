@@ -154,7 +154,16 @@ private class Dialog extends JFrame {
 				if (_type == 0) prefs.setVolume(_volumeLevel);
 				else if (_type == 1) prefs.setTheme(_theme);
 				else if (_type == 2) prefs.setSpeed(_speed);
-				else if (_type == 3) prefs.setFontSize(_fontSize);
+				else if (_type == 3) 
+					{
+						switch(_fontSize)
+						{
+							case 1: prefs.setFontSize(27); break; 
+							case 2: prefs.setFontSize(35); break;
+							case 3: prefs.setFontSize(45); break;
+							default: prefs.setFontSize(_fontSize);
+						}
+					}
 				//System.out.println(_volumeLevel); TEST
 				_mainUser.setPreferences(prefs);
 				setVisible(false);
@@ -223,9 +232,6 @@ private class SpeedDialogAction extends AbstractAction {
 		dlg.createAndShowDialog();
 	}
 }
-private void goToMainMenu() {
-	MainMenu s = new MainMenu();
-}
 
 public void makeButtons() {
 	volumeButton = new JButton("Volume");
@@ -249,7 +255,21 @@ public void makeButtons() {
 	fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
 	
 	backButton = new JButton("Back");
-	backButton.addActionListener(new ExitAction(this));
+	backButton.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Preferences prefs = _mainUser.getPreferences();
+			prefs.setVolume(_volumeLevel);
+			prefs.setSpeed(_speed);
+			prefs.setFontSize(_fontSize);
+			UserManagementService.getInstance().getMainUser().setPreferences(prefs);
+			
+			System.out.println("PREFS:\n" + "volume: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume() + "\nSpeed: " + UserManagementService.getInstance().getMainUser().getPreferences().getSpeed() 
+								+ "\nFont size: " + UserManagementService.getInstance().getMainUser().getPreferences().getFontSize());
+			setVisible(false);
+			dispose();
+		}
+	});
 	backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
 		
 		this.add(volumeButton);
