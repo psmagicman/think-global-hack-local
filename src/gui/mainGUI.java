@@ -39,10 +39,10 @@ public class mainGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		//determines the font for the JButton/JPanel/JLabel
-		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
-		UIManager.put("Button.foreground", Color.DARK_GRAY);
-		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("Button.foreground", Color.WHITE);
+		UIManager.put("Button.background", Color.DARK_GRAY);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
 		UIManager.put("Panel.background", Color.WHITE);		

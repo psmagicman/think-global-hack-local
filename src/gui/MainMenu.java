@@ -32,14 +32,14 @@ public class MainMenu extends mainGUI {
 	public void makeButtons() {
 		
 		//ImageIcon help = new ImageIcon("Images/H-icon.png");
-		helpButton = new JButton("Help");
+		helpButton = new JButton("<html><font color=\"#FF6600\">" + "H" + "</font>" + "elp" + "</html>");
 		
-		gamesButton = new JButton("Games");
+		gamesButton = new JButton("<html><font color=\"#FF6600\">" + "G" + "</font>" + "ames" +"</font>"+ "</html>");
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 		
-		optionButton = new JButton("Options");
-		quitButton = new JButton("Quit");
+		optionButton = new JButton("<html><font color=\"#FF6600\">" + "O" + "</font>" + "ptions" + "</html>");
+		quitButton = new JButton("<html><font color=\"#FF6600\">" + "Q" + "</font>" + "uit" + "</html>");
 		add(helpButton);
 		add(gamesButton);
 		add(optionButton);
