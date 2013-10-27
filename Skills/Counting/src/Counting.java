@@ -13,12 +13,12 @@ import javax.swing.text.PlainDocument;
 public class Counting 
 {
 	private static Color backgroundColor; //initialize to userpreference color
+	private static Color panelBackgroundColor = Color.white; // temporarily white
+	
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
-	{	
-		
+	{			
 	    JFrame f = new GameWindow();
-	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.
-	    
+	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
 	    
 	    JPanel panel = new JPanel();
 	    
@@ -42,13 +42,12 @@ public class Counting
 	    panel.add(rPanel);
 	    
         panel.add(Box.createRigidArea(new Dimension(0, 100)));
-        
-	    
+        	    
 	    JPanel numPanel = new JPanel();
-	    //numPanel.setBorder(etched);
+
 	    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-	    numPanel.setBackground(Color.blue); // random color for testing 
+	    numPanel.setBackground(panelBackgroundColor); // random color for testing 
 	    
 	    //display initial random number
 	    Integer randomNum = newGame.GenerateRandomNumber();
@@ -135,9 +134,7 @@ public class Counting
 	    answerField3.setBackground(backgroundColor);
 	    numPanel.add(answerField3);
 	    
-	    
-	    
-	    
+
 	    rPanel.add(numPanel);
 	    
         f.add(panel);
@@ -147,8 +144,7 @@ public class Counting
         f.setLocationRelativeTo(null);
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        
+   
         // refactor later
         textToSpeech.speak(randomNum.toString());
 	}
