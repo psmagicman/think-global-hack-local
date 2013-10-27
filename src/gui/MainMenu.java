@@ -30,39 +30,40 @@ public class MainMenu extends mainGUI {
 	public MainMenu() {
 		setup();
 		setLayout(new GridLayout(2,1));
+		textToSpeech.getInstance().setWPM(150);
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
 		
 		//read out instructions
-//		textToSpeech.speak("Use your mouse or keyboard to select an option");
+		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 		
 		for  (int count=1; count<= 4; count++) {
 			try { 
-				Thread.sleep(1000); 
+				Thread.sleep(500); 
 				;
 				} catch (InterruptedException e) { 
 				// TODO Auto-generated catch block 
 				e.printStackTrace(); 
 				} 
-//				switch (count) {
-//				case 1: 
-//					textToSpeech.speak("Help");
-//					break;
-//				case 2:
-//					textToSpeech.speak("Games");
-//					break;
-//				case 3:
-//					textToSpeech.speak("Options");
-//					break;
-//				case 4:
-//					textToSpeech.speak("Quit");
-//					break;
-//				default: break;
-//				}
+				switch (count) {
+				case 1: 
+					textToSpeech.getInstance().speak("Help");
+					break;
+				case 2:
+					textToSpeech.getInstance().speak("Games");
+					break;
+				case 3:
+					textToSpeech.getInstance().speak("Options");
+					break;
+				case 4:
+					textToSpeech.getInstance().speak("Quit");
+					break;
+				default: break;
+				}
 		}		
 	}
 
