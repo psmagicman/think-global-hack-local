@@ -21,6 +21,10 @@ public class Preferences {
 
 	public Preferences(){
 		voice = "kevin";
+		speedLevel = 1;
+		fontLevel = 1; 
+		volumeLevel = 1;
+		themeLevel = 0;
 		speed = 100;
 		theme = Themes.DEFAULT;
 		fontSize = 27;
@@ -100,11 +104,11 @@ public class Preferences {
 	{	
 		switch(themeLevel)
 		{
-			case 0: this.theme = Themes.DEFAULT; break;
-			case 1: this.theme = Themes.ORANGE_SPOT; break;
-			case 2: this.theme = Themes.ICY; break;
-			case 3: this.theme = Themes.COTTON_CANDY; break;
-			case 4: this.theme = Themes.WATERMELON; break;
+			case 1: this.theme = Themes.DEFAULT; break;
+			case 2: this.theme = Themes.ORANGE_SPOT; break;
+			case 3: this.theme = Themes.ICY; break;
+			case 4: this.theme = Themes.COTTON_CANDY; break;
+			case 5: this.theme = Themes.WATERMELON; break;
 			default: this.theme = Themes.DEFAULT; break;
 		}
 	}

@@ -33,9 +33,8 @@ public class mainGUI extends JFrame {
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-				Color bg = Color.DARK_GRAY;
-				Color fg = Color.WHITE;
+		Color bg = Color.DARK_GRAY;
+		Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel
 		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
@@ -56,8 +55,8 @@ public class mainGUI extends JFrame {
 	public void userPref(User name){
 		if (name == null){
 			//Use Default settings
-			Color bg = name.getPreferences().getTheme().background();
-			Color fg = name.getPreferences().getTheme().foreground();
+			Color bg = Color.DARK_GRAY;
+			Color fg = Color.WHITE;
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", fg);

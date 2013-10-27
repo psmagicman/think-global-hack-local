@@ -79,6 +79,7 @@ public class OptionMenu extends mainGUI {
 				"\nTheme: " + UserManagementService.getInstance().getMainUser().getPreferences().getTheme()); 
 		
 		System.out.println("theme level: " + _themeLevel);
+		UserManagementService.getInstance().saveMainUser();
 
 	}
 	
@@ -131,7 +132,19 @@ private class Dialog extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (_type == 0) {
 						_volumeLevel = level;
-						textToSpeech.getInstance().setVolume(level);
+						float volToPlayAt = 0; 
+						switch(_volumeLevel)
+						{
+							case 1: volToPlayAt = (float)0.65; break;
+							case 2: volToPlayAt = (float)0.70; break;
+							case 3: volToPlayAt = (float)0.75; break;
+							case 4: volToPlayAt = (float)0.8; break;
+							case 5: volToPlayAt = (float)0.85; break; 
+							case 6: volToPlayAt = (float)0.9; break;
+							case 7: volToPlayAt = (float)0.95; break;
+							case 8: volToPlayAt = (float)1; break;
+						}
+						textToSpeech.getInstance().setVolume(volToPlayAt);
 						textToSpeech.getInstance().speakNow(new Integer(level).toString());
 					}
 					else if (_type == 1) {
