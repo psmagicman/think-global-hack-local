@@ -1,12 +1,11 @@
 package gui;
 
-import gui.MainMenu.GameButtonAction;
-
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -97,7 +96,7 @@ public class UserMenu extends mainGUI {
 		}
 	}
 
-	private class CreateNewUserDialogHandler implements ActionListener {
+	private class CreateNewUserDialogAction extends AbstractAction {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -107,7 +106,7 @@ public class UserMenu extends mainGUI {
 
 	}
 	
-	private class selectedUserHandler implements ActionListener {
+	private class selectedUserAction extends AbstractAction {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {			
@@ -116,7 +115,6 @@ public class UserMenu extends mainGUI {
 			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
 			goToMainMenu();
 		}
-
 	}
 	
 	private void goToMainMenu(){
@@ -129,11 +127,15 @@ public class UserMenu extends mainGUI {
 		createNewUserButton = new JButton("Create New User");
 		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
 		selectUserButton = new JButton("Select User");
-		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
-		selectUserButton.addActionListener(new selectedUserHandler());
+		selectUserButton.setText("<html><font color=\"#FF6600\">S</font>" + "elect User</html>");
+		createNewUserButton.addActionListener(new CreateNewUserDialogAction());
+		selectUserButton.addActionListener(new selectedUserAction());
 		
-		/*createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
-		createNewUserButton.getActionMap().put("gameButtonPressed", new GameButtonAction());*/
+		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
+		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
+		
+		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
+		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
 		
 		if(users.getModel().getSize() == 0)
 		{
@@ -143,6 +145,5 @@ public class UserMenu extends mainGUI {
 		add(createNewUserButton);
 		add(selectUserButton);
 	}
-
 }
 
