@@ -93,8 +93,12 @@ public class Counting implements KeyListener
 	    RoundedPanel rPanel = new RoundedPanel();
 	    rPanel.setLayout(new BoxLayout(rPanel, BoxLayout.Y_AXIS));
 	    
+<<<<<<< HEAD
 	    rPanel.setBounds(10,10,200,200); //?
+=======
+	    rPanel.setBounds(10,10,200,200);
 	    rPanel.setFocusable(true);
+>>>>>>> e749dc1f08e8a6fad6486e82d3b033e2842a2550
 	    rPanel.setBackground(Color.white);
 
 	    panel.setBackground(backgroundColor);
@@ -127,9 +131,15 @@ public class Counting implements KeyListener
 	    //display initial random number
 	    currentNumber = newGame.GenerateRandomNumber();
 	    
+<<<<<<< HEAD
+	    JLabel firstNum = new JLabel(randomNum.toString());
+	    firstNum.setFont(new Font("Arial", 2, 50));
+	    numPanel.add(firstNum);
+=======
 	    firstNumberLabel = new JLabel(currentNumber.toString());
-	    firstNumberLabel.setFont(new Font("Arial", 2, 50));
+	    firstNumberLabel.setFont(new Font("Arial", 2, 28));
 	    numPanel.add(firstNumberLabel);
+>>>>>>> e749dc1f08e8a6fad6486e82d3b033e2842a2550
         
 	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         
