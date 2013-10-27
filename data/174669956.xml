@@ -1,0 +1,11 @@
+<users.User>
+  <name>ORANGE_SPOT</name>
+  <preferences>
+    <voice>kevin</voice>
+    <speed>100</speed>
+    <theme>ORANGE_SPOT</theme>
+    <fontSize>27</fontSize>
+    <volume>10</volume>
+  </preferences>
+  <id>174669956</id>
+</users.User>

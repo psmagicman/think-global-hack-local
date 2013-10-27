@@ -29,8 +29,6 @@ public class UserMenu extends mainGUI {
 	private JButton createNewUserButton;
 	private JButton selectUserButton;
 	private JList<User> users;
-	
-	
 
 	public UserMenu() {
 		// setup GUI styles/frame
@@ -66,28 +64,11 @@ public class UserMenu extends mainGUI {
 			final JTextField inputField = new JTextField(20);
 			l.setLabelFor(inputField);
 			p.add(inputField);
-			JButton addUserButton = new JButton("Add User");
 			
-			addUserButton.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					String name = inputField.getText();
-					if (name == null){
-						JOptionPane.showMessageDialog(NewUserDialog.this, "You didn't enter your name!");
-					}
-					else{
-						try {
-							User newUser = UserManagementService.getInstance().createUser(name);
-							UserManagementService.getInstance().setMainUser(newUser);
-							goToMainMenu();
-							dispose();
-						} catch (NameTakenException e1) {
-							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
-						}
-					}
-				}
-			});
+			JButton addUserButton = new JButton("Add User");
+			addUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "addUserButtonPressed");
+			addUserButton.getActionMap().put("addUserButtonPressed", new CreateUserAction(inputField, this));
+			addUserButton.addActionListener(new CreateUserAction(inputField, this) );
 			
 			JButton cancelButton = new JButton("Cancel");
 			cancelButton.addActionListener(new ActionListener() {
@@ -105,6 +86,36 @@ public class UserMenu extends mainGUI {
 		}
 	}
 
+	private class CreateUserAction extends AbstractAction {
+		private String name;
+		private NewUserDialog dlg;
+		private JTextField inputField;
+		
+		CreateUserAction(JTextField inputField, NewUserDialog dlg) {
+			this.inputField = inputField;
+			this.dlg = dlg;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			name = inputField.getText();
+			if (name.equals("")){
+				JOptionPane.showMessageDialog(dlg, "You didn't enter your name!");
+			}
+			else{
+				try {
+					User newUser = UserManagementService.getInstance().createUser(name);
+					UserManagementService.getInstance().setMainUser(newUser);
+					userPref(UserManagementService.getInstance().getMainUser());
+					goToMainMenu();
+					dispose();
+				} catch (NameTakenException e1) {
+					JOptionPane.showMessageDialog(dlg, e1.getError());
+				}
+			}
+		}
+	}
+	
 	private class CreateNewUserDialogAction extends AbstractAction {
 
 		@Override

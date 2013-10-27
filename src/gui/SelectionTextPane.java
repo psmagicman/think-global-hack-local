@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractAction;
-import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -14,25 +15,32 @@ import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 
 import util.textToSpeech;
 
-public class SelectionTextPane extends JTextPane {
+public class SelectionTextPane extends JTextArea {
 	
 	//KEY BINDINGS: w to advance to the next word
 	//				s to advance to the next sentance
 
+	private JScrollPane helpScroll;
 	private String words[];
-	private String sentances[];
+	private String sentences[];
 	private int cursor;
 	private DefaultHighlighter.DefaultHighlightPainter highlightPainter;
 
 	public SelectionTextPane(String text) {
 		
 		//TODO: We need to tell the user instructions (audio instructions) on how to advance in the help.
+		
+		helpScroll = new JScrollPane(this,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		this.setText(text);
 		this.setEditable(false);
+		this.setWrapStyleWord(true);
+		this.setLineWrap(true);
 		setKeyBindings();
 		cursor = 0;
-		words = getText().split(" ");
-		sentances = getText().split("[.!?]");
+		words = getText().split(" \n\r\t");
+		sentences = getText().split("[.!?]");
 		highlightPainter = new DefaultHighlightPainter(Color.RED);
 	}
 	
@@ -51,13 +59,20 @@ public class SelectionTextPane extends JTextPane {
 		public void actionPerformed(ActionEvent e) {
 
 			String string = SelectionTextPane.this.getText();
-			int endWord = string.indexOf(' ', cursor);
+			while(string.charAt(cursor) == '\n') cursor++;
+			int newlineIndex = string.indexOf('\n', cursor);
+			int spaceIndex = string.indexOf(' ', cursor);
+			int endWord;
+			if (newlineIndex < spaceIndex) endWord = newlineIndex;
+			else endWord = spaceIndex;
 			if (endWord != -1) {
 				SelectionTextPane.this.getHighlighter().removeAllHighlights();
 				try {
+					textToSpeech.getInstance().speakNow(string.substring(cursor, endWord));
 					SelectionTextPane.this.getHighlighter().addHighlight(
 							cursor, endWord, highlightPainter);
 					cursor = endWord + 1;
+					
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -71,8 +86,8 @@ public class SelectionTextPane extends JTextPane {
 					e1.printStackTrace();
 				}
 			}
+			SelectionTextPane.this.setCaretPosition(cursor);
 		}
-
 	}
 
 	private class SelectNextSentanceAction extends AbstractAction {
@@ -90,23 +105,27 @@ public class SelectionTextPane extends JTextPane {
 				try {
 					SelectionTextPane.this.getHighlighter().addHighlight(
 							cursor, string.length(), highlightPainter);
+					textToSpeech.getInstance().speakNow(string.substring(cursor, string.length()));
 				} catch (BadLocationException e1) {
 					e1.printStackTrace();
 				}
 			} else {
 				int[] indices = new int[] { indexPeriod, indexExclaimation,
 						indexQuestionMark };
-				int endSentance = min(indices);
+				int endSentence = min(indices);
 				SelectionTextPane.this.getHighlighter().removeAllHighlights();
 				try {
 					SelectionTextPane.this.getHighlighter().addHighlight(
-							cursor, endSentance, highlightPainter);
-					cursor = endSentance + 1;
+							cursor, endSentence, highlightPainter);
+					textToSpeech.getInstance().speakNow(string.substring(cursor, endSentence));
+					cursor = endSentence + 1;
+					
 				} catch (BadLocationException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
+			SelectionTextPane.this.setCaretPosition(cursor);
 		}
 	}
 

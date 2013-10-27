@@ -5,12 +5,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
-
-import sun.security.jca.GetInstance;
-
-import com.sun.speech.freetts.FreeTTSSpeakableImpl;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -25,14 +20,16 @@ public class textToSpeech {
 	private static final String DEFAULT_VOICE = "kevin16";
 	private static textToSpeech instance = new textToSpeech();
 	private ExecutorService executor;
-	private int wordsPerMinute;
-	private List<FutureTask<String>> listOfTasks;
-
-	private textToSpeech() {
-		wordsPerMinute = 100; // default speed (in case people don't set the
-								// speed)
+	private int wordsPerMinuteParam;
+	private List<SpeechFutureTask<String>> listOfTasks;
+	private float volumeParam;
+	
+	private textToSpeech()
+	{
+		wordsPerMinuteParam = 100; // default speed (in case people don't set the speed)
+		volumeParam = 1; // default volume
 		executor = Executors.newFixedThreadPool(1);
-		listOfTasks = new ArrayList<FutureTask<String>>();
+		listOfTasks = new ArrayList<SpeechFutureTask<String>>();
 	}
 
 	public static textToSpeech getInstance() {
@@ -42,10 +39,15 @@ public class textToSpeech {
 	private class SpeakerThread implements Callable<String> {
 		private String textToSpeak;
 		private int wordsPerMinute;
-
-		public SpeakerThread(String text, int wpm) {
-			textToSpeak = text;
+		private float volume;
+		public boolean canCancel = true;
+		
+		public SpeakerThread(String text, int wpm, float vol)
+		{
+			textToSpeak = text; 
 			wordsPerMinute = wpm;
+			volume = vol;
+			canCancel = true;
 		}
 
 		@Override
@@ -56,24 +58,36 @@ public class textToSpeech {
 			speakerVoice.setRate(wordsPerMinute); // Set the speaker's voice
 													// speed (default = 100
 													// words/minute)
+			speakerVoice.setVolume(volume);
 			speakerVoice.allocate(); // Allocates the resources for the voice
 			speakerVoice.speak(textToSpeak);
 			speakerVoice.deallocate(); // Synthesize speech & clean up after
 			listOfTasks.remove(this);
 			return textToSpeak;
 		}
-
 	}
 
 	public void setWPM(int wpm) {
-		wordsPerMinute = wpm;
+		wordsPerMinuteParam = wpm;
+	}
+	
+	public void setVolume(float vol) {
+		//System.out.println("volume: " + vol);
+		volumeParam = vol;
 	}
 
-	public void speak(String text) {
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(
-				text, 100));
-		listOfTasks.add(task);
 
+	public void speak(String text) {
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		task.canCancel = true;
+		listOfTasks.add(task);
+		executor.submit(task);
+	}
+	
+	public void speakNonInterrupted(String text) {
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
+		task.canCancel = false;
+		listOfTasks.add(task);
 		executor.submit(task);
 	}
 
@@ -83,15 +97,25 @@ public class textToSpeech {
 	 * @param text
 	 */
 	public void speakNow(String text) {
-		for (FutureTask<String> task : listOfTasks){
-			task.cancel(true);
-			//listOfTasks.remove(task);
-		}
-		listOfTasks.clear();
-		FutureTask<String> task = new FutureTask<String>(new SpeakerThread(
-				text, 100));
+		cancelSpeak();
+		
+		//listOfTasks.clear();
+		SpeechFutureTask<String> task = new SpeechFutureTask<String>(new SpeakerThread(text, wordsPerMinuteParam, volumeParam));
 		listOfTasks.add(task);
-
 		executor.submit(task);
+	}
+	
+	public void cancelSpeak()
+	{
+		List<SpeechFutureTask<String>> tasksToRemove = new ArrayList<SpeechFutureTask<String>>();
+		for (SpeechFutureTask<String> task : listOfTasks){
+			if (task.canCancel) {
+				
+				task.cancel(true);	
+				tasksToRemove.add(task);
+			}
+			
+		}
+		listOfTasks.removeAll(tasksToRemove);
 	}
 }
