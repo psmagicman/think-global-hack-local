@@ -56,13 +56,15 @@ public class CategoryMenu extends mainGUI {
 		for( int i = 0; i < gameStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText(gameStrings.get(i));
-			this.add(buttonToAdd);; 
+			this.add(buttonToAdd);			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), "launch" + gameStrings.get(i) + "Game");
 			String gameToLaunch = directoryParser.directoryName + "/" + directoryParser.getCategoryStrings().get(categoryIndex) + "/" + gameStrings.get(i) + ".jar";
 			buttonToAdd.getActionMap().put("launch" + gameStrings.get(i) + "Game", new GameLaunchAction(gameToLaunch));
+			buttonToAdd.addActionListener(new GameLaunchAction(gameToLaunch));
 		}
 		
 		JButton buttonToAdd = new JButton("Exit");
+		buttonToAdd.addActionListener(new ExitAction(this));
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		this.add(buttonToAdd);
