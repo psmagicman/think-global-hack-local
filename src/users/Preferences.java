@@ -24,7 +24,7 @@ public class Preferences {
 		speedLevel = 1;
 		fontLevel = 1; 
 		volumeLevel = 1;
-		themeLevel = 0;
+		themeLevel = 1;
 		speed = 100;
 		theme = Themes.DEFAULT;
 		fontSize = 27;
@@ -103,6 +103,7 @@ public class Preferences {
 	
 	public void setTheme(int themeLevel)
 	{	
+		this.themeLevel = themeLevel;
 		switch(themeLevel)
 		{
 			case 1: this.theme = Themes.DEFAULT; break;

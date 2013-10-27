@@ -50,6 +50,7 @@ public class OptionMenu extends mainGUI {
 	private int _speedLevel;
 	private int _themeLevel;
 	
+	private JButton currentSelectedButton; 
 	User _mainUser;
 	
 	public OptionMenu() {
@@ -111,7 +112,7 @@ public class OptionMenu extends mainGUI {
 			ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
 			for (int i = 1; i <= size; i++) {
 				JButton buttonToAdd = new JButton();
-				if (_type == 1) 
+				if (_type == 1) // background colour
 				{
 					String buttonTitle;
 					switch(i) {
@@ -122,9 +123,15 @@ public class OptionMenu extends mainGUI {
 						case 5: buttonTitle = "Pink"; break;
 						default: buttonTitle = ""; break;
 					}
-					buttonToAdd.setText(buttonTitle);
+					if(i == _themeLevel)
+					{
+						buttonToAdd.setText(">" + buttonTitle);
+						currentSelectedButton = buttonToAdd;
+					}
+					else
+						buttonToAdd.setText(buttonTitle);
 				}
-				else if(_type == 3)
+				else if(_type == 3) // font size
 				{
 					String buttonTitle;
 					switch(i) {
@@ -133,11 +140,29 @@ public class OptionMenu extends mainGUI {
 						case 3: buttonTitle = "Large"; break; 
 						default: buttonTitle = ""; break;
 					}
-					buttonToAdd.setText(buttonTitle);
+					if(i==_fontLevel)
+					{
+						buttonToAdd.setText(">" + buttonTitle);
+						currentSelectedButton = buttonToAdd;
+					}
+					else 
+						buttonToAdd.setText(buttonTitle);
 				}
 				else
-					buttonToAdd.setText(new Integer(i).toString());
-				
+				{
+					if(_type == 2 && i == _speedLevel)
+					{
+						buttonToAdd.setText(">" + new Integer(i).toString());
+						currentSelectedButton = buttonToAdd;
+					}
+					else if(_type == 0 && i == _volumeLevel)
+					{
+						buttonToAdd.setText(">" + new Integer(i).toString());
+						currentSelectedButton = buttonToAdd;
+					}
+					else 
+						buttonToAdd.setText(new Integer(i).toString());
+				}
 				this.add(buttonToAdd);
 				mainButtonList.add(buttonToAdd);
 				buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), i);
@@ -146,6 +171,15 @@ public class OptionMenu extends mainGUI {
 				buttonToAdd.addActionListener(new ActionListener(){
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						JButton button = (JButton)e.getSource();
+						if(currentSelectedButton.getText().charAt(0) == '>')
+						{
+							currentSelectedButton.setText(currentSelectedButton.getText().substring(1));
+						}
+						if(button.getText().charAt(0) != '>')
+							button.setText(">" + button.getText());
+						currentSelectedButton = button;
+						System.out.println("CLICKED ON: " + e.getActionCommand());
 						if (_type == 0) {
 							_volumeLevel = level;
 							float volToPlayAt = 0; 
