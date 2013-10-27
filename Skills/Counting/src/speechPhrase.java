@@ -9,10 +9,14 @@ public class speechPhrase
 	public speechPhrase()
 	{
 		motivationalPhrases.add("good job");
+		motivationalPhrases.add("good stuff");
 		motivationalPhrases.add("you are so smart");
+		motivationalPhrases.add("perfect");
 		motivationalPhrases.add("that is correct");
-		motivationalPhrases.add("wow awesome");
+		motivationalPhrases.add("awesome job");
+		motivationalPhrases.add("high five");
 		motivationalPhrases.add("nicely done");
+		motivationalPhrases.add("great answer");
 		motivationalPhrases.add("amazing work");
 		motivationalPhrases.add("fantastic");
 		motivationalPhrases.add("keep up the good work");
@@ -21,7 +25,14 @@ public class speechPhrase
 		motivationalPhrases.add("ding ding ding ding");
 		motivationalPhrases.add("success");
 		motivationalPhrases.add("you did it");
-		motivationalPhrases.add("well done ");
+		motivationalPhrases.add("well done");
+		motivationalPhrases.add("give me five");
+		motivationalPhrases.add("bravo");
+		motivationalPhrases.add("congratulations");
+		motivationalPhrases.add("hooray");
+		motivationalPhrases.add("very impressive");
+		motivationalPhrases.add("bravo");
+		motivationalPhrases.add("you are the master");
 	}
 	
 	public String getRandomCompliment()

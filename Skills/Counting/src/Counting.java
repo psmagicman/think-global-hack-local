@@ -237,9 +237,11 @@ public class Counting implements KeyListener
 			numberOfAttemptsLabel.setFont(new Font("Arial", 2, 28));	
 
 			speechPhrase compliment = new speechPhrase();
-			textToSpeech.getInstance().speak(compliment.getRandomCompliment());
 			
 			textToSpeech.getInstance().speak(Answer);
+			
+			textToSpeech.getInstance().speak(compliment.getRandomCompliment());
+			
 			isDone = true;
 
 		}
