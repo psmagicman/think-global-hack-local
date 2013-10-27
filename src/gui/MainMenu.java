@@ -110,13 +110,14 @@ public class MainMenu extends mainGUI {
 		helpButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('h'), "helpButtonPressed");
 		helpButton.getActionMap().put("helpButtonPressed", new HelpAction());
 		
-		ArrayList<JButton> buttonList = new ArrayList<JButton>();
-		buttonList.add(helpButton);
-		buttonList.add(gamesButton);
-		buttonList.add(optionButton);
-		buttonList.add(quitButton);
+		// the part below adds button cycling with arrow keys
+		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
+		mainButtonList.add(helpButton);
+		mainButtonList.add(gamesButton);
+		mainButtonList.add(optionButton);
+		mainButtonList.add(quitButton);
 		
-		new ButtonPane(buttonList);
+		new ButtonPane(mainButtonList);
 		
 		add(helpButton);
 		add(gamesButton);
