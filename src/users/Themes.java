@@ -12,15 +12,15 @@ public enum Themes {
 	    private final String letter;
 	    
 	    Themes(){
-	    	this.background = Color.DARK_GRAY;
-	    	this.foreground = Color.WHITE;
-	    	this.letter = "ff6600";
+	    	background = Color.DARK_GRAY;
+	    	foreground = Color.WHITE;
+	    	letter = "ff6600";
 	    }
 	      
 	    Themes(Color bg, Color fg, String l) {
-	        this.background = bg;
-	        this.foreground = fg;
-	        this.letter = l;
+	        background = bg;
+	        foreground = fg;
+	        letter = l;
 	    }
 	    public Color background() {
 	    	return background; 

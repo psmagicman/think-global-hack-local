@@ -38,14 +38,16 @@ public class MainMenu extends mainGUI {
 		textToSpeech.getInstance().setWPM(UserManagementService.getInstance().getMainUser().getPreferences().getSpeed());
 		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
+
+		//creates all the JButtons
 		makeButtons();
-		// setUndecorated(true); // hides top bar
 		setVisible(true);
 		user = UserManagementService.getInstance().getMainUser();
 
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
-		//TO DO: highlight menu items and read them
+		
+						//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 
 		for  (int count=1; count<= 4; count++) {

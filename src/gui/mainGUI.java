@@ -22,17 +22,16 @@ public class mainGUI extends JFrame {
 	public mainGUI() {
 		// set the frame size
 		setup();
-		user = UserManagementService.getInstance().getMainUser();
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 		setTitle(frame_title.getText());
-		userPref(user);
 		setVisible(true);
 	}
 
 	public void setup() {
 		// set the frame size
+		user = UserManagementService.getInstance().getMainUser();
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -58,6 +57,7 @@ public class mainGUI extends JFrame {
 	//Decides whether to use the default or profile theme
 	public void userPref(User name){
 		if (name == null){
+			//Use Default settings
 			Color bg = name.getPreferences().getTheme().background();
 			Color fg = name.getPreferences().getTheme().foreground();
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
@@ -69,8 +69,10 @@ public class mainGUI extends JFrame {
 			UIManager.put("Panel.background", bg);	
 		}
 		else{
+
 			Color fg = name.getPreferences().getTheme().foreground();
 			Color bg = name.getPreferences().getTheme().background();
+			//Loads User settings
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", fg);
@@ -98,7 +100,6 @@ public class mainGUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
-			UserMenu u = new UserMenu();
 		}
 	}
 }
