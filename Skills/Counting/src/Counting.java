@@ -31,6 +31,7 @@ public class Counting
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{			
 	    JFrame f = new GameWindow();
+	    
 	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
 
 	    //add menu for levels 
@@ -72,7 +73,6 @@ public class Counting
 	    
 	    gameMenuBar.add(level);
 	    f.setJMenuBar(gameMenuBar);
-	    f.add(gameMenuBar);
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	      
@@ -89,6 +89,7 @@ public class Counting
 	    JPanel panel = new JPanel();
 	    
 	    RoundedPanel rPanel = new RoundedPanel();
+	    
 	    rPanel.setBounds(10,10,200,200);
 	    rPanel.setBackground(Color.white);
 
