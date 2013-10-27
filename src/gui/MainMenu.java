@@ -10,7 +10,7 @@ import util.*;
 import java.awt.*;
 import java.util.*;
 
-import users.Preferences;
+import users.*;
 
 public class MainMenu extends mainGUI {
 
@@ -20,6 +20,7 @@ public class MainMenu extends mainGUI {
 	private JButton optionButton;
 	private JButton quitButton;
 	
+	private User user;
 	private String hexc;
 	
 	private String helpLabelText = "<html><font color=\"#"+ hexc + "\">" + "H" + "</font>" + "elp" + "</html>";
@@ -35,7 +36,7 @@ public class MainMenu extends mainGUI {
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
-		
+		user = UserManagementService.mainUser;
 		//read out instructions
 		textToSpeech.speak("Use your mouse or keyboard to select an option");
 		//TO DO: highlight menu items and read them
@@ -71,7 +72,7 @@ public class MainMenu extends mainGUI {
 	public void makeButtons() {
 
 		//ImageIcon help = new ImageIcon("Images/H-icon.png");
-		hexc = Preferences.getTheme().letter();
+		hexc = user.getPreferences().getTheme().letter();
 		
 		helpButton = new JButton(helpLabelText);
 		gamesButton = new JButton(gameLabelText);
