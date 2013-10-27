@@ -1,0 +1,15 @@
+<users.User>
+  <name>Wesley</name>
+  <preferences>
+    <voice>kevin</voice>
+    <speed>100</speed>
+    <speedLevel>1</speedLevel>
+    <theme>DEFAULT</theme>
+    <themeLevel>1</themeLevel>
+    <fontSize>27</fontSize>
+    <fontLevel>1</fontLevel>
+    <volume>10.0</volume>
+    <volumeLevel>1</volumeLevel>
+  </preferences>
+  <id>1408790011</id>
+</users.User>
