@@ -5,6 +5,7 @@ import gui.mainGUI.ExitAction;
 import javax.swing.*;
 
 import module.GameLauncher;
+import users.UserManagementService;
 import util.*;
 
 import java.awt.*;
@@ -29,6 +30,7 @@ public class MainMenu extends mainGUI {
 	public MainMenu() {
 		setup();
 		setLayout(new GridLayout(2,1));
+		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
