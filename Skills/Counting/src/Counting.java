@@ -66,9 +66,20 @@ public class Counting implements KeyListener
 	    
 	    java.util.List<Integer> allLevels = newGame.GetLevels();
 	    	    
-	    for (Integer lv : allLevels)
+	    for (final Integer lv : allLevels)
 	    {
-	    	level.add(new JMenuItem(lv.toString()));	    	
+	    	JMenuItem temp = new JMenuItem(lv.toString());
+	    	level.add(temp);	
+	    	
+	    	temp.addActionListener(new ActionListener() 
+	    	{
+	    	    @Override
+	    	    public void actionPerformed (ActionEvent arg0) 
+	    	    {
+	    	    	
+	            	ResetGame(lv);
+	    	    }
+	    	});
 	    }
 	    
 	    level.addSeparator();
@@ -136,13 +147,13 @@ public class Counting implements KeyListener
 	    firstNumberLabel.setFont(new Font("Arial", 2, 50));
 	    numPanel.add(firstNumberLabel);
         
-	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         
 	    JLabel arrow = new JLabel("->");
 	    arrow.setFont(new Font("Arial", 2, 50));
 	    numPanel.add(arrow);
         
-	    numPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+	    numPanel.add(Box.createRigidArea(new Dimension(20, 0)));
         
         //get the next number which is the answer for the current number
 	    Integer answer = newGame.GetNextNumber();
@@ -244,7 +255,7 @@ public class Counting implements KeyListener
 		}
 	}
 	
-	void ResetGame(int level)
+	static void ResetGame(int level)
 	{
 		thread = null;
 		speaker = null;
