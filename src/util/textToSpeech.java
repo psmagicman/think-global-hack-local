@@ -70,7 +70,7 @@ public class textToSpeech {
 	}
 	
 	public void setVolume(int vol) {
-		System.out.println("volume: " + vol);
+		//System.out.println("volume: " + vol);
 		switch(vol)
 		{
 			case 1: volumeParam = (float)0.65; break;

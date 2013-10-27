@@ -70,10 +70,12 @@ public class OptionMenu extends mainGUI {
 	private class Dialog extends JFrame {
 		private void createAndShowDialog() {
 			JPanel mainPanel = new JPanel(new GridLayout(2,1));
-			JPanel topPanel = new JPanel(new GridLayout(1,8));
+			int size = 8;
+			if (_type == 3) size = 3;
+			JPanel topPanel = new JPanel(new GridLayout(1,size));
 			JPanel botPanel = new JPanel(new GridLayout(1,2));
 			
-			for (int i = 1; i <= 8; i++) {
+			for (int i = 1; i <= size; i++) {
 				JButton buttonToAdd = new JButton();
 				buttonToAdd.setText(new Integer(i).toString());
 				
@@ -105,13 +107,12 @@ public class OptionMenu extends mainGUI {
 						}
 						else if (_type == 2) {
 							_speed = level;
-							System.out.println(_speed);
 							textToSpeech.getInstance().setWPM(_speed*10+100);
 							textToSpeech.getInstance().speak(new Integer(level).toString() + " poody poody poody poody");
 							// TODO: Talk at the said speed in "One one thousand"
 						}
 						else if (_type == 3) {
-							_fontSize = level*3;
+							_fontSize = level;
 							textToSpeech.getInstance().speak("Font size " + new Integer(level).toString());
 							// TODO: Display new font size dynamically
 						}
@@ -141,6 +142,9 @@ public class OptionMenu extends mainGUI {
 			cancelButton.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					Preferences prefs = _mainUser.getPreferences();
+					prefs.setVolume();
+					prefs.setSpeed();
 					setVisible(false);
 					dispose();
 				}

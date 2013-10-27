@@ -45,9 +45,12 @@ public class Preferences {
 	}
 	public void setSpeed(int speed) {
 		this.speed = speed;
-		textToSpeech.getInstance().setWPM(speed);
+		textToSpeech.getInstance().setWPM(speed*10+100);
 	}
 	
+	public void setSpeed() {
+		textToSpeech.getInstance().setWPM(speed*10+100);
+	}
 	public int getFontSize() {
 		return fontSize;
 	}
@@ -60,7 +63,9 @@ public class Preferences {
 		this.volume = volume;
 		textToSpeech.getInstance().setVolume(volume);
 	}
-	
+	public void setVolume() {
+		textToSpeech.getInstance().setVolume(volume);
+	}
 	public int getVolume(){
 		return this.volume;
 	}
