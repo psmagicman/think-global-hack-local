@@ -73,7 +73,6 @@ public class ButtonPane extends JPanel {
 			
 			if(e.getKeyChar() == KeyEvent.VK_ENTER) {
 				((JButton) e.getComponent()).doClick();
-				System.out.println(buttonList.get(buttonLocation));
 			}
 
 		}
