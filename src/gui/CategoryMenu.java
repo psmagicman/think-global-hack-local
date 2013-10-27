@@ -42,9 +42,9 @@ public class CategoryMenu extends mainGUI {
 	public CategoryMenu(DirectoryParser directoryParser, int categoryIndex) {
 		this.directoryParser = directoryParser;
 		this.categoryIndex = categoryIndex;
-		setup();
-		setLayout(new GridLayout(directoryParser.getFileStringsNoJar(categoryIndex).size(), 1));
-		defineVariables();		
+		setup();	
+		setLayout(new GridLayout((directoryParser.getFileStringsNoJar(categoryIndex).size() + 1)/2, 2));
+		
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getFileStringsNoJar(categoryIndex));
 		// This function takes out the frame

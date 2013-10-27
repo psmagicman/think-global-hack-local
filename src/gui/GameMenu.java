@@ -41,12 +41,10 @@ public class GameMenu extends mainGUI {
 	public GameMenu() {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
 
-		setup();
-		setLayout(new GridLayout(directoryParser.getCategoryStrings().size(), 1));
-		defineVariables();		
+		setup();	
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getCategoryStrings());
-
+		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 1));
 		// This function takes out the frame
 		//this.setUndecorated(true);
 		
@@ -80,7 +78,7 @@ public class GameMenu extends mainGUI {
 		}
 		
 		JButton buttonToAdd = new JButton("Exit");
-		buttonToAdd.setSize(20, 5);
+		buttonToAdd.setSize(20, 3);
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));

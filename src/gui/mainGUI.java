@@ -19,17 +19,14 @@ public class mainGUI extends JFrame {
 	/** End of Variables **/
 
 	public mainGUI() {
-
 		// set the frame size
 		setup();
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
-		defineVariables();
 		setTitle(frame_title.getText());
 
 		setVisible(true);
-
 	}
 
 	public void setup() {
@@ -45,18 +42,14 @@ public class mainGUI extends JFrame {
 		UIManager.put("Button.background", Color.WHITE);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
-		UIManager.put("Panel.background", Color.WHITE);		
-	}
-
-	/**
-	 * define_variables function
-	 * This function defines the variables for the GUI
-	 */
-	public void defineVariables() {
+		UIManager.put("Panel.background", Color.WHITE);	
+		
+		/*
 		JPanel buttons_area = new JPanel();
 		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
 		buttons_area.setLayout(new GridLayout());
-
+		*/
+		
 		// define title
 		frame_title = new JLabel("SAM");
 	}

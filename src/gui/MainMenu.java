@@ -23,8 +23,7 @@ public class MainMenu extends mainGUI {
 	
 	public MainMenu() {
 		setup();
-		setLayout(new GridLayout(2,2));
-		defineVariables();
+		setLayout(new GridLayout(2,1));
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
