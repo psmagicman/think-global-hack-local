@@ -15,7 +15,6 @@ public class mainGUI extends JFrame {
 	private JLabel frame_title;
 	private Toolkit toolkit;
 	private Dimension screen;
-	
 	/** End of Variables **/
 	
 	public mainGUI() {

@@ -19,7 +19,8 @@ public class TestClassLoaderMain extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GameLauncher gameLauncher = new GameLauncher();
-				gameLauncher.launchGame("C:\\Users\\Wilbur\\Desktop\\THINKGLOBAL\\game.jar");
+//				gameLauncher.launchGame("Users/triciajose/Documents/think-global-hack-local/Games/game.jar");
+				gameLauncher.launchGame("/Games/Category 1/game.jar");
 			}
 		});
 

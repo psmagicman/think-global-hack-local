@@ -3,6 +3,9 @@ package gui;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import module.GameLauncher;
+import util.DirectoryParser;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -10,9 +13,6 @@ import java.util.*;
 public class MainMenu extends mainGUI {
 	
 	/** Variables **/
-	private JLabel frame_title;
-	private Toolkit toolkit;
-	private Dimension screen;
 	private JButton helpButton;
 	private JButton gamesButton;
 	private JButton optionButton;
@@ -43,9 +43,14 @@ public class MainMenu extends mainGUI {
 	}
 	
 	public static void main(String[] args){
-		UserMenu u = new UserMenu();
-		MainMenu s = new MainMenu();
-		GameMenu n = new GameMenu();
+//		UserMenu u = new UserMenu();
+//		MainMenu s = new MainMenu();
+//		GameMenu n = new GameMenu();
+//		
+		CategoryMenu c = new CategoryMenu(new DirectoryParser(System.getProperty("user.dir") + "/Games"), 1);
+		
 	}
+	
+
 	
 }
