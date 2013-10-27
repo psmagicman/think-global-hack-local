@@ -35,7 +35,7 @@ public class MainMenu extends mainGUI {
 		helpButton = new JButton("Help");
 		
 		gamesButton = new JButton("Games");
-		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("g"), "gameButtonPressed");
+		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 		
 		optionButton = new JButton("Options");

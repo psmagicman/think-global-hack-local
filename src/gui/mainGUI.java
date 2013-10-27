@@ -45,9 +45,7 @@ public class mainGUI extends JFrame {
 		UIManager.put("Button.background", Color.WHITE);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
-		UIManager.put("Panel.background", Color.WHITE);
-		setFocusableWindowState(false);
-		
+		UIManager.put("Panel.background", Color.WHITE);		
 	}
 
 	/**
