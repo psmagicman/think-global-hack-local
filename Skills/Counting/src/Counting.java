@@ -49,7 +49,7 @@ public class Counting implements KeyListener
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
 	
-	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
+	public static void main(String[] args)
 	{							
 		//userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
 		//*********************
@@ -210,6 +210,7 @@ public class Counting implements KeyListener
 		    }
 		    numPanel.add(AnswerFields[i]);
 	    }
+	    //AnswerFields[0].requestFocus();
 
 	    rPanel.add(numPanel);
 	    
@@ -244,6 +245,8 @@ public class Counting implements KeyListener
         
         // the location of the code here doesn't seem so good
 	    textToSpeech.getInstance().speak(currentNumber.toString());
+	    
+	    AnswerFields[0].requestFocus();	// make it easier for the user to start answering
 	}
 	
 	void ApplyUserPreference()
@@ -299,13 +302,16 @@ public class Counting implements KeyListener
 	    for (int i = 0; i < Answer.length(); ++i)	// needs refactor with duplicate code above
 	    {
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setBackground(panelBackgroundColor);
+	    	AnswerFields[i].setBackground(Counting.backgroundColor);
 	    	AnswerFields[i].setVisible(true);
 	    	PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    ((MyDocumentFilter) doc.getDocumentFilter()).setAnswer(Answer.charAt(i));
 	    }	    
-
+	    AnswerFields[0].requestFocus();
+	    
 	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
+	    
+	    textToSpeech.getInstance().speak(currentNumber.toString());
 	}
 	
 	public void keyPressed(KeyEvent e) 
