@@ -30,7 +30,9 @@ public class MainMenu extends mainGUI {
 	public MainMenu() {
 		setup();
 		setLayout(new GridLayout(2,1));
-		textToSpeech.getInstance().setWPM(150);
+		textToSpeech.getInstance().setWPM(UserManagementService.getInstance().getMainUser().getPreferences().getSpeed());
+		textToSpeech.getInstance().setVolume(UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
+		System.out.println("VOL: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume());
 		setTitle("Welcome: " + UserManagementService.getInstance().getMainUser().getName()); // 
 		makeButtons();
 		// setUndecorated(true); // hides top bar

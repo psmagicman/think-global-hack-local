@@ -20,10 +20,12 @@ public class textToSpeech
 	private static textToSpeech instance = new textToSpeech();
 	private ExecutorService executor; 
 	private int wordsPerMinute; 
+	private float volume;
 	
 	private textToSpeech()
 	{
 		wordsPerMinute = 100; // default speed (in case people don't set the speed)
+		volume = 1; // default volume
 		executor = Executors.newFixedThreadPool(1);
 	}
 	
@@ -36,11 +38,13 @@ public class textToSpeech
 	{
 		private String textToSpeak; 
 		private int wordsPerMinute;
+		private float volume; 
 		
-		public SpeakerThread(String text, int wpm)
+		public SpeakerThread(String text, int wpm, float vol)
 		{
 			textToSpeak = text; 
 			wordsPerMinute = wpm;
+			volume = vol;
 		}
 		@Override
 		public void run() {
@@ -48,19 +52,25 @@ public class textToSpeech
 			VoiceManager voiceManager = VoiceManager.getInstance();
 	        Voice speakerVoice = voiceManager.getVoice(DEFAULT_VOICE);
 	        speakerVoice.setRate(wordsPerMinute);	// Set the speaker's voice speed (default = 100 words/minute)
+	        speakerVoice.setVolume(volume);
 	        speakerVoice.allocate();	// Allocates the resources for the voice
 	        speakerVoice.speak(textToSpeak);
 	        speakerVoice.deallocate();	// Synthesize speech & clean up after 
 		}
-		
 	}
 	public void setWPM(int wpm)
 	{
 		wordsPerMinute = wpm;
 	}
 	
+	public void setVolume(int vol)
+	{
+		if(vol < 10)
+			volume = (float)vol/10; 
+	}
+	
 	public void speak(String text)
 	{
-		executor.execute(new SpeakerThread(text, wordsPerMinute));
+		executor.execute(new SpeakerThread(text, wordsPerMinute, volume));
 	}
 }

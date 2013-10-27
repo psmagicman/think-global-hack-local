@@ -13,15 +13,14 @@ public class Preferences {
 	int fontSize;
 	int volume;
 
-	
-	
-	Preferences(){
-		voice = "Allen";
-		speed = 1;
+	public Preferences(){
+		voice = "kevin";
+		speed = 100;
 		//backgroundColour = Color.green;
 		//fontColour = Color.yellow;
 		theme = Themes.DEFAULT;
 		fontSize = 27;
+		volume = 10;
 	}
 	
 	/*Preferences(String v, int s, ){
