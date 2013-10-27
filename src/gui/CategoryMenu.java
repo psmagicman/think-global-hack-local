@@ -55,7 +55,7 @@ public class CategoryMenu extends mainGUI {
 	private void createButtons(List<String> gameStrings) {
 		for( int i = 0; i < gameStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText(gameStrings.get(i));
+			buttonToAdd.setText("<html><font color=\"#FF6600\">" + (i+1) + ". " + "</font>" + gameStrings.get(i) + "</html>");
 
 			this.add(buttonToAdd);			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i + 1).toString()), "launch" + gameStrings.get(i) + "Game");
