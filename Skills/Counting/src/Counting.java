@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -20,6 +22,10 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuKeyEvent;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
@@ -40,7 +46,11 @@ public class Counting implements KeyListener
 	
 	private static JPanel numPanel;
 	private static JLabel firstNumberLabel;
+	private static JMenu helpMenu;
 	private static JMenu levelMenu;
+	private static JMenu learnMenu;
+	private static JMenu practiceMenu;
+	private static JMenu EXITMenu;
 	private static GameLogic newGame;
 	private static Integer currentNumber;
 	
@@ -49,12 +59,8 @@ public class Counting implements KeyListener
 	public static int numberOfAttempts = 0;
 	private static JLabel numberOfAttemptsLabel;
 	
-	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
+	public static void main(String[] args)
 	{							
-		//userFont = new Font ("Arial", 2, 27);  //temp. need change last param.
-		//*********************
-		//User currentUser = UserManagementService.getInstance().getMainUser();
-		//userFont(currentUser.getPreferences().getFontSize());
 		
 	    JFrame f = new GameWindow();
 	    f.addKeyListener(new Counting());
@@ -63,14 +69,15 @@ public class Counting implements KeyListener
 	    //add menu for levels 
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    
-	    JMenu help = new JMenu("Help");
+	    helpMenu = new JMenu("Help");
 	    levelMenu = new JMenu("Level");
-	    JMenu learn = new JMenu("Learn");
-	    JMenu practice = new JMenu("Practice");
-	    JMenu EXIT = new JMenu("EXIT");
-	    EXIT.addActionListener(new ActionListener() 
+	    learnMenu = new JMenu("Learn");
+	    practiceMenu = new JMenu("Practice");
+	    EXITMenu = new JMenu("EXIT");
+	    JMenuItem reallyExitMenuItem = new JMenuItem("Really?");
+	    EXITMenu.add(reallyExitMenuItem);
+	    reallyExitMenuItem.addActionListener(new ActionListener()
 	    {
-	    	//doesn't work right now
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
@@ -80,11 +87,11 @@ public class Counting implements KeyListener
 	    
 	    levelMenu.setMnemonic(KeyEvent.VK_L);	//Todo maybe incorporate with the key listener? maybe..
 	    
-	    help.setFont(new Font("Arial", 2, 28));
+	    helpMenu.setFont(new Font("Arial", 2, 28));
 	    levelMenu.setFont(new Font("Arial", 2, 28));
-	    learn.setFont(new Font("Arial", 2, 28));    
-	    practice.setFont(new Font("Arial", 2, 28));	    
-	    EXIT.setFont(new Font("Arial", 2, 28));
+	    learnMenu.setFont(new Font("Arial", 2, 28));    
+	    practiceMenu.setFont(new Font("Arial", 2, 28));	    
+	    EXITMenu.setFont(new Font("Arial", 2, 28));
 	    
 	    java.util.List<Integer> allLevels = newGame.GetLevels();
 	    	    
@@ -103,7 +110,6 @@ public class Counting implements KeyListener
 	    	    @Override
 	    	    public void actionPerformed (ActionEvent arg0) 
 	    	    {
-	    	    	
 	            	ResetGame(lv);
 	    	    }
 	    	});
@@ -112,7 +118,7 @@ public class Counting implements KeyListener
 	    levelMenu.addSeparator();
 	    levelMenu.add("Exit");
    
-	    gameMenuBar.add(help); 
+	    gameMenuBar.add(helpMenu); 
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	    
@@ -121,15 +127,15 @@ public class Counting implements KeyListener
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	      
-	    gameMenuBar.add(learn);  
+	    gameMenuBar.add(learnMenu);  
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	    
-	    gameMenuBar.add(practice);  
+	    gameMenuBar.add(practiceMenu);  
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	    
-	    gameMenuBar.add(EXIT);  
+	    gameMenuBar.add(EXITMenu);  
 	    
 	    JPanel panel = new JPanel();
 	    
@@ -242,8 +248,9 @@ public class Counting implements KeyListener
         
         textToSpeech.getInstance().speakNow(problem);	
         
-        // the location of the code here doesn't seem so good
 	    textToSpeech.getInstance().speak(currentNumber.toString());
+	    
+	    AnswerFields[0].requestFocus();	// make it easier for the user to start answering
 	}
 	
 	void ApplyUserPreference()
@@ -299,13 +306,16 @@ public class Counting implements KeyListener
 	    for (int i = 0; i < Answer.length(); ++i)	// needs refactor with duplicate code above
 	    {
 	    	AnswerFields[i].setText("?");
-	    	AnswerFields[i].setBackground(panelBackgroundColor);
+	    	AnswerFields[i].setBackground(Counting.backgroundColor);
 	    	AnswerFields[i].setVisible(true);
 	    	PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    ((MyDocumentFilter) doc.getDocumentFilter()).setAnswer(Answer.charAt(i));
 	    }	    
-
+	    AnswerFields[0].requestFocus();
+	    
 	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
+	    
+	    textToSpeech.getInstance().speak(currentNumber.toString());
 	}
 	
 	public void keyPressed(KeyEvent e) 
@@ -315,6 +325,36 @@ public class Counting implements KeyListener
         if (key == KeyEvent.VK_ENTER && isDone)
         {
         	ResetGame(newGame.GetCurrentLevel());
+        }
+        
+        if (key == KeyEvent.VK_RIGHT)
+        {
+        	System.out.println("right");
+        }
+        
+        if (key == KeyEvent.VK_H)
+        {
+        	helpMenu.doClick();
+        }
+        
+        if (key == KeyEvent.VK_L)
+        {
+        	levelMenu.doClick();
+        }
+        
+        if (key == KeyEvent.VK_E)
+        {
+        	learnMenu.doClick();
+        }
+        
+        if (key == KeyEvent.VK_P)
+        {
+        	practiceMenu.doClick();
+        }
+        
+        if (key == KeyEvent.VK_X)
+        {
+        	EXITMenu.doClick();
         }
     }
 
