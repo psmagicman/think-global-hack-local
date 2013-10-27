@@ -211,7 +211,7 @@ public class Counting implements KeyListener
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        textToSpeech.getInstance().speak(problem);	
+        textToSpeech.getInstance().speakNow(problem);	
         
         // the location of the code here doesn't seem so good
 	    textToSpeech.getInstance().speak(currentNumber.toString());
@@ -337,7 +337,7 @@ class MyDocumentFilter extends DocumentFilter
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
 
-    	    textToSpeech.getInstance().speak(string);
+    	    textToSpeech.getInstance().speakNow(string);
         	
 			if (_answer == _textField.getText().charAt(0))
 			{
