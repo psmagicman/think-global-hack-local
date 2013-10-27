@@ -96,7 +96,8 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void focusGained(FocusEvent e) {
 			((JButton) e.getComponent()).setBackground(Color.ORANGE);
-			textToSpeech.getInstance().speakNow(((JButton) e.getComponent()).getName());
+			if( ((JButton) e.getComponent()).getName().length() > 0)
+				textToSpeech.getInstance().speakNow(((JButton) e.getComponent()).getName());
 		}
 		
 		@Override

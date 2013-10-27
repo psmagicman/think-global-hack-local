@@ -77,9 +77,9 @@ public class OptionMenu extends mainGUI {
 		prefs.setFontSize(_fontLevel);
 		prefs.setTheme(_themeLevel);
 		UserManagementService.getInstance().getMainUser().setPreferences(prefs);
-		System.out.println("PREFS:\n" + "volume: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume() + "\nSpeed: " + UserManagementService.getInstance().getMainUser().getPreferences().getSpeed() 
-				+ "\nFont size: " + UserManagementService.getInstance().getMainUser().getPreferences().getFontSize() + 
-				"\nTheme: " + UserManagementService.getInstance().getMainUser().getPreferences().getTheme()); 
+//		System.out.println("PREFS:\n" + "volume: " + UserManagementService.getInstance().getMainUser().getPreferences().getVolume() + "\nSpeed: " + UserManagementService.getInstance().getMainUser().getPreferences().getSpeed() 
+//				+ "\nFont size: " + UserManagementService.getInstance().getMainUser().getPreferences().getFontSize() + 
+//				"\nTheme: " + UserManagementService.getInstance().getMainUser().getPreferences().getTheme()); 
 		
 		System.out.println("theme level: " + _themeLevel);
 		UserManagementService.getInstance().saveMainUser();
@@ -179,10 +179,9 @@ public class OptionMenu extends mainGUI {
 						if(button.getText().charAt(0) != '>')
 							button.setText(">" + button.getText());
 						currentSelectedButton = button;
-						System.out.println("CLICKED ON: " + e.getActionCommand());
 						if (_type == 0) {
 							_volumeLevel = level;
-							float volToPlayAt = 0; 
+							float volToPlayAt = 1; 
 							switch(_volumeLevel)
 							{
 								case 1: volToPlayAt = (float)0.65; break;
@@ -194,8 +193,8 @@ public class OptionMenu extends mainGUI {
 								case 7: volToPlayAt = (float)0.95; break;
 								case 8: volToPlayAt = (float)1; break;
 							}
-
 							textToSpeech.getInstance().setVolume(volToPlayAt);
+							textToSpeech.getInstance().setWPM(100);
 							textToSpeech.getInstance().speakNow(new Integer(level).toString());
 						}
 						else if (_type == 1) {
@@ -205,13 +204,11 @@ public class OptionMenu extends mainGUI {
 						else if (_type == 2) {
 							_speedLevel = level;
 							textToSpeech.getInstance().setWPM(_speedLevel*10+100);
-							textToSpeech.getInstance().speak(new Integer(level).toString() + " poody poody poody poody");
-							// TODO: Talk at the said speed in "One one thousand"
+							textToSpeech.getInstance().setVolume((float)1.0);
+							textToSpeech.getInstance().speakNow(new Integer(level).toString() + " poody poody poody poody");
 						}
 						else if (_type == 3) {
 							_fontLevel = level;
-							textToSpeech.getInstance().speak("Font size " + new Integer(level).toString());
-							// TODO: Display new font size dynamically
 						}
 					}
 				});
@@ -295,6 +292,21 @@ public class OptionMenu extends mainGUI {
 		}
 	}
 	
+	private class BackDialogAction extends AbstractAction {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			_type = 4;
+			Dialog dlg = new Dialog();
+			dlg.createAndShowDialog();
+			saveOptions();			
+			setVisible(false);
+			dispose();
+			MainMenu m = new MainMenu();
+		}
+		
+	}
+	
 	public void makeButtons() {
 		String hexc = UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter();
 		volumeButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "V" + "</font>" + "olume" + "</html>");
@@ -304,7 +316,7 @@ public class OptionMenu extends mainGUI {
 		volumeButton.setName("volume");
 		
 		colorButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "B" + "</font>" + "ackground Colour" + "</html>");
-		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "colorButtonPressed");
+		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "colorButtonPressed");
 		colorButton.addActionListener(new ColorDialogAction());
 		colorButton.getActionMap().put("colorButtonPressed", new ColorDialogAction());
 		colorButton.setName("background color");
@@ -321,7 +333,7 @@ public class OptionMenu extends mainGUI {
 		fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
 		fontButton.setName("font size");
 		
-		backButton = new JButton("Back");
+		backButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "E" + "</font>" + "xit" + "</html>");
 		backButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -331,8 +343,10 @@ public class OptionMenu extends mainGUI {
 				MainMenu m = new MainMenu();
 			}
 		});
-		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
-		backButton.setName("back");
+		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "backButtonPressed");
+		backButton.addActionListener(new BackDialogAction());
+		backButton.getActionMap().put("backButtonPressed", new BackDialogAction());
+		backButton.setName("exit");
 			
 		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
 		mainButtonList.add(volumeButton);

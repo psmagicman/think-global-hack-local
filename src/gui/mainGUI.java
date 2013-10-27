@@ -33,12 +33,13 @@ public class mainGUI extends JFrame {
 		// set the frame size
 		user = UserManagementService.getInstance().getMainUser();
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		int relativeFont = (int) ((Toolkit.getDefaultToolkit().getScreenSize().getWidth())/40);
 		toolkit = getToolkit();
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Color bg = Color.DARK_GRAY;
 		Color fg = Color.WHITE;
 		//determines the font for the JButton/JPanel/JLabel
-		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD, relativeFont);
 		UIManager.put("Button.font", newButtonFont);
 		UIManager.put("Button.foreground", fg);
 		UIManager.put("Button.background", bg);
