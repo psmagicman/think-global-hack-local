@@ -2,6 +2,8 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import sun.security.jca.GetInstance;
+
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -59,6 +61,15 @@ public class textToSpeech
 	
 	public void speak(String text)
 	{
+		executor.execute(new SpeakerThread(text, wordsPerMinute));
+	}
+	
+	/**
+	 * Speak the text now, removing all pending speech
+	 * @param text
+	 */
+	public void speakNow(String text){
+		executor.shutdownNow();
 		executor.execute(new SpeakerThread(text, wordsPerMinute));
 	}
 }

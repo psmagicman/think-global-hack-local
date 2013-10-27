@@ -15,12 +15,14 @@ public class Counting implements KeyListener
 {
 	private static Color backgroundColor; //initialize to user preference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
+	private static Color highlightColor = Color.gray;
 
 	private static JTextField[] AnswerFields;
 	private static String Answer;
 	
 	private static JPanel numPanel;
 	private static JLabel firstNumberLabel;
+	private static JMenu levelMenu;
 	private static GameLogic newGame;
 	private static Integer currentNumber;
 	
@@ -39,7 +41,7 @@ public class Counting implements KeyListener
 	    JMenuBar gameMenuBar = new JMenuBar();
 	    
 	    JMenu help = new JMenu("Help");
-	    JMenu level = new JMenu("Level");
+	    levelMenu = new JMenu("Level");
 	    JMenu learn = new JMenu("Learn");
 	    JMenu practice = new JMenu("Practice");
 	    JMenu EXIT = new JMenu("EXIT");
@@ -53,10 +55,10 @@ public class Counting implements KeyListener
 			}
         });
 	    
-	    level.setMnemonic(KeyEvent.VK_L);	//Todo maybe incorporate with the key listener? maybe..
+	    levelMenu.setMnemonic(KeyEvent.VK_L);	//Todo maybe incorporate with the key listener? maybe..
 	    
 	    help.setFont(new Font("Arial", 2, 28));
-	    level.setFont(new Font("Arial", 2, 28));
+	    levelMenu.setFont(new Font("Arial", 2, 28));
 	    learn.setFont(new Font("Arial", 2, 28));    
 	    practice.setFont(new Font("Arial", 2, 28));	    
 	    EXIT.setFont(new Font("Arial", 2, 28));
@@ -66,7 +68,12 @@ public class Counting implements KeyListener
 	    for (final Integer lv : allLevels)
 	    {
 	    	JMenuItem temp = new JMenuItem(lv.toString());
-	    	level.add(temp);	
+	    	
+	    	// highlight the current level
+	    	if (lv == newGame.GetCurrentLevel())
+	    		temp.setBackground(Counting.highlightColor);
+	    	
+	    	levelMenu.add(temp);	
 	    	
 	    	temp.addActionListener(new ActionListener() 
 	    	{
@@ -79,14 +86,14 @@ public class Counting implements KeyListener
 	    	});
 	    }
 	    
-	    level.addSeparator();
-	    level.add("Exit");
+	    levelMenu.addSeparator();
+	    levelMenu.add("Exit");
    
 	    gameMenuBar.add(help); 
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
 	    
-	    gameMenuBar.add(level);
+	    gameMenuBar.add(levelMenu);
 	    f.setJMenuBar(gameMenuBar);
 	    
 	    gameMenuBar.add(new JSeparator(SwingConstants.VERTICAL));
@@ -245,7 +252,11 @@ public class Counting implements KeyListener
 	    }
 	   
 		numberOfAttemptsLabel.setVisible(false);
+		
+		levelMenu.getItem(newGame.GetCurrentLevel()-1).setBackground(levelMenu.getBackground());
 		newGame.SetLevel(level);
+		levelMenu.getItem(level-1).setBackground(Counting.highlightColor);
+		
 		currentNumber = newGame.GenerateRandomNumber();
 		firstNumberLabel.setText(currentNumber.toString());
 		
