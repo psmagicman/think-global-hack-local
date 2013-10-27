@@ -105,6 +105,7 @@ public class Counting
 	    {
 	    	AnswerFields[i] = new JTextField(1);
 	    	AnswerFields[i].setText("?");
+	    	AnswerFields[i].setFont(new Font("Arial", 2, 28)); 
 		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
 		    
