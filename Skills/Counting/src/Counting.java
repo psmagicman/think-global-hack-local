@@ -140,8 +140,6 @@ public class Counting
 	    
 	    rPanel.add(numPanel);
 	    
-	    //panel.add(numPanel);
-	    
         f.add(panel);
                        
         f.setTitle("Counting Game");
@@ -150,6 +148,9 @@ public class Counting
              
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        
+        // refactor later
+        textToSpeech.speak(randomNum.toString());
 	}
 	
 	void ApplyUserPreference()
@@ -212,6 +213,7 @@ class MyDocumentFilter extends DocumentFilter
         {
         	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
+        	textToSpeech.speak(string);
         	
 			if (_answer == _textField.getText().charAt(0))
 			{
