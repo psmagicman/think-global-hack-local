@@ -114,5 +114,4 @@ public class textToSpeech {
 			//listOfTasks.remove(task);
 		}
 	}
-
 }
