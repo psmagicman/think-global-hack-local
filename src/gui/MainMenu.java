@@ -8,6 +8,7 @@ import module.GameLauncher;
 import util.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.*;
 
 import users.*;
@@ -31,16 +32,10 @@ public class MainMenu extends mainGUI {
 	/** End of Variables **/
 
 	public MainMenu() {
-		setup();
+		//setup();
 		setLayout(new GridLayout(2,1));
 
-		//gets mainUser preferences
-		try {
-			user = UserManagementService.createUser("Joe");
-		} catch (NameTakenException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		user = UserManagementService.getMainUser();
 
 		//creates all the JButtons
 		makeButtons();
@@ -93,6 +88,7 @@ public class MainMenu extends mainGUI {
 		
 		quitButton.addActionListener(new ExitAction(this));
 		gamesButton.addActionListener(new GameButtonAction());
+		
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());		
@@ -103,5 +99,25 @@ public class MainMenu extends mainGUI {
 		add(gamesButton);
 		add(optionButton);
 		add(quitButton);
+	}
+	
+	public class ExitAction extends AbstractAction {
+		JFrame frameToClose;
+		
+		ExitAction(JFrame frameToClose) {
+			this.frameToClose= frameToClose; 
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			frameToClose.dispose();
+			
+		}
+	}
+	
+	public class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
+		}
 	}
 }
