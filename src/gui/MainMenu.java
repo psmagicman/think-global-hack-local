@@ -20,20 +20,22 @@ public class MainMenu extends mainGUI {
 	/** End of Variables **/
 	
 	public MainMenu() {
-		
 		setup();
 		setLayout(new GridLayout(2,2));
 		defineVariables();
 		makeButtons();
 		// setUndecorated(true); // hides top bar
 		setVisible(true);
-		
 	}
 	
 	@Override
 	public void makeButtons() {
 		helpButton = new JButton("Help");
+		
 		gamesButton = new JButton("Games");
+		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
+		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
+		
 		optionButton = new JButton("Options");
 		quitButton = new JButton("Quit");
 		add(helpButton);
@@ -42,13 +44,18 @@ public class MainMenu extends mainGUI {
 		add(quitButton);
 	}
 	
+	private class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
+		}
+	}
+	
 	public static void main(String[] args){
-//		UserMenu u = new UserMenu();
-//		MainMenu s = new MainMenu();
-//		GameMenu n = new GameMenu();
-//		
-		CategoryMenu c = new CategoryMenu(new DirectoryParser(System.getProperty("user.dir") + "/Games"), 1);
-		
+
+		GameMenu n = new GameMenu();
+		MainMenu s = new MainMenu();
+		UserMenu u = new UserMenu();
 	}
 	
 

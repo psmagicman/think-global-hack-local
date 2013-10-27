@@ -15,7 +15,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Field;
 import java.util.List;
-
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -54,7 +53,7 @@ public class CategoryMenu extends mainGUI {
 	private void createButtons(List<String> gameStrings) {
 		for( int i = 0; i < gameStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setLabel(gameStrings.get(i));
+			buttonToAdd.setText(gameStrings.get(i));
 			buttonToAdd.setSize(20, 5);
 			this.add(buttonToAdd);; 
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), "launch" + gameStrings.get(i) + "Game");
