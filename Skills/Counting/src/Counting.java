@@ -1,9 +1,5 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -13,6 +9,12 @@ import javax.swing.text.PlainDocument;
 public class Counting 
 {
 	private static Color backgroundColor; //initialize to userpreference color
+	private static JTextField[] AnswerFields;
+	private static String Answer;
+	
+	public static int numberOfAttempts = 0;
+	private static JLabel numberOfAttemptsLabel;
+	
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{	
 		
@@ -32,10 +34,13 @@ public class Counting
 	    panel.setBorder(new EmptyBorder (new Insets(30, 30, 30, 30)));
 	    
 	    //display question prompt
-	    JLabel title = new JLabel("What is the next number?");
-	    textToSpeech.speak("What is the next number?");
-	    title.setFont(new Font("Arial", 2, 28)); 
-	    rPanel.add(title);
+	    String problem = "What is the next number?";
+	    JLabel problemLabel = new JLabel(problem);
+	    TextToSpeechWrapper problemSpeaker = new TextToSpeechWrapper(problem);
+	    Thread thread = new Thread(problemSpeaker);
+	    thread.start();
+	    problemLabel.setFont(new Font("Arial", 2, 28)); 
+	    rPanel.add(problemLabel);
 	    
 	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
@@ -62,73 +67,28 @@ public class Counting
         
         //get the next number
 	    Integer answer = newGame.GetNextNumber();
-	    final String answerString = answer.toString();
-	    int answerLength = answerString.length();
+	    Answer = answer.toString();
+	    int answerLength = Answer.length();
 	    
-	    String questionMarks = new String();
+	    AnswerFields = new JTextField[answerLength];
 	    for (int i = 0; i < answerLength; ++i)
 	    {
-	    	questionMarks = questionMarks.concat("?");
+	    	AnswerFields[i] = new JTextField(1);
+	    	AnswerFields[i].setText("?");
+		    PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
+		    doc.setDocumentFilter(new MyDocumentFilter(AnswerFields[i], Answer.charAt(i), new Counting()));
+		    
+		    AnswerFields[i].setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		    AnswerFields[i].setBackground(backgroundColor);
+		    numPanel.add(AnswerFields[i]);
 	    }
-	    
-	    final JTextField answerField1 = new JTextField(1); // make a loop
-	    //answerField.setDocument(new JTextFieldLimit(answerLength));
-	    answerField1.setText("?");
-	    PlainDocument doc1 = (PlainDocument) answerField1.getDocument();
-	    doc1.setDocumentFilter(new MyDocumentFilter(answerField1, answerString.charAt(0)));
-	      
-	      final JTextField answerField2 = new JTextField(1);
-		    //answerField.setDocument(new JTextFieldLimit(answerLength));
-	      answerField2.setText("?");
-		    PlainDocument doc2 = (PlainDocument) answerField2.getDocument();
-		    doc2.setDocumentFilter(new MyDocumentFilter(answerField2, answerString.charAt(1)));
-		      
-		      final JTextField answerField3 = new JTextField(1);
-			    //answerField.setDocument(new JTextFieldLimit(answerLength));
-		      answerField3.setText("?");
-			    PlainDocument doc3 = (PlainDocument) answerField3.getDocument();
-			    doc3.setDocumentFilter(new MyDocumentFilter(answerField3, answerString.charAt(2)));
-	    
-	    answerField1.setText("?");
-	    answerField2.setText("?");
-	    answerField3.setText("?");
-	    
-	    answerField1.addActionListener(new ActionListener()
-	    {
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				System.out.println("wadsffdf");
-				
-				/*
-				if (answerString.charAt(0) == answerField1.getText().charAt(0))
-				{
-					answerField1.setBackground(Color.green);
-					//System.out.println(2);
-				}
-				else
-				{
-					answerField1.setBackground(Color.red);
-					//System.out.println(3);
-				}
-				*/
-			}
-	    });
-	    
-	    
-	    answerField1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-	    answerField1.setBackground(backgroundColor);
-	    numPanel.add(answerField1);
-	    answerField2.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-	    answerField2.setBackground(backgroundColor);
-	    numPanel.add(answerField2);
-	    answerField3.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-	    answerField3.setBackground(backgroundColor);
-	    numPanel.add(answerField3);
-	    
-	    
-	    
+
 	    
 	    rPanel.add(numPanel);
+	    
+	    numberOfAttemptsLabel = new JLabel("");
+	    numberOfAttemptsLabel.setVisible(false);
+	    rPanel.add(numberOfAttemptsLabel);
 	    
         f.add(panel);
                        
@@ -148,18 +108,35 @@ public class Counting
 		backgroundColor = Color.gray;
 	}
 		
+	void CheckIfFinished()
+	{
+		String answerFromUser = "";
+		for (int i = 0; i < Answer.length(); ++i)
+	    {
+			answerFromUser += AnswerFields[i].getText();
+	    }
+		
+		if (answerFromUser.equals(Answer))
+		{
+			numberOfAttemptsLabel.setText("Number of Attempts: " + numberOfAttempts);
+			numberOfAttemptsLabel.setVisible(true);
+		}
+	}
 }
 
 class MyDocumentFilter extends DocumentFilter
 {
 	private JTextField _textField;
 	private char _answer;
+	private Counting _countingInstance;
 	
-	MyDocumentFilter(JTextField textField, char answer)
+	MyDocumentFilter(JTextField textField, char answer, Counting countingInstance)
 	{
 		_textField = textField;
 		_answer = answer;
+		_countingInstance = countingInstance;
 	}
+	/*
     @Override
     public void insertString(DocumentFilter.FilterBypass fp
             , int offset, String string, AttributeSet aset)
@@ -178,10 +155,22 @@ class MyDocumentFilter extends DocumentFilter
         }
         if (isValidInteger)
         {
-        	super.remove(fp, 1, 1);
+        	super.remove(fp, 0, 1);
         	super.insertString(fp, 0, string, aset);
+        	textToSpeech.speak(string);
+        	
+			if (_answer == _textField.getText().charAt(0))
+			{
+				_textField.setBackground(Color.green);	// no font color?
+			}
+			else
+			{
+				_textField.setBackground(Color.red);
+				Counting.numberOfAttempts++;
+			}
         }
     }
+    */
 
     @Override
     public void replace(DocumentFilter.FilterBypass fp, int offset
@@ -207,15 +196,32 @@ class MyDocumentFilter extends DocumentFilter
         	
 			if (_answer == _textField.getText().charAt(0))
 			{
-				_textField.setBackground(Color.green);
-				//System.out.println(2);
+				_textField.setBackground(Color.green);	// no font color?
+				
+				_countingInstance.CheckIfFinished();
 			}
 			else
 			{
 				_textField.setBackground(Color.red);
-				//System.out.println(3);
+				Counting.numberOfAttempts++;
 			}
-        	
         }
     }
 }
+
+class TextToSpeechWrapper implements Runnable
+{
+	private String stringToSpeak;
+	
+	TextToSpeechWrapper(String text)
+	{
+		stringToSpeak = text;
+	}
+	
+	@Override
+	public void run() 
+	{
+		textToSpeech.speak(stringToSpeak);
+	}
+}
+

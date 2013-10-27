@@ -58,6 +58,7 @@ public class GameLogic
 		return level;
 	}
 	
+	// Not used
 	boolean IsThisDigitCorrect(int digit, int position)
 	{
 		String nextNumberInString = new Integer(GetNextNumber()).toString();
