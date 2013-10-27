@@ -51,6 +51,11 @@ public class GameMenu extends mainGUI {
 		//this.setUndecorated(true);
 		
 		setVisible(true);
+		
+		//TO DO: read out the instructions
+		
+		//TO DO: highlight each menu item and read the menu
+		
 	}
 
 	private class CategoryButtonAction extends AbstractAction {
