@@ -96,5 +96,14 @@ public class textToSpeech {
 		listOfTasks.add(task);
 		executor.submit(task);
 	}
+	
+	public void cancelSpeak()
+	{
+		for (FutureTask<String> task : listOfTasks){
+			task.cancel(true);
+			//listOfTasks.remove(task);
+		}
+	}
+	
 
 }
