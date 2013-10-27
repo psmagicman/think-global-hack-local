@@ -30,6 +30,8 @@ public class MainMenu extends mainGUI {
 	
 	@Override
 	public void makeButtons() {
+		
+		//ImageIcon help = new ImageIcon("Images/H-icon.png");
 		helpButton = new JButton("Help");
 		
 		gamesButton = new JButton("Games");
@@ -53,8 +55,7 @@ public class MainMenu extends mainGUI {
 	
 	public static void main(String[] args){
 
-		GameMenu n = new GameMenu();
-		MainMenu s = new MainMenu();
+	//	MainMenu s = new MainMenu();
 		UserMenu u = new UserMenu();
 	}
 	
