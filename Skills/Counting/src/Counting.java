@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -9,16 +10,36 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+import javax.swing.ImageIcon;
 
 public class Counting 
 {
 	private static Color backgroundColor; //initialize to userpreference color
 	private static Color panelBackgroundColor = Color.white; // temporarily white
-	
+
 	public static void main(String[] args) 	// User will be passed down. use the user's preference for style, level, etc.
 	{			
 	    JFrame f = new GameWindow();
 	    GameLogic newGame = new GameLogic(3);	// set to 1 only if there is no user preference.	    
+
+	    //add menu for levels 
+	    JMenuBar gameMenuBar = new JMenuBar();
+	    JMenu level = new JMenu("Level");
+	    //level.setMnemonic(KeyEvent.VK_L);
+	    
+	    JMenuItem levelItem = new JMenuItem("1");
+	    
+	    
+	    levelItem.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent event) {
+	                System.exit(0);
+	            }
+	        });
+    
+	    gameMenuBar.add(level);
+	    f.setJMenuBar(gameMenuBar);
+	    f.add(gameMenuBar);
+	    
 	    
 	    JPanel panel = new JPanel();
 	    
@@ -34,14 +55,13 @@ public class Counting
 	    //display question prompt
 	    JLabel title = new JLabel("What is the next number?");
 	    textToSpeech.speak("What is the next number?");
+	    
 	    title.setFont(new Font("Arial", 2, 28)); 
 	    rPanel.add(title);
 	    
 	    rPanel.add(Box.createRigidArea(new Dimension(0, 100)));
 	    
 	    panel.add(rPanel);
-	    
-        panel.add(Box.createRigidArea(new Dimension(0, 100)));
         	    
 	    JPanel numPanel = new JPanel();
 
