@@ -49,7 +49,7 @@ public class HelpMenu extends mainGUI {
 	}
 
 	public void makeHelpText() {
-		String helpInfo = TextFileReader.ReadFile("./help.txt");
+		String helpInfo = TextFileReader.ReadFile("./data/help.txt");
 		helpText = new SelectionTextPane(helpInfo);
 		helpScroll = new JScrollPane(helpText,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
