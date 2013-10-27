@@ -60,7 +60,14 @@ public class Preferences {
 	
 	public int getVolume(){
 		return this.volume;
+	}
 	
+	public Themes getTheme() {
+		return this.theme;
+	}
+	
+	public void setTheme(Themes theme) {
+		this.theme = theme;
 	}
 	/*public Color getBackgroundColour() {
 	return backgroundColour;
