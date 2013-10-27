@@ -1,5 +1,7 @@
 package gui;
 
+import gui.mainGUI.ExitAction;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -30,34 +32,24 @@ public class MainMenu extends mainGUI {
 	
 	@Override
 	public void makeButtons() {
+		
+		//ImageIcon help = new ImageIcon("Images/H-icon.png");
 		helpButton = new JButton("Help");
-		
 		gamesButton = new JButton("Games");
-		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
-		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
-		
 		optionButton = new JButton("Options");
 		quitButton = new JButton("Quit");
+		
+		quitButton.addActionListener(new ExitAction(this));
+		gamesButton.addActionListener(new GameButtonAction());
+		
+		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
+		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());		
+		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
+		quitButton.getActionMap().put("exitButtonPressed", new ExitAction(this));
+		
 		add(helpButton);
 		add(gamesButton);
 		add(optionButton);
 		add(quitButton);
 	}
-	
-	private class GameButtonAction extends AbstractAction {
-		@Override
-		public void actionPerformed(ActionEvent action) {
-			GameMenu n = new GameMenu();
-		}
-	}
-	
-	public static void main(String[] args){
-
-		GameMenu n = new GameMenu();
-		MainMenu s = new MainMenu();
-		UserMenu u = new UserMenu();
-	}
-	
-
-	
 }

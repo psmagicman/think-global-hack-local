@@ -49,7 +49,6 @@ public class GameMenu extends mainGUI {
 
 		// This function takes out the frame
 		//this.setUndecorated(true);
-		CategoryMenu c = new CategoryMenu(directoryParser, 1);
 		
 		setVisible(true);
 	}
@@ -73,11 +72,18 @@ public class GameMenu extends mainGUI {
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
 			buttonToAdd.setText(categoryStrings.get(i));
-			buttonToAdd.setSize(20, 5);
+			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
+			buttonToAdd.addActionListener(new CategoryButtonAction(directoryParser, i));
 			this.add(buttonToAdd);
-			buttonToAdd.getText();
 		}
+		
+		JButton buttonToAdd = new JButton("Exit");
+		buttonToAdd.setSize(20, 5);
+		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
+		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
+		buttonToAdd.addActionListener(new ExitAction(this));
+		this.add(buttonToAdd);
 	}
 }

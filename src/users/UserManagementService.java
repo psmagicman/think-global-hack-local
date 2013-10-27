@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javassist.bytecode.Descriptor.Iterator;
+//import javassist.bytecode.Descriptor.Iterator;
 
 import com.thoughtworks.xstream.persistence.FilePersistenceStrategy;
 import com.thoughtworks.xstream.persistence.PersistenceStrategy;
@@ -24,6 +24,10 @@ public class UserManagementService {
 		List<User> users = new ArrayList<User>();
 		
 		File file = new File(System.getProperty("user.dir") + "/data");
+		if(!file.exists()) {
+			boolean r = file.mkdir();
+			System.out.println(r);
+		}
 		File[] files = file.listFiles();
 		
 		PersistenceStrategy strategy = new FilePersistenceStrategy(file);
@@ -60,7 +64,7 @@ public class UserManagementService {
 		newUser.setId(makeUniqueId(users));
 		
 	
-		File file = new File("/user-store"); 
+		File file = new File(System.getProperty("user.dir") + "/data");
 		if(!file.exists()) {
 			boolean r = file.mkdir();
 			System.out.println(r);

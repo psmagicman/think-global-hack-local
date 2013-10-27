@@ -38,11 +38,14 @@ public class mainGUI extends JFrame {
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		//determines the font for the JButtons
+		//determines the font for the JButton/JPanel/JLabel
 		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
 		UIManager.put("Button.font", newButtonFont);
 		UIManager.put("Button.foreground", Color.DARK_GRAY);
 		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("TextField.font", newButtonFont);
+		UIManager.put("Label.font", newButtonFont);
+		UIManager.put("Panel.background", Color.WHITE);		
 	}
 
 	/**
@@ -75,6 +78,26 @@ public class mainGUI extends JFrame {
 			UIManager.put("Button.font", newButtonFont);
 			UIManager.put("Button.foreground", name.getFontColour());
 			UIManager.put("Button.background", name.getBackgroundColour());
+		}
+	}
+	
+	public class ExitAction extends AbstractAction {
+		JFrame frameToClose;
+		
+		ExitAction(JFrame frameToClose) {
+			this.frameToClose= frameToClose; 
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			frameToClose.dispose();
+			
+		}
+	}
+
+	public class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
 		}
 	}
 }

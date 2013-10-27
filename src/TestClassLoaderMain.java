@@ -20,7 +20,7 @@ public class TestClassLoaderMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				GameLauncher gameLauncher = new GameLauncher();
 //				gameLauncher.launchGame("Users/triciajose/Documents/think-global-hack-local/Games/game.jar");
-				gameLauncher.launchGame("/Games/Category 1/game.jar");
+				gameLauncher.launchGame("/Games/Category 2/Game 1.jar");
 			}
 		});
 
