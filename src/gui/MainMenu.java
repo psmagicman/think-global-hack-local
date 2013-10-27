@@ -106,6 +106,14 @@ public class MainMenu extends mainGUI {
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
 		helpButton.setBorder(BorderFactory.createEmptyBorder());
 		
+		ArrayList<JButton> buttonList = new ArrayList<JButton>();
+		buttonList.add(helpButton);
+		buttonList.add(gamesButton);
+		buttonList.add(optionButton);
+		buttonList.add(quitButton);
+		
+		new ButtonPane(buttonList);
+		
 		add(helpButton);
 		add(gamesButton);
 		add(optionButton);
