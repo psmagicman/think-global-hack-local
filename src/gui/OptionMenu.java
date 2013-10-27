@@ -296,25 +296,26 @@ public class OptionMenu extends mainGUI {
 	}
 	
 	public void makeButtons() {
-		volumeButton = new JButton("Volume");
+		String hexc = UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter();
+		volumeButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "V" + "</font>" + "olume" + "</html>");
 		volumeButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('v'), "volumeButtonPressed");
 		volumeButton.addActionListener(new VolumeDialogAction());
 		volumeButton.getActionMap().put("volumeButtonPressed", new VolumeDialogAction());
 		volumeButton.setName("volume");
 		
-		colorButton = new JButton("Background Color");
+		colorButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "B" + "</font>" + "ackground Colour" + "</html>");
 		colorButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "colorButtonPressed");
 		colorButton.addActionListener(new ColorDialogAction());
 		colorButton.getActionMap().put("colorButtonPressed", new ColorDialogAction());
 		colorButton.setName("background color");
 		
-		speedButton = new JButton("Speed");
+		speedButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "S" + "</font>" + "peed" + "</html>");
 		speedButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "speedButtonPressed");
 		speedButton.addActionListener(new SpeedDialogAction());
 		speedButton.getActionMap().put("speedButtonPressed", new SpeedDialogAction());
 		speedButton.setName("speed");
 		
-		fontButton = new JButton("Font Size");
+		fontButton = new JButton("<html><font color=\"#"+ hexc + "\">" + "F" + "</font>" + "ont Size" + "</html>");
 		fontButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('f'), "fontButtonPressed");
 		fontButton.addActionListener(new FontDialogAction());
 		fontButton.getActionMap().put("fontButtonPressed", new FontDialogAction());
