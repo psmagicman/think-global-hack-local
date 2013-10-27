@@ -86,6 +86,7 @@ public class GameMenu extends mainGUI {
 		JButton buttonToAdd = new JButton("Exit");
 		buttonToAdd.setSize(20, 3);
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
+		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));
 		this.add(buttonToAdd);

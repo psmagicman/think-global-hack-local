@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
@@ -34,7 +35,7 @@ public class UserMenu extends mainGUI {
 	public UserMenu() {
 		// setup GUI styles/frame
 		setup();
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(1, 2));
 		populateUsersList();
 		makeButtons();
 		setVisible(true);
@@ -43,8 +44,16 @@ public class UserMenu extends mainGUI {
 	public void populateUsersList() {
 		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
+		
+		users.setAutoscrolls(true);
+		if(userslist.size() != 0) {
+			users.setSelectedIndex(0);
+		}
+	
 		add(users);
-	}
+		add(new JScrollPane(users));
+		users.requestFocus();
+}
 
 	private class NewUserDialog extends JFrame {
 		private void createAndShowNewUserDialog() {
@@ -72,7 +81,7 @@ public class UserMenu extends mainGUI {
 							User newUser = UserManagementService.getInstance().createUser(name);
 							UserManagementService.getInstance().setMainUser(newUser);
 							goToMainMenu();
-							
+							dispose();
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
@@ -107,7 +116,6 @@ public class UserMenu extends mainGUI {
 	}
 	
 	private class selectedUserAction extends AbstractAction {
-
 		@Override
 		public void actionPerformed(ActionEvent arg0) {			
 			User selectedUser = users.getSelectedValue(); 
@@ -119,31 +127,34 @@ public class UserMenu extends mainGUI {
 	
 	private void goToMainMenu(){
 		MainMenu s = new MainMenu();
+		this.dispose();
 	}
 	
 	@Override
 	public void makeButtons() {
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(2, 1));
 		// make buttons 
 		createNewUserButton = new JButton("Create New User");
 		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
+		
 		selectUserButton = new JButton("Select User");
 		selectUserButton.setText("<html><font color=\"#FF6600\">S</font>" + "elect User</html>");
+		
 		createNewUserButton.addActionListener(new CreateNewUserDialogAction());
 		selectUserButton.addActionListener(new selectedUserAction());
 		
 		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
+		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "gameButtonPressed");
 		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
 		
 		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
 		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
 		
-		if(users.getModel().getSize() == 0)
-		{
-			System.out.println("No users");
-			selectUserButton.setEnabled(false);
-		}
-		add(createNewUserButton);
-		add(selectUserButton);
+		selectUserButton.setEnabled(users.getModel().getSize()!=0); // disables button if there are no users
+		buttonPanel.add(createNewUserButton);
+		buttonPanel.add(selectUserButton);
+		add(buttonPanel);
 	}
 }
 

@@ -1,4 +1,9 @@
 package util;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import sun.security.jca.GetInstance;
+
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
@@ -6,33 +11,56 @@ import com.sun.speech.freetts.VoiceManager;
  * IF YOU ARE GETTING ERRORS: 
  * 	- 	Make sure you added FREETTS.JAR to your build path libraries 
  *	  	(Right-click project > Properties > Java Build Path > Libraries > Add External JARs 
- * IF YOU CAN'T HEAR THE AUDIO: 
- * 	-	Make sure you added JSAPI.JAR to your JRE external library folder
- * 			(C:\Program Files\Java\jre1.6.*\lib\ext) 
- * 		or  (C:\Program Files\Java\jdk1.*.*\jre\lib\ext)
  * If you're still getting errors, find Denise!  	
 */
 
 public class textToSpeech
 {
-	//TODO: Get the user preferences, which will contain the speaker string & speed
+	private static final String DEFAULT_VOICE = "kevin16";
+	private static textToSpeech instance = new textToSpeech();
+	private ExecutorService executor; 
+	private int wordsPerMinute; 
 	
-	public static void speak(String text)
+	private textToSpeech()
 	{
-		speakWithSpeaker("kevin16", text, 100);
+		wordsPerMinute = 100; // default speed (in case people don't set the speed)
+		executor = Executors.newFixedThreadPool(1);
 	}
-	public static void speakWithSpeaker(String voice, String text, int wpm)
+	
+	public static textToSpeech getInstance()
 	{
-		//TODO: Remove & use speak and set the settings from the user prefs
+		return instance;
+	}
+	
+	private class SpeakerThread implements Runnable
+	{
+		private String textToSpeak; 
+		private int wordsPerMinute;
 		
-		VoiceManager voiceManager = VoiceManager.getInstance();
-        Voice speakerVoice = voiceManager.getVoice(voice);
-//		Set the speaker's voice speed (default = 100 words/minute)
-        speakerVoice.setRate(wpm);
-//		Allocates the resources for the voice
-        speakerVoice.allocate();
-//		Synthesize speech & clean up after 
-        speakerVoice.speak(text);
-        speakerVoice.deallocate();
+		public SpeakerThread(String text, int wpm)
+		{
+			textToSpeak = text; 
+			wordsPerMinute = wpm;
+		}
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			VoiceManager voiceManager = VoiceManager.getInstance();
+	        Voice speakerVoice = voiceManager.getVoice(DEFAULT_VOICE);
+	        speakerVoice.setRate(wordsPerMinute);	// Set the speaker's voice speed (default = 100 words/minute)
+	        speakerVoice.allocate();	// Allocates the resources for the voice
+	        speakerVoice.speak(textToSpeak);
+	        speakerVoice.deallocate();	// Synthesize speech & clean up after 
+		}
+		
+	}
+	public void setWPM(int wpm)
+	{
+		wordsPerMinute = wpm;
+	}
+	
+	public void speak(String text)
+	{
+		executor.execute(new SpeakerThread(text, wordsPerMinute));
 	}
 }
