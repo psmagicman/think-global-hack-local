@@ -141,7 +141,7 @@ public class Counting implements KeyListener
 	    numPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 	    numPanel.setBackground(panelBackgroundColor); // random color for testing 
 	    
-	    numPanel.add(Box.createRigidArea(new Dimension(0,350)));
+	    numPanel.add(Box.createRigidArea(new Dimension(0, 300)));
 	    
 	    //display initial random number
 	    currentNumber = newGame.GenerateRandomNumber();
@@ -196,9 +196,9 @@ public class Counting implements KeyListener
 	    numberOfAttemptsLabel.setVisible(false);
 	    rPanel.add(numberOfAttemptsLabel);
 	    
-	    //just a place holder until i figure out why the above panel is stretching
+	    //just a temp place holder until I figure out why orange thing is strecthing
 	    JLabel footHolder = new JLabel("<html><font color='white'>...</font></html>");
-	    footHolder.setFont(new Font("Arial", 2, 70));
+	    footHolder.setFont(new Font("Arial", 2, 40));
 	    rPanel.add(footHolder);
 	    
         f.add(panel);
@@ -281,7 +281,7 @@ public class Counting implements KeyListener
 	    	PlainDocument doc = (PlainDocument) AnswerFields[i].getDocument();
 		    ((MyDocumentFilter) doc.getDocumentFilter()).setAnswer(Answer.charAt(i));
 	    }	    
-	    
+
 	    numberOfAttempts = 0;	// this needs to be after AnswerFields.setText()
 	}
 	
