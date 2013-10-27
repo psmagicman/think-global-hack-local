@@ -95,7 +95,8 @@ public class MainMenu extends mainGUI {
 		optionButton.addActionListener(new OptionButtonAction());
 		quitButton.addActionListener(new QuitAction());
 		gamesButton.addActionListener(new GameButtonAction());
-
+		helpButton.addActionListener(new HelpAction());
+		
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
 
@@ -104,7 +105,10 @@ public class MainMenu extends mainGUI {
 
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
+		
 		helpButton.setBorder(BorderFactory.createEmptyBorder());
+		helpButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('h'), "helpButtonPressed");
+		helpButton.getActionMap().put("helpButtonPressed", new HelpAction());
 		
 		add(helpButton);
 		add(gamesButton);
