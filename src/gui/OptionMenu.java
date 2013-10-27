@@ -7,6 +7,7 @@
 
 package gui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gui.mainGUI;
@@ -106,7 +108,7 @@ public class OptionMenu extends mainGUI {
 				size = 3;
 			JPanel topPanel = new JPanel(new GridLayout(1,size));
 			JPanel botPanel = new JPanel(new GridLayout(1,2));
-			
+			ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
 			for (int i = 1; i <= size; i++) {
 				JButton buttonToAdd = new JButton();
 				if (_type == 1) 
@@ -137,6 +139,7 @@ public class OptionMenu extends mainGUI {
 					buttonToAdd.setText(new Integer(i).toString());
 				
 				this.add(buttonToAdd);
+				mainButtonList.add(buttonToAdd);
 				buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i).toString()), i);
 			
 				final int level = i;
@@ -157,6 +160,7 @@ public class OptionMenu extends mainGUI {
 								case 7: volToPlayAt = (float)0.95; break;
 								case 8: volToPlayAt = (float)1; break;
 							}
+
 							textToSpeech.getInstance().setVolume(volToPlayAt);
 							textToSpeech.getInstance().speakNow(new Integer(level).toString());
 						}
@@ -214,7 +218,9 @@ public class OptionMenu extends mainGUI {
 				}
 			});
 			botPanel.add(cancelButton);
-			
+			mainButtonList.add(okayButton);
+			mainButtonList.add(cancelButton);
+			new ButtonPane(mainButtonList);
 			setContentPane(mainPanel);
 			mainPanel.add(topPanel);
 			mainPanel.add(botPanel);
@@ -296,6 +302,14 @@ public class OptionMenu extends mainGUI {
 		});
 		backButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('b'), "backButtonPressed");
 			
+		ArrayList<JButton> mainButtonList = new ArrayList<JButton>();
+		mainButtonList.add(volumeButton);
+		mainButtonList.add(colorButton);
+		mainButtonList.add(speedButton);
+		mainButtonList.add(fontButton);
+		mainButtonList.add(backButton);
+		new ButtonPane(mainButtonList);
+		
 			this.add(volumeButton);
 			this.add(colorButton);
 			this.add(speedButton);
