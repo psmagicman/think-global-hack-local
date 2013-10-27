@@ -1,11 +1,14 @@
 package users;
 
+import java.util.List;
+import java.util.Map;
+
 public class User {
 
 	private String path;
 	private String name;
 	private Preferences preferences;
-	//private GameLevels levels;
+	private Map<String, List<GameStat>> gameStats; //name and statistics for game
 	private int id;
 
 	public User(String name) {

@@ -38,7 +38,7 @@ public class UserMenu extends mainGUI {
 	}
 	
 	public void populateUsersList() {
-		List<User> userslist = UserManagementService.getUsers();
+		List<User> userslist = UserManagementService.getInstance().getUsers();
 		users = new JList<User>(userslist.toArray(new User[userslist.size()]));
 		add(users);
 	}
@@ -66,7 +66,7 @@ public class UserMenu extends mainGUI {
 					}
 					else{
 						try {
-							UserManagementService.createUser(name);
+							UserManagementService.getInstance().createUser(name);
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
 						}
@@ -106,6 +106,7 @@ public class UserMenu extends mainGUI {
 		public void actionPerformed(ActionEvent arg0) {			
 			MainMenu s = new MainMenu();
 			User selectedUser = users.getSelectedValue(); 
+			UserManagementService.getInstance().setMainUser(selectedUser);
 			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
 		}
 
