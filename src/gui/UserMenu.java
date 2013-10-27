@@ -72,6 +72,7 @@ public class UserMenu extends mainGUI {
 							User newUser = UserManagementService.getInstance().createUser(name);
 							UserManagementService.getInstance().setMainUser(newUser);
 							goToMainMenu();
+							dispose();
 							
 						} catch (NameTakenException e1) {
 							JOptionPane.showMessageDialog(NewUserDialog.this, e1.getError());
@@ -107,23 +108,18 @@ public class UserMenu extends mainGUI {
 	}
 	
 	private class selectedUserAction extends AbstractAction {
-		JFrame toBeDisposed;
-		selectedUserAction(JFrame toBeDisposed) {
-			this.toBeDisposed = toBeDisposed;
-		}
-		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {			
 			User selectedUser = users.getSelectedValue(); 
 			UserManagementService.getInstance().setMainUser(selectedUser);
 			System.out.println("You selected user: " + selectedUser.getName() + "\n with preferences: " + selectedUser.getPreferences());
 			goToMainMenu();
-			toBeDisposed.dispose();
 		}
 	}
 	
 	private void goToMainMenu(){
 		MainMenu s = new MainMenu();
+		this.dispose();
 	}
 	
 	@Override
@@ -131,13 +127,15 @@ public class UserMenu extends mainGUI {
 		// make buttons 
 		createNewUserButton = new JButton("Create New User");
 		createNewUserButton.setText("<html><font color=\"#FF6600\">C</font>" + "reate New User</html>");
+		
 		selectUserButton = new JButton("Select User");
 		selectUserButton.setText("<html><font color=\"#FF6600\">S</font>" + "elect User</html>");
+		
 		createNewUserButton.addActionListener(new CreateNewUserDialogAction());
-		selectUserButton.addActionListener(new selectedUserAction(this));
+		selectUserButton.addActionListener(new selectedUserAction());
 		
 		selectUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('s'), "gameButtonPressed");
-		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction(this));
+		selectUserButton.getActionMap().put("gameButtonPressed", new selectedUserAction());
 		
 		createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
 		createNewUserButton.getActionMap().put("gameButtonPressed", new CreateNewUserDialogAction());
