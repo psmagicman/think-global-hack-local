@@ -66,7 +66,6 @@ public class ButtonPane extends JPanel {
 			indexLocation = 0;
 		}
 		buttonLocation = indexLocation;
-		System.out.println(buttonLocation);
 		buttonList.get(indexLocation).requestFocus();
 	}
 	
@@ -79,7 +78,6 @@ public class ButtonPane extends JPanel {
 			indexLocation = listSize - 1;
 		}
 		buttonLocation = indexLocation;
-		System.out.println(buttonLocation);
 		buttonList.get(indexLocation).requestFocus();
 	}
 	
