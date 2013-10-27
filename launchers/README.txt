@@ -13,5 +13,6 @@ If the application did not launch, but instead opens a text file, right click th
 
 To create new games, you need an entry point class called Game which should implement the IGame interface in module.IGame. This class needs to be called Game and must implement the method startGame().
 
-TODO: add more documentation.
+The game that you write will need to have SAM.jar in the build path to use all the classes needed to integrate with SAM. To do this in Eclipse, just go to project Properties -> Build Path -> Libraries -> External Libraries and add the library SAM.jar.
 
+Then, you will need to export your game as a jar (Eclipse does this with a right click on the project, Export). You then can "install" your game to SAM by putting this exported jar file into the Games directory.
