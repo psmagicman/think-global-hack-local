@@ -1,17 +1,21 @@
 package gui;
 
+import gui.MainMenu.GameButtonAction;
+
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 import users.NameTakenException;
 import users.User;
@@ -120,6 +124,10 @@ public class UserMenu extends mainGUI {
 		selectUserButton = new JButton("Select User");
 		createNewUserButton.addActionListener(new CreateNewUserDialogHandler());
 		selectUserButton.addActionListener(new selectedUserHandler());
+		
+		/*createNewUserButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('c'), "gameButtonPressed");
+		createNewUserButton.getActionMap().put("gameButtonPressed", new GameButtonAction());*/
+		
 		if(users.getModel().getSize() == 0)
 		{
 			System.out.println("No users");

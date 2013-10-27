@@ -78,7 +78,8 @@ public class MainMenu extends mainGUI {
 		gamesButton.addActionListener(new GameButtonAction());
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
-		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());		
+		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
+		
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new ExitAction(this));
 

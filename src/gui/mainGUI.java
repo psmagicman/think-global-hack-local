@@ -63,8 +63,8 @@ public class mainGUI extends JFrame {
 		else{
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", name.getFontColour());
-			UIManager.put("Button.background", name.getBackgroundColour());
+			//UIManager.put("Button.foreground", name.getTheme().foreground());
+			//UIManager.put("Button.background", name.getBackgroundColour());
 		}
 	}
 	
