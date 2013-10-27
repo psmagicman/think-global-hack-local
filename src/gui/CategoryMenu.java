@@ -28,6 +28,8 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
 import module.GameLauncher;
+import users.User;
+import users.UserManagementService;
 import util.DirectoryParser;
 
 public class CategoryMenu extends mainGUI {
@@ -36,6 +38,11 @@ public class CategoryMenu extends mainGUI {
 	private DirectoryParser directoryParser;
 	private int categoryIndex;
 
+	private User user;
+	private String hexc;
+	
+	private String hotKey;
+
 	/**
 	 * Create the frame.
 	 */
@@ -43,19 +50,20 @@ public class CategoryMenu extends mainGUI {
 		this.directoryParser = directoryParser;
 		this.categoryIndex = categoryIndex;
 		setup();
-		setLayout(new GridLayout(directoryParser.getFileStringsNoJar(categoryIndex).size(), 1));
-		defineVariables();		
+		user = UserManagementService.getInstance().getMainUser();
+		userPref(user);
+		setLayout(new GridLayout((directoryParser.getFileStringsNoJar(categoryIndex).size() + 2)/2, 2));
+		
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getFileStringsNoJar(categoryIndex));
-		// This function takes out the frame
-		//this.setUndecorated(true);
 		setVisible(true);
 	}
 	
 	private void createButtons(List<String> gameStrings) {
+		hexc = user.getPreferences().getTheme().letter();
 		for( int i = 0; i < gameStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText(gameStrings.get(i));
+			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + gameStrings.get(i) + "</html>");
 
 			this.add(buttonToAdd);			
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i + 1).toString()), "launch" + gameStrings.get(i) + "Game");
@@ -67,13 +75,13 @@ public class CategoryMenu extends mainGUI {
 		
 		JButton buttonToAdd = new JButton("Exit");
 		buttonToAdd.addActionListener(new ExitAction(this));
+		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		this.add(buttonToAdd);
 	}
 	
 	private class GameLaunchAction extends AbstractAction {
-		
 		private String gameToLaunch;
 		
 		public GameLaunchAction(String gameToLaunch) {
@@ -85,6 +93,4 @@ public class CategoryMenu extends mainGUI {
 			newGame.launchGame(gameToLaunch);
 		}
 	}
-	
-
 }

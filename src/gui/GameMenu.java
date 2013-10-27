@@ -28,29 +28,38 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 
+import users.User;
+import users.UserManagementService;
 import util.DirectoryParser;
 
 public class GameMenu extends mainGUI {
 	private JLabel frame_title;
 	private JPanel contentPane;
 	private DirectoryParser directoryParser;
-
+	
+	private User user;
+	private String hexc;
+	
+	private String hotKey;
 	/**
 	 * Create the frame.
 	 */
 	public GameMenu() {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
 
-		setup();
-		setLayout(new GridLayout(directoryParser.getCategoryStrings().size(), 1));
-		defineVariables();		
+		setup();	
+		user = UserManagementService.getInstance().getMainUser();
+		userPref(user);
+		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 2));
+
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getCategoryStrings());
-
-		// This function takes out the frame
-		//this.setUndecorated(true);
-		
 		setVisible(true);
+		
+		//TO DO: read out the instructions
+		
+		//TO DO: highlight each menu item and read the menu
+		
 	}
 
 	private class CategoryButtonAction extends AbstractAction {
@@ -69,9 +78,10 @@ public class GameMenu extends mainGUI {
 	}
 	
 	private void createButtons(List<String> categoryStrings) {
+		hexc = user.getPreferences().getTheme().letter();
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText(categoryStrings.get(i));
+			buttonToAdd.setText("<html><font color=\"#"+ hexc + "\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
@@ -80,8 +90,9 @@ public class GameMenu extends mainGUI {
 		}
 		
 		JButton buttonToAdd = new JButton("Exit");
-		buttonToAdd.setSize(20, 5);
+		buttonToAdd.setSize(20, 3);
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
+		buttonToAdd.setText("<html><font color=\"#FF6600\">E</font>" + "xit</html>");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));
 		this.add(buttonToAdd);

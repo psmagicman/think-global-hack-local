@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import users.*;
 import util.DirectoryParser;
+import util.textToSpeech;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -16,41 +17,37 @@ public class mainGUI extends JFrame {
 	private JLabel frame_title;
 	private Toolkit toolkit;
 	private Dimension screen;
+	private User user;
+
 	/** End of Variables **/
 
 	public mainGUI() {
-
 		// set the frame size
 		setup();
-		toolkit = getToolkit();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
-		defineVariables();
 		setTitle(frame_title.getText());
-
 		setVisible(true);
-
 	}
 
 	public void setup() {
 		// set the frame size
+		user = UserManagementService.getInstance().getMainUser();
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		defaultPref(null);
-	}
-
-	/**
-	 * define_variables function
-	 * This function defines the variables for the GUI
-	 */
-	public void defineVariables() {
-		JPanel buttons_area = new JPanel();
-		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout());
-
-		// define title
+				Color bg = Color.DARK_GRAY;
+				Color fg = Color.WHITE;
+		//determines the font for the JButton/JPanel/JLabel
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
+		UIManager.put("Button.font", newButtonFont);
+		UIManager.put("Button.foreground", fg);
+		UIManager.put("Button.background", bg);
+		UIManager.put("TextField.font", newButtonFont);
+		UIManager.put("Label.font", newButtonFont);
+		UIManager.put("List.font", newButtonFont);
+		UIManager.put("TextArea.font", newButtonFont);
+		UIManager.put("TextArea.foreground", fg);
+		UIManager.put("TextArea.background", bg);
 		frame_title = new JLabel("SAM");
 	}
 
@@ -58,44 +55,52 @@ public class mainGUI extends JFrame {
 	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
-	
-	public void defaultPref(Preferences name){
+
+	public void userPref(User name){
 		if (name == null){
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+			//Use Default settings
+			Color bg = name.getPreferences().getTheme().background();
+			Color fg = name.getPreferences().getTheme().foreground();
+			Font newButtonFont = new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", Color.DARK_GRAY);
-			UIManager.put("Button.background", Color.WHITE);
-			UIManager.put("TextArea.font", newButtonFont);
-			UIManager.put("TextArea.foreground", Color.DARK_GRAY);
-			UIManager.put("TextArea.background", Color.WHITE);
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
 			UIManager.put("TextField.font", newButtonFont);
 			UIManager.put("Label.font", newButtonFont);
-			UIManager.put("Panel.background", Color.WHITE);	
+			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
 		}
 		else{
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getFontSize());
+
+			Color fg = name.getPreferences().getTheme().foreground();
+			Color bg = name.getPreferences().getTheme().background();
+			//Loads User settings
+			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", name.getFontColour());
-			UIManager.put("Button.background", name.getBackgroundColour());
-			UIManager.put("TextArea.font", newButtonFont);
-			UIManager.put("TextArea.foreground", name.getFontColour());
-			UIManager.put("TextArea.background", name.getBackgroundColour());
+			UIManager.put("Button.foreground", fg);
+			UIManager.put("Button.background", bg);
 			UIManager.put("TextField.font", newButtonFont);
 			UIManager.put("Label.font", newButtonFont);
-			UIManager.put("Panel.background", name.getBackgroundColour());	
+			UIManager.put("Panel.background", bg);
+			UIManager.put("TextArea.font", newButtonFont);
+			UIManager.put("TextArea.foreground", fg);
+			UIManager.put("TextArea.background", bg);
 		}
 	}
-	
+
 	public class ExitAction extends AbstractAction {
 		JFrame frameToClose;
-		
+
 		ExitAction(JFrame frameToClose) {
-			this.frameToClose= frameToClose; 
+			this.frameToClose = frameToClose;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			frameToClose.dispose();
-			
+
 		}
 	}
 
@@ -105,7 +110,7 @@ public class mainGUI extends JFrame {
 			GameMenu n = new GameMenu();
 		}
 	}
-	
+
 	public class HelpAction extends AbstractAction {
 		@Override
 		public void actionPerformed(ActionEvent action) {

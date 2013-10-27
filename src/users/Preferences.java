@@ -4,21 +4,23 @@ import java.awt.Color;
 import java.io.File;
 
 public class Preferences {
-	//TODO : change to Enum
+	
 	String voice; 
 	int speed;
-	Color backgroundColour;
-	Color fontColour;
+	Themes theme;
+	//Color backgroundColour;
+	//Color fontColour;
 	int fontSize;
+	int volume;
 
-	
-	//TODO: tweak
-	Preferences(){
-		voice = "Allen";
-		speed = 1;
-		backgroundColour = Color.green;
-		fontColour = Color.yellow;
-		fontSize = 12;
+	public Preferences(){
+		voice = "kevin";
+		speed = 100;
+		//backgroundColour = Color.green;
+		//fontColour = Color.yellow;
+		theme = Themes.DEFAULT;
+		fontSize = 27;
+		volume = 10;
 	}
 	
 	/*Preferences(String v, int s, ){
@@ -42,28 +44,29 @@ public class Preferences {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	public Color getBackgroundColour() {
-		return backgroundColour;
-	}
-	public void setBackgroundColour(Color backgroundColour) {
-		this.backgroundColour = backgroundColour;
-	}
-	public Color getFontColour() {
-		return fontColour;
-	}
-	public void setFontColour(Color fontColour) {
-		this.fontColour = fontColour;
-	}
+	
 	public int getFontSize() {
 		return fontSize;
 	}
 	public void setFontSize(int fontSize) {
-		this.fontSize = fontSize;
+		if(fontSize > 27){
+			this.fontSize = fontSize;
+		}		
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
 	}
 	
+	public int getVolume(){
+		return this.volume;
+	}
 	
-	//Preferences(string fontname, int fontsize, string font)
+	public Themes getTheme(){
+		return theme;
+	}
+	public void setTheme(Themes theme){
+		this.theme = theme;
+	}
 	
-	
-
 }

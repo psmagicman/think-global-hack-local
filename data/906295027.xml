@@ -1,0 +1,11 @@
+<users.User>
+  <name>denise</name>
+  <preferences>
+    <voice>kevin</voice>
+    <speed>100</speed>
+    <theme>COTTON_CANDY</theme>
+    <fontSize>27</fontSize>
+    <volume>10</volume>
+  </preferences>
+  <id>906295027</id>
+</users.User>
