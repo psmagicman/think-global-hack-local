@@ -41,12 +41,10 @@ public class GameMenu extends mainGUI {
 	public GameMenu() {
 		directoryParser = new DirectoryParser(System.getProperty("user.dir") + "/Games");
 
-		setup();
-		setLayout(new GridLayout(directoryParser.getCategoryStrings().size(), 1));
-		defineVariables();		
+		setup();	
 		// Pass the list of strings, and add a button to each
 		createButtons(directoryParser.getCategoryStrings());
-
+		setLayout(new GridLayout((directoryParser.getCategoryStrings().size() + 2)/2, 2));
 		// This function takes out the frame
 		//this.setUndecorated(true);
 		
@@ -76,7 +74,7 @@ public class GameMenu extends mainGUI {
 	private void createButtons(List<String> categoryStrings) {
 		for( int i = 0; i < categoryStrings.size(); i++ ) {
 			JButton buttonToAdd = new JButton();
-			buttonToAdd.setText(categoryStrings.get(i));
+			buttonToAdd.setText("<html><font color=\"#FF6600\">" + (i+1) + ". " + "</font>" + categoryStrings.get(i) + "</html>");
 			buttonToAdd.setSize(20, 3);
 			buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(new Integer(i+1).toString()), "gameButtonPressed");
 			buttonToAdd.getActionMap().put("gameButtonPressed", new CategoryButtonAction(directoryParser, i));
@@ -85,7 +83,7 @@ public class GameMenu extends mainGUI {
 		}
 		
 		JButton buttonToAdd = new JButton("Exit");
-		buttonToAdd.setSize(20, 5);
+		buttonToAdd.setSize(20, 3);
 		buttonToAdd.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('e'), "exitButtonPressed");
 		buttonToAdd.getActionMap().put("exitButtonPressed", new ExitAction(this));
 		buttonToAdd.addActionListener(new ExitAction(this));
