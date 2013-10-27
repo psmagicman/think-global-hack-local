@@ -80,4 +80,24 @@ public class mainGUI extends JFrame {
 			UIManager.put("Button.background", name.getBackgroundColour());
 		}
 	}
+	
+	public class ExitAction extends AbstractAction {
+		JFrame frameToClose;
+		
+		ExitAction(JFrame frameToClose) {
+			this.frameToClose= frameToClose; 
+		}
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			frameToClose.dispose();
+			
+		}
+	}
+
+	public class GameButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			GameMenu n = new GameMenu();
+		}
+	}
 }
