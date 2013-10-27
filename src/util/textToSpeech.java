@@ -41,8 +41,9 @@ public class textToSpeech {
 		private int wordsPerMinute;
 		private float volume; 
 		
-		public SpeakerThread(String text, int wpm, float vol) {
-			textToSpeak = text;
+		public SpeakerThread(String text, int wpm, float vol)
+		{
+			textToSpeak = text; 
 			wordsPerMinute = wpm;
 			volume = vol;
 		}
