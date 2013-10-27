@@ -11,16 +11,16 @@ public class Preferences {
 	//Color backgroundColour;
 	//Color fontColour;
 	int fontSize;
+	int volume;
 
-	
-	
-	Preferences(){
-		voice = "Allen";
-		speed = 1;
+	public Preferences(){
+		voice = "kevin";
+		speed = 100;
 		//backgroundColour = Color.green;
 		//fontColour = Color.yellow;
 		theme = Themes.DEFAULT;
 		fontSize = 27;
+		volume = 10;
 	}
 	
 	/*Preferences(String v, int s, ){
@@ -52,6 +52,21 @@ public class Preferences {
 		if(fontSize > 27){
 			this.fontSize = fontSize;
 		}		
+	}
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+	
+	public int getVolume(){
+		return this.volume;
+	}
+	
+	public Themes getTheme() {
+		return this.theme;
+	}
+	
+	public void setTheme(Themes theme) {
+		this.theme = theme;
 	}
 	/*public Color getBackgroundColour() {
 	return backgroundColour;
