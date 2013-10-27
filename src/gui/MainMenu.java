@@ -52,34 +52,7 @@ public class MainMenu extends mainGUI {
 		
 		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
-		/*for  (int count=1; count<= 4; count++) {
-			try { 
-				Thread.sleep(500);
-			} catch (InterruptedException e) { 
-				// TODO Auto-generated catch block 
-				e.printStackTrace(); 
-			} 
-			switch (count) {
-			case 1: 
-				textToSpeech.getInstance().speak("Help");
-				//helpButton.requestFocus();
-				break;
-			case 2:
-				textToSpeech.getInstance().speak("Games");
-				//gamesButton.requestFocus();
-				break;
-			case 3:
-				textToSpeech.getInstance().speak("Options");
-				//optionButton.requestFocus();
-				break;
-			case 4:
-				textToSpeech.getInstance().speak("Quit");
-				//quitButton.requestFocus();
-				break;
-			default:
-				break;
-			}
-		}*/	
+
 	}
 
 		@Override
@@ -107,7 +80,7 @@ public class MainMenu extends mainGUI {
 		quitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('q'), "exitButtonPressed");
 		quitButton.getActionMap().put("exitButtonPressed", new QuitAction());
 		
-		helpButton.setBorder(BorderFactory.createEmptyBorder());
+//		helpButton.setBorder(BorderFactory.createEmptyBorder());
 		helpButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('h'), "helpButtonPressed");
 		helpButton.getActionMap().put("helpButtonPressed", new HelpAction());
 		
@@ -130,22 +103,6 @@ public class MainMenu extends mainGUI {
 		add(optionButton);
 		add(quitButton);
 		}
-
-		private class QuitAction extends AbstractAction {
-			QuitAction()
-			{}
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				System.exit(EXIT_ON_CLOSE);
-			}
-		}
-
-		public class OptionButtonAction extends AbstractAction {
-			@Override
-			public void actionPerformed(ActionEvent action) {
-				OptionMenu n = new OptionMenu();
-			}
-		}
 			
 	private void updateStrings(String hexc)
 	{
@@ -155,16 +112,12 @@ public class MainMenu extends mainGUI {
 		quitLabelText = "<html><font color=\"#"+ hexc + "\">" + "Q" + "</font>" + "uit" + "</html>";
 	}
 	
-	public class ExitAction extends AbstractAction {
-		JFrame frameToClose;
-		
-		ExitAction(JFrame frameToClose) {
-			this.frameToClose= frameToClose; 
-		}
+	private class QuitAction extends AbstractAction {
+		QuitAction()
+		{}
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			textToSpeech.getInstance().cancelSpeak();
-			frameToClose.dispose();
+			System.exit(EXIT_ON_CLOSE);
 		}
 	}
 	
@@ -175,5 +128,12 @@ public class MainMenu extends mainGUI {
 			GameMenu n = new GameMenu();
 		}
 	}
+	
+	public class OptionButtonAction extends AbstractAction {
+		@Override
+		public void actionPerformed(ActionEvent action) {
+			textToSpeech.getInstance().cancelSpeak();
+			OptionMenu n = new OptionMenu();
+		}
+	}
 }
-

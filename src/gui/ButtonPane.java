@@ -17,7 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+
 import users.User;
+import users.UserManagementService;
 import util.textToSpeech;
 import gui.mainGUI;
 
@@ -101,7 +103,7 @@ public class ButtonPane extends JPanel {
 		
 		@Override
 		public void focusLost(FocusEvent e) {
-			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);
+			((JButton) e.getComponent()).setBackground(UserManagementService.getInstance().getMainUser().getPreferences().getTheme().background());
 		}
 	};
 	
@@ -130,7 +132,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
-			((JButton) e.getComponent()).setBackground(Color.ORANGE);
+			//((JButton) e.getComponent()).setBackground(Color.ORANGE);
 		}
 
 		/**
@@ -139,7 +141,7 @@ public class ButtonPane extends JPanel {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
-			((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);			
+			//((JButton) e.getComponent()).setBackground(Color.DARK_GRAY);			
 		}
 
 		/**
@@ -151,39 +153,5 @@ public class ButtonPane extends JPanel {
 			
 		}
 	};
-	
-	private void getStats(User name) {
-		if (name == null) {
-			//Use Default settings
-			Color bg = name.getPreferences().getTheme().background();
-			Color fg = name.getPreferences().getTheme().foreground();
-			Font newButtonFont = new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
-			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", fg);
-			UIManager.put("Button.background", bg);
-			UIManager.put("TextField.font", newButtonFont);
-			UIManager.put("Label.font", newButtonFont);
-			UIManager.put("Panel.background", bg);
-			UIManager.put("TextArea.font", newButtonFont);
-			UIManager.put("TextArea.foreground", fg);
-			UIManager.put("TextArea.background", bg);
-		}
-		else {
-
-			Color fg = name.getPreferences().getTheme().foreground();
-			Color bg = name.getPreferences().getTheme().background();
-			//Loads User settings
-			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
-			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", fg);
-			UIManager.put("Button.background", bg);
-			UIManager.put("TextField.font", newButtonFont);
-			UIManager.put("Label.font", newButtonFont);
-			UIManager.put("Panel.background", bg);
-			UIManager.put("TextArea.font", newButtonFont);
-			UIManager.put("TextArea.foreground", fg);
-			UIManager.put("TextArea.background", bg);
-		}		
-	}
 	
 }
