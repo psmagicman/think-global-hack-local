@@ -81,6 +81,7 @@ public class Preferences {
 			case 7: this.volume = (float)0.95; break;
 			case 8: this.volume = (float)1; break;
 		}
+		this.volumeLevel = volume;
 		textToSpeech.getInstance().setVolume(this.volume);
 	}
 	public float getVolume(){
