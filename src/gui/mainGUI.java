@@ -19,45 +19,32 @@ public class mainGUI extends JFrame {
 	/** End of Variables **/
 
 	public mainGUI() {
-
 		// set the frame size
 		setup();
 		toolkit = getToolkit();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
-		defineVariables();
 		setTitle(frame_title.getText());
 
 		setVisible(true);
-
 	}
 
 	public void setup() {
 		// set the frame size
 		setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		toolkit = getToolkit();
+		Color bg = Color.DARK_GRAY;
+		Color fg = Color.WHITE;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		//determines the font for the JButton/JPanel/JLabel
-		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
 		UIManager.put("Button.font", newButtonFont);
-		UIManager.put("Button.foreground", Color.DARK_GRAY);
-		UIManager.put("Button.background", Color.WHITE);
+		UIManager.put("Button.foreground", fg);
+		UIManager.put("Button.background", bg);
 		UIManager.put("TextField.font", newButtonFont);
 		UIManager.put("Label.font", newButtonFont);
-		UIManager.put("Panel.background", Color.WHITE);		
-	}
-
-	/**
-	 * define_variables function
-	 * This function defines the variables for the GUI
-	 */
-	public void defineVariables() {
-		JPanel buttons_area = new JPanel();
-		buttons_area.setBorder(new EmptyBorder(10, 10, 10, 10) );
-		buttons_area.setLayout(new GridLayout());
-
-		// define title
+		UIManager.put("List.font", newButtonFont);
 		frame_title = new JLabel("SAM");
 	}
 
@@ -65,7 +52,7 @@ public class mainGUI extends JFrame {
 	// to implement buttons for specified screens
 	public void makeButtons() {
 	}
-	
+	//Decides whether to use the default or profile theme
 	public void defaultPref(Preferences name){
 		if (name == null){
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,50);
@@ -76,8 +63,8 @@ public class mainGUI extends JFrame {
 		else{
 			Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getFontSize());
 			UIManager.put("Button.font", newButtonFont);
-			UIManager.put("Button.foreground", name.getFontColour());
-			UIManager.put("Button.background", name.getBackgroundColour());
+			//UIManager.put("Button.foreground", name.getTheme().foreground());
+			//UIManager.put("Button.background", name.getBackgroundColour());
 		}
 	}
 	

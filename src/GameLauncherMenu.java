@@ -1,11 +1,13 @@
 import gui.MainMenu;
+import gui.UserMenu;
 import util.*;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GameLauncherMenu {
 	
 	public static void main(String[] args) {
-		MainMenu new_gui = new MainMenu();
-		textToSpeech.speak("hello"); // demo sound
+		UserMenu new_gui = new UserMenu();
+		
 	}
 }
