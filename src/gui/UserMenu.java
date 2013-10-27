@@ -35,8 +35,15 @@ public class UserMenu extends mainGUI {
 	public UserMenu() {
 		// setup GUI styles/frame
 		setup();
+<<<<<<< HEAD
 		setLayout(new GridLayout(1, 2));
 		populateUsersList();
+=======
+		add(users);
+		add(createNewUserButton);
+		add(selectUserButton);
+//		defineVariables();
+>>>>>>> 33edc02a5fc56cb50ff5af1680ff52d3760a410f
 		makeButtons();
 		setVisible(true);
 	}

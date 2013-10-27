@@ -53,6 +53,7 @@ public class Preferences {
 			this.fontSize = fontSize;
 		}		
 	}
+<<<<<<< HEAD
 
 	public void setVolume(int volume) {
 		this.volume = volume;
@@ -60,6 +61,18 @@ public class Preferences {
 	
 	public int getVolume(){
 		return this.volume;
+=======
+	
+	public Themes getTheme(){
+		return theme;
+	}
+	public void setTheme(Themes theme){
+		this.theme = theme;
+	}
+	
+	/*public Color getBackgroundColour() {
+	return backgroundColour;
+>>>>>>> 33edc02a5fc56cb50ff5af1680ff52d3760a410f
 	}
 	
 	public Themes getTheme() {

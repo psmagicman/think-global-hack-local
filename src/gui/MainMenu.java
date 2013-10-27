@@ -30,6 +30,7 @@ public class MainMenu extends mainGUI {
 	private String optionLabelText;
 	private String quitLabelText;
 
+
 	/** End of Variables **/
 
 	public MainMenu() {
@@ -48,8 +49,19 @@ public class MainMenu extends mainGUI {
 		user = UserManagementService.getInstance().getMainUser();
 		//read out instructions
 		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
+		//setup();
+		setLayout(new GridLayout(2,1));
+
+		//creates all the JButtons
+		makeButtons();
+
+		// setUndecorated(true); // hides top bar
+		setVisible(true);
+
+		//read out instructions
+		textToSpeech.getInstance().speak("Use your mouse or keyboard to select an option");
 		
-						//TO DO: highlight menu items and read them
+		//TO DO: highlight menu items and read them
 		helpButton.setOpaque(true);
 
 		for  (int count=1; count<= 4; count++) {
@@ -83,13 +95,16 @@ public class MainMenu extends mainGUI {
 		public void makeButtons() {
 		//ImageIcon help = new ImageIcon("Images/H-icon.png");
 		updateStrings(UserManagementService.getInstance().getMainUser().getPreferences().getTheme().letter());
-		
+		hexc = user.getPreferences().getTheme().letter();
+	
 		helpButton = new JButton(helpLabelText);
 		gamesButton = new JButton(gameLabelText);
 		optionButton = new JButton(optionLabelText);		
 		quitButton = new JButton(quitLabelText);
 		
 		optionButton.addActionListener(new OptionButtonAction());
+		quitButton.addActionListener(new ExitAction(this));
+		gamesButton.addActionListener(new GameButtonAction());
 
 		gamesButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke('g'), "gameButtonPressed");
 		gamesButton.getActionMap().put("gameButtonPressed", new GameButtonAction());
@@ -151,4 +166,6 @@ public class MainMenu extends mainGUI {
 		public void actionPerformed(ActionEvent action) {
 			GameMenu n = new GameMenu();
 		}
-	}}
+	}
+}
+

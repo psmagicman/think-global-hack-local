@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public enum Themes {
 	//Name(background,foreground,letter)
+<<<<<<< HEAD
 	DEFAULT 	 (Color.DARK_GRAY, Color.WHITE, "ff6600"),
 	ORANGE_SPOT  (Color.WHITE, Color.DARK_GRAY, "ff6600"),
 	ICY			 (Color.BLACK, Color.CYAN, "ffffff"),
@@ -35,5 +36,34 @@ public enum Themes {
 	public String letter() { 
 		return letter; 
 	}
+=======
+		DEFAULT (Color.DARK_GRAY, Color.WHITE, "ff6600"),
+		VENUS   (Color.WHITE, Color.DARK_GRAY, "000000");
+				
+	 	private final Color background;   // in kilograms
+	    private final Color foreground; // in meters
+	    private final String letter;
+	    
+	    Themes(){
+	    	background = Color.DARK_GRAY;
+	    	foreground = Color.WHITE;
+	    	letter = "ff6600";
+	    }
+	      
+	    Themes(Color bg, Color fg, String l) {
+	        background = bg;
+	        foreground = fg;
+	        letter = l;
+	    }
+	    public Color background() {
+	    	return background; 
+	    	}
+	    public Color foreground() {
+	    	return foreground; 
+	    	}
+	    public String letter() { 
+	    	return letter; 
+	    	}
+>>>>>>> 33edc02a5fc56cb50ff5af1680ff52d3760a410f
 
 }

@@ -22,14 +22,13 @@ public class mainGUI extends JFrame {
 	public mainGUI() {
 		// set the frame size
 		setup();
-		toolkit = getToolkit();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout());
 		setTitle(frame_title.getText());
 		setVisible(true);
 		
 	}
 
+<<<<<<< HEAD
 	public void setup() {
 		// set the frame size
 		user = UserManagementService.getInstance().getMainUser();
@@ -49,6 +48,30 @@ public class mainGUI extends JFrame {
 		UIManager.put("List.font", newButtonFont);
 		frame_title = new JLabel("SAM");
 	}
+=======
+	protected void setup() {
+		setSize(Toolkit.getDefaultToolkit().getScreenSize());
+		toolkit = getToolkit();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		user = UserManagementService.getMainUser();
+		userPref(user);
+
+		//determines the font for the JButton/JPanel/JLabel
+		//		Color fg = Color.WHITE;
+		//		Color bg = Color.DARK_GRAY;
+		//		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,100);
+
+		//		UIManager.put("Button.font", newButtonFont);
+		//		UIManager.put("Button.foreground", fg);
+		//		UIManager.put("Button.background", bg);
+		//		UIManager.put("TextField.font", newButtonFont);
+		//		UIManager.put("Label.font", newButtonFont);
+		//		UIManager.put("Panel.background", bg);	
+
+		frame_title = new JLabel("SAM");
+	}
+
+>>>>>>> 33edc02a5fc56cb50ff5af1680ff52d3760a410f
 
 	// create buttons here; this is empty because each menu will override this
 	// to implement buttons for specified screens
@@ -56,6 +79,7 @@ public class mainGUI extends JFrame {
 	}
 
 	public void userPref(User name){
+<<<<<<< HEAD
 		if (name == null){
 			//Use Default settings
 			Color bg = name.getPreferences().getTheme().background();
@@ -81,6 +105,18 @@ public class mainGUI extends JFrame {
 			UIManager.put("Label.font", newButtonFont);
 			UIManager.put("Panel.background", bg);
 		}
+=======
+		Color bg = name.getPreferences().getTheme().foreground();
+		Color fg = name.getPreferences().getTheme().background();
+		Font newButtonFont=new Font("Arial Rounded",Font.BOLD,name.getPreferences().getFontSize());
+		UIManager.put("Button.font", newButtonFont);
+		UIManager.put("Button.foreground", fg);
+		UIManager.put("Button.background", bg);
+		UIManager.put("TextField.font", newButtonFont);
+		UIManager.put("Label.font", newButtonFont);
+		UIManager.put("Panel.background", bg);
+		//}
+>>>>>>> 33edc02a5fc56cb50ff5af1680ff52d3760a410f
 	}
 
 	public class ExitAction extends AbstractAction {
